@@ -38,7 +38,7 @@
 				</div>
 			</td>
 			<td>
-				<a onclick="return confirm('Are you sure?')" class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-times" aria-hidden="true"></i></a>
+				<a  class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-times" aria-hidden="true"></i></a>
 			</td>
 		</tr>
 
@@ -54,49 +54,69 @@
 			<th colspan="2">{{ $totalpurchaseamount }}/-</th>
 		</tr>
 
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 		<script type="text/javascript">
 			$(".delete").click(function(){
 				let id = $(this).data('id');
 
-				$.ajax(
-				{
-					url: "{{ url('deletepurchasecartproduct') }}/"+id,
-					type: 'get',
-					success: function()
-					{
-						$('#tr'+id).hide();
 
-						Command:toastr["error"]("Product Delete Done")
-						toastr.options = {
-							"closeButton": true,
-							"debug": false,
-							"newestOnTop": false,
-							"progressBar": true,
-							"positionClass": "toast-top-right",
-							"preventDuplicates": false,
-							"onclick": null,
-							"showDuration": "300",
-							"hideDuration": "1000",
-							"timeOut": "3000",
-							"extendedTimeOut": "1000",
-							"showEasing": "swing",
-							"hideEasing": "linear",
-							"showMethod": "fadeIn",
-							"hideMethod": "fadeOut"
-						}
+				swal({
+					title: "Product Remove From Carts?",
+					icon: "info",
+					buttons: true,
+					dangerMode: true,
+					
+				})
+				.then((willDelete) => {
+					if (willDelete) {
 
-						showpurchaseproductcart();
-					},
-					errors:function(){
-						Command:toastr["danger"]("Data Delete Unsuccessfully")
+						$.ajax(
+						{
+							url: "{{ url('deletepurchasecartproduct') }}/"+id,
+							type: 'get',
+							success: function()
+							{
+								$('#tr'+id).hide();
+
+								Command:toastr["error"]("Product Delete Done")
+								toastr.options = {
+									"closeButton": true,
+									"debug": false,
+									"newestOnTop": false,
+									"progressBar": true,
+									"positionClass": "toast-top-right",
+									"preventDuplicates": false,
+									"onclick": null,
+									"showDuration": "300",
+									"hideDuration": "1000",
+									"timeOut": "3000",
+									"extendedTimeOut": "1000",
+									"showEasing": "swing",
+									"hideEasing": "linear",
+									"showMethod": "fadeIn",
+									"hideMethod": "fadeOut"
+								}
+
+								showpurchaseproductcart();
+							},
+							errors:function(){
+								Command:toastr["danger"]("Data Delete Unsuccessfully")
 
 
+							}
+						});
+						
+
+					} else {
+						swal("Product Doest Not Remove");
 					}
 				});
-
-
 			});
+
+
+
 
 	// End Delete Data
 </script>

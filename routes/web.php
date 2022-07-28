@@ -139,7 +139,8 @@ Route::get('/showpurchaseproductcart', 'Admin\PurchaseController@showpurchasepro
 Route::post('qtyupdate/{id}', 'Admin\PurchaseController@qtyupdate');
 Route::get('deletepurchasecartproduct/{id}', 'Admin\PurchaseController@deletepurchasecartproduct');
 Route::post('/purchasepriceupdate/{id}', 'Admin\PurchaseController@purchasepriceupdate');
-
+Route::post('/purchaseledger', 'Admin\PurchaseController@purchaseledger');
+Route::get('/invoicepurchase/{id}', 'Admin\PurchaseController@invoicepurchase');
 
 // Sales
 

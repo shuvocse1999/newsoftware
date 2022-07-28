@@ -2,6 +2,7 @@
 @section('content')
 
 
+
 <div class="content-wrapper">
 	<div class="page-heading">
 		<h3 class="page-title">Purchase Information</h3>
@@ -15,7 +16,7 @@
 				<div class="ibox-title"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Add Purchase</div>
 			</div>
 			<div class="ibox-body">
-				<form method="post" class="btn-submit myinput">
+				<form method="post" action="{{ url("purchaseledger") }}" class="reloadform myinput" target="_blank">
 					@csrf
 
 					<div class="col-md-12 p-0 row">
@@ -63,7 +64,7 @@
 						<div class="input-group">
 
 							<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-							<input type="text"  name="id" id="id" class="form-control" value="INV-1" readonly="">
+							<input type="text"  name="invoice_no" id="invoice_no" class="form-control" value="{{ $invoice_no }}" readonly="">
 							
 						</div>
 					</div>
@@ -73,7 +74,7 @@
 						<label>Date:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-							<input type="date" name="date" id="date" class="form-control">
+							<input type="text" name="invoice_date" id="datepicker" placeholder="Invoice Date" class="form-control" required="" autocomplete="off">
 							
 						</div>
 					</div>
@@ -88,14 +89,14 @@
 									<label>Item Name:</label>
 									<div class="input-group">
 
-										<select class="form-control select2_demo_1" name="item_id" id=
-										"item_id" required="" onchange="getproduct()">
+										<select class="form-control" name="item_id" id=
+										"item_id" onchange="getproduct()">
 										<option value="">Select Item</option>
 										@php
 										$item = DB::table('pdt_item')->where('item_status',1)->get();		
 										@endphp 
 										@foreach($item as $i)
-										<option value="{{ $i->item_id  }}">{{ $i->item_name_en }} - {{ $i->item_name_bn }} </option>
+										<option value="{{ $i->item_id  }}">{{ $i->item_name_en }} {{ $i->item_name_bn }} </option>
 										@endforeach
 									</select>
 									<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenter2"><i class="fa fa-plus-circle text-primary"></i></div>
@@ -112,7 +113,7 @@
 								<div class="input-group">
 
 									<select class="form-control select2_demo_1" name="pdt_id" id=
-									"pdt_id" required="" onchange="return purchaseproductcart()">
+									"pdt_id"  onchange="return purchaseproductcart()">
 									<option value="">Select Product</option>
 									@php
 									$product = DB::table('pdt_productinfo')->where('pdt_status',1)->get();		
@@ -188,7 +189,7 @@
 						<label>Grand Total:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
-							<input type="text" id="grandtotal" name="paid" class="form-control"  readonly="">
+							<input type="text" id="grandtotal" name="grandtotal" class="form-control"  readonly="">
 							
 						</div>
 					</div>
@@ -198,7 +199,7 @@
 						<label>Paid:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
-							<input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" onkeyup="calculatedue()">
+							<input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" onkeyup="calculatedue()" required="">
 							
 						</div>
 					</div>
@@ -216,7 +217,7 @@
 					<div class="form-group">
 						<label>Payment By:</label>
 						<div class="input-group">
-							<select class="form-control">
+							<select class="form-control" name="transaction_type" id="transaction_type">
 								<option value="Cash">Cash</option>
 								<option value="Bank">Bank</option>
 								<option value="Mobile Banking">Mobile Banking</option>
@@ -333,6 +334,8 @@
 					"showMethod": "fadeIn",
 					"hideMethod": "fadeOut"
 				}
+
+
 
 				showpurchaseproductcart();
 
@@ -492,6 +495,7 @@
 		let due = (parseFloat(grandtotal)-parseFloat(paid));
 		$("#due").val(due);
 
+		calculatediscount();
 
 	}
 
@@ -727,8 +731,6 @@
 
 
 		<!-- End Product Modal -->
-
-
 
 
 

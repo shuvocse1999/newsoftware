@@ -19,7 +19,7 @@
 		</td>
 		<td>
 			<a  class="btn btn-info border-0 edit text-light" data-toggle="modal" data-target="#exampleModalCenters" data-id="{{ $d->company_id }}"><i class="fa fa-pencil-square-o"></i></a>
-			<a onclick="return confirm('Are you sure?')" class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->company_id }}"><i class="fa fa-trash-o"></i></a>
+			{{-- <a onclick="return confirm('Are you sure?')" class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->company_id }}"><i class="fa fa-trash-o"></i></a> --}}
 		</td>
 
 	</tr>

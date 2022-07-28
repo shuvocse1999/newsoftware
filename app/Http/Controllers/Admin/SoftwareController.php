@@ -63,7 +63,51 @@ class SoftwareController extends Controller
 			'status'             => $r->status, 
 		);
 
-		DB::table('company_info')->where('company_id',$id)->update($data);
+		$image                   = $r->file('logo');
+		$image2                  = $r->file('banner');
+		$oldlogo                 = $r->oldlogo;
+		$oldbanner               = $r->oldbanner;
+
+		if ($image) {
+
+			$image_name= date('dmy_H_s_i');
+			$ext=strtolower($image->getClientOriginalExtension());
+			$image_full_name=$image_name.'.'.$ext;
+			$upload_path='public/Admin/companyimage/';
+			$image_url=$upload_path.$image_full_name;
+			$success=$image->move($upload_path,$image_full_name);
+			$data['logo']=$image_url;
+			DB::table('company_info')->where('company_id',$id)->update($data);
+			
+
+		}else{
+			DB::table('company_info')->where('company_id',$id)->update($data);
+
+		}
+
+
+		if ($image2) {
+
+
+
+			$image_name= date('dmy_H_s_i');
+			$ext=strtolower($image2->getClientOriginalExtension());
+			$image_full_name=$image_name.'.'.$ext;
+			$upload_path='public/Admin/companyimage/';
+			$image_url=$upload_path.$image_full_name;
+			$success=$image2->move($upload_path,$image_full_name);
+			$data['banner']=$image_url;
+			DB::table('company_info')->where('company_id',$id)->update($data);
+			
+
+		}else{
+			DB::table('company_info')->where('company_id',$id)->update($data);
+
+		}
+
+
+
+		
 	}
 
 // End Company Methods

@@ -16,11 +16,13 @@
  <link href="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
  <link href="{{ url('public/Admin') }}/assets/vendors/DataTables/datatables.min.css" rel="stylesheet" />
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
- <link href="{{ url('public/Admin') }}/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
+ <link href="{{ url('public/Admin') }}/assets/vendors/select2/dist/css/select2.css" rel="stylesheet" />
  <!-- THEME STYLES-->
  <link href="{{ url('public/Admin') }}/assets/css/main.min.css" rel="stylesheet" />
  <link href="{{ url('public/Admin') }}/assets/css/main.css" rel="stylesheet" />
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+ <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -80,7 +82,7 @@
     height: 40px!important;
     font-size: 13px;
     cursor: pointer;
-    border-radius: 0px;
+    border-radius: 0px!important;
     
   }
 
@@ -133,7 +135,19 @@
 .side-menu > li.active > a, .side-menu > li.active > a:hover, .side-menu > li.active > a:focus{
   background: #273c75;
 }
+.gj-datepicker-bootstrap [role=right-icon] button .gj-icon, .gj-datepicker-bootstrap [role=right-icon] button .material-icons{
+   position: relative;
+   font-size: 24px;
+   top: 0px;
+   left: 0px;
+   border-radius: 0px!important;
+   border-color: #fff;
+}
 
+.gj-datepicker-bootstrap [role=right-icon] button{
+  width: 100%;
+  border-radius: 0px;
+}
 
 </style>
 </head>
@@ -318,30 +332,30 @@
    <li class="heading">Sales & Purchase </li>
 
 
-    <li class="@if(request()->path() === 'sales'){{'active'}}@else @endif">
-      <a href="{{ url('/sales') }}"><i class="sidebar-item-icon fa fa-shopping-bag"></i>
-       <span class="nav-label">Sales</span>
-     </a>
-   </li>
+   <li class="@if(request()->path() === 'sales'){{'active'}}@else @endif">
+    <a href="{{ url('/sales') }}"><i class="sidebar-item-icon fa fa-shopping-bag"></i>
+     <span class="nav-label">Sales</span>
+   </a>
+ </li>
 
 
-    <li class="@if(request()->path() === 'purchase'){{'active'}}@else @endif">
-      <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-credit-card-alt"></i>
-       <span class="nav-label">Purchase</span>
-     </a>
-   </li>
-
-
-
+ <li class="@if(request()->path() === 'purchase'){{'active'}}@else @endif">
+  <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-credit-card-alt"></i>
+   <span class="nav-label">Purchase</span>
+ </a>
+</li>
 
 
 
 
 
- <li class="heading">FEATURES</li>
 
 
- <li class="@if(request()->path() === 'company' || request()->path() === 'branch' ){{'active'}}@else @endif">
+
+<li class="heading">FEATURES</li>
+
+
+<li class="@if(request()->path() === 'company' || request()->path() === 'branch' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Software Setting</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -623,28 +637,32 @@
 
            </div>
 
+           <script>
+            $('#datepicker').datepicker({
+              uiLibrary: 'bootstrap4'
+            });
+          </script>
 
+          <script src="{{ url('public/Admin') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+          <!-- PAGE LEVEL PLUGINS-->
+          <script src="{{ url('public/Admin') }}/assets/vendors/chart.js/dist/Chart.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
+          <!-- CORE SCRIPTS-->
+          <script src="{{ url('public/Admin') }}/assets/js/app.min.js" type="text/javascript"></script>
+          <!-- PAGE LEVEL SCRIPTS-->
+          <script src="{{ url('public/Admin') }}/assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
 
-           <script src="{{ url('public/Admin') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-           <!-- PAGE LEVEL PLUGINS-->
-           <script src="{{ url('public/Admin') }}/assets/vendors/chart.js/dist/Chart.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
-           <script src="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
-           <!-- CORE SCRIPTS-->
-           <script src="{{ url('public/Admin') }}/assets/js/app.min.js" type="text/javascript"></script>
-           <!-- PAGE LEVEL SCRIPTS-->
-           <script src="{{ url('public/Admin') }}/assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/DataTables/datatables.min.js" type="text/javascript"></script>
 
-           <script src="{{ url('public/Admin') }}/assets/vendors/DataTables/datatables.min.js" type="text/javascript"></script>
+          <script src="{{ url('public/Admin') }}/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
 
-           <script src="{{ url('public/Admin') }}/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
-
-           <script type="text/javascript">
+          <script type="text/javascript">
             $(function() {
               $('#example-table').DataTable({
                 pageLength: 25,
@@ -652,6 +670,8 @@
               });
             })
           </script>
+
+
 
 
           <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -677,6 +697,16 @@
 
             });
           </script> --}}
+
+
+
+          <script type="text/javascript">
+            $(document).ready(function () {
+              $("select").select2();
+            });
+          </script>
+
+
 
         </body>
         </html>

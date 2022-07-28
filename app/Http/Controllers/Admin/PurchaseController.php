@@ -11,7 +11,9 @@ use Session;
 class PurchaseController extends Controller
 {
 	public function purchase(){
-		return view('Admin.purchase.purchase');
+
+		$invoice_no = IdGenerator::generate(['table' => 'purchase_ledger', 'field'=>'invoice_no','length' => 8, 'prefix' =>'PINV-']);
+		return view('Admin.purchase.purchase',compact('invoice_no'));
 	}
 
 
@@ -111,7 +113,76 @@ class PurchaseController extends Controller
 
 
 
+	public function purchaseledger(Request $request){
 
+		$session_id   = Session::getId();
+		$data = DB::table('purchase_current')
+		->where('purchase_current.session_id',$session_id)
+		->get();
+
+		foreach ($data as $d) {
+			DB::table("purchase_entry")->insert([
+				'invoice_no'        => $request->invoice_no,
+				'product_id'        => $d->pdt_id,
+				'sub_unit_id'       => $d->sub_unit_id,
+				'product_quantity'  => $d->purchase_quantity,
+				'purchase_price'    => $d->purchase_price,
+				'per_unit_cost'     => $d->per_unit_cost,
+				'discount_amount'   => 0.00,
+				'admin_id'          => Auth('admin')->user()->id,
+
+
+			]);
+		}
+
+
+		$explode = explode('/',$request->invoice_date);
+		$invoice_date = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+
+
+		DB::table("purchase_ledger")->insert([
+			'invoice_no'       => $request->invoice_no,
+			'invoice_date'     => $invoice_date,
+			'suplier_id'       => $request->supplier_id,
+			'total_amount'     => $request->grandtotal,
+			'paid'             => $request->paid,
+			'discount'         => $request->discount,
+			'due'              => $request->due,
+			'transaction_type' => $request->transaction_type,
+			'entry_date'       => date('d-m-Y'),
+			'admin_id'         => Auth('admin')->user()->id,
+			'branch_id'        => Auth('admin')->user()->id,
+
+
+		]);
+
+
+		DB::table('purchase_current')->where('session_id',$session_id)->delete();
+		Session::regenerate();
+
+
+
+		return redirect('invoicepurchase/'.$request->invoice_no);
+
+
+	}
+
+	public function invoicepurchase($id){
+
+		$data = DB::table('purchase_ledger')
+		->where("purchase_ledger.invoice_no",$id)
+		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+		->join("admins",'admins.id','purchase_ledger.admin_id')
+		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone','admins.name')
+		->first();
+
+		$product = DB::table("purchase_entry")
+		->where("purchase_entry.invoice_no",$data->invoice_no)
+		->join("pdt_productinfo",'pdt_productinfo.pdt_id','purchase_entry.product_id')
+		->get();
+
+		return view("Admin.purchase.invoicepurchase",compact('data','product'));
+	}
 
 
 }

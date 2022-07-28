@@ -466,7 +466,7 @@ class ProductController extends Controller
 		echo "<option value=''>Select Product</option>";
 		$data = DB::table('pdt_productinfo')->where('pdt_item_id',$id)->where('pdt_status',1)->get();
 		foreach ($data as $d) {
-			echo "<option value='$d->pdt_id'>$d->pdt_name_en - $d->pdt_name_bn </option>";
+			echo "<option value='$d->pdt_id'>$d->pdt_name_en $d->pdt_name_bn </option>";
 		}
 	}
 

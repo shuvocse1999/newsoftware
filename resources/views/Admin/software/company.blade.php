@@ -13,7 +13,7 @@
 		<div class="ibox">
 			<div class="ibox-head mb-3 myhead">
 				<div class="ibox-title"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Company Setup List</div>
-				<div><a data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;Add New</a></div>
+				{{-- <div><a data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;Add New</a></div> --}}
 			</div>
 			<div class="ibox-body table-responsive overflow">
 				<table class="table table-striped table-bordered" id="example-tables" cellspacing="0" width="100%">
@@ -30,7 +30,7 @@
 							<th>Action</th>
 						</tr>
 					</thead>
-                       
+
 					<tbody class="tbody" id="showtdata">
 						
 						
@@ -121,6 +121,14 @@
 								</select>
 							</div>
 						</div>
+
+
+				
+
+
+
+
+
 					</div>
 
 				</div>
