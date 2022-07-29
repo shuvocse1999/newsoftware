@@ -349,7 +349,7 @@
 
 <li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledger' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
-   <span class="nav-label">Sale Information</span><i class="fa fa-angle-left arrow"></i></a>
+   <span class="nav-label">Purchase Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
      <li>
        <a href="{{ url('allpurchaseledger') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Ledger</a>
