@@ -54,8 +54,7 @@
 			<th colspan="2">{{ $totalpurchaseamount }}/-</th>
 		</tr>
 
-		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+		
 
 		<script type="text/javascript">
 			$(".delete").click(function(){
@@ -110,7 +109,7 @@
 						
 
 					} else {
-						swal("Product Doest Not Remove");
+						
 					}
 				});
 			});

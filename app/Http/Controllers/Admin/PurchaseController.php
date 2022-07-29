@@ -185,4 +185,82 @@ class PurchaseController extends Controller
 	}
 
 
+	public function allpurchaseledger(){
+
+		$data = DB::table('purchase_ledger')
+		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+		->join("admins",'admins.id','purchase_ledger.admin_id')
+		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone','admins.name')
+		->orderBy("purchase_ledger.id",'DESC')
+		->limit(10)
+		->get();
+
+
+		return view("Admin.purchase.allpurchaseledger",compact('data'));
+	}
+
+	public function deletepurchaseledger($id){
+
+		$data = DB::table('purchase_ledger')
+		->where("id",$id)
+		->first();
+
+		DB::table('purchase_ledger')
+		->where("id",$id)
+		->delete();
+
+		DB::table("purchase_entry")->where("invoice_no",$data->invoice_no)->delete();
+
+
+
+	}
+
+
+	public function searchpurchaseinvoice(Request $r){
+
+		$fromdate   = $r->fromdate;
+		$todate     = $r->todate;
+
+		$explode = explode('/',$r->fromdate);
+		$fromdates = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+
+		$explode = explode('/',$r->todate);
+		$todates = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+
+		if($fromdates != "" && $todates != ""){
+			$data = DB::table('purchase_ledger')
+			->whereBetween("purchase_ledger.invoice_date",array($fromdates,$todates))
+			->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+			->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+			->get();
+
+		}
+
+
+		return view("Admin.purchase.searchpurchaseinvoice",compact('data'));
+
+	}
+
+
+
+
+
+	public function searchpurchaseinvoice2(Request $r){
+
+
+		$invoice_no = $r->invoice_no;
+
+	
+		$data = DB::table('purchase_ledger')
+		->where("purchase_ledger.invoice_no",$invoice_no)
+		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->get();
+
+		return view("Admin.purchase.searchpurchaseinvoice",compact('data'));
+
+	}
+
+
+
 }

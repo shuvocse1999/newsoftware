@@ -62,7 +62,6 @@
 					<div class="form-group col-md-2">
 						<label>Invoice Number:</label>
 						<div class="input-group">
-
 							<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
 							<input type="text"  name="invoice_no" id="invoice_no" class="form-control" value="{{ $invoice_no }}" readonly="">
 							

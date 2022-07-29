@@ -136,12 +136,12 @@
   background: #273c75;
 }
 .gj-datepicker-bootstrap [role=right-icon] button .gj-icon, .gj-datepicker-bootstrap [role=right-icon] button .material-icons{
-   position: relative;
-   font-size: 24px;
-   top: 0px;
-   left: 0px;
-   border-radius: 0px!important;
-   border-color: #fff;
+ position: relative;
+ font-size: 24px;
+ top: 0px;
+ left: 0px;
+ border-radius: 0px!important;
+ border-color: #fff;
 }
 
 .gj-datepicker-bootstrap [role=right-icon] button{
@@ -347,15 +347,26 @@
 
 
 
+<li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledger' ){{'active'}}@else @endif">
+  <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
+   <span class="nav-label">Sale Information</span><i class="fa fa-angle-left arrow"></i></a>
+   <ul class="nav-2-level collapse">
+     <li>
+       <a href="{{ url('allpurchaseledger') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Ledger</a>
+     </li>
+   </ul>
+ </li>
 
 
 
 
 
-<li class="heading">FEATURES</li>
 
 
-<li class="@if(request()->path() === 'company' || request()->path() === 'branch' ){{'active'}}@else @endif">
+ <li class="heading">FEATURES</li>
+
+
+ <li class="@if(request()->path() === 'company' || request()->path() === 'branch' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Software Setting</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -641,7 +652,15 @@
             $('#datepicker').datepicker({
               uiLibrary: 'bootstrap4'
             });
+            $('#fromdate').datepicker({
+              uiLibrary: 'bootstrap4'
+            });
+            $('#todate').datepicker({
+              uiLibrary: 'bootstrap4'
+            });
           </script>
+
+
 
           <script src="{{ url('public/Admin') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
           <script src="{{ url('public/Admin') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
@@ -707,6 +726,7 @@
           </script>
 
 
+          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         </body>
         </html>

@@ -141,6 +141,10 @@ Route::get('deletepurchasecartproduct/{id}', 'Admin\PurchaseController@deletepur
 Route::post('/purchasepriceupdate/{id}', 'Admin\PurchaseController@purchasepriceupdate');
 Route::post('/purchaseledger', 'Admin\PurchaseController@purchaseledger');
 Route::get('/invoicepurchase/{id}', 'Admin\PurchaseController@invoicepurchase');
+Route::get('/allpurchaseledger', 'Admin\PurchaseController@allpurchaseledger');
+Route::get('/deletepurchaseledger/{id}', 'Admin\PurchaseController@deletepurchaseledger');
+Route::get('/searchpurchaseinvoice', 'Admin\PurchaseController@searchpurchaseinvoice');
+Route::get('/searchpurchaseinvoice2', 'Admin\PurchaseController@searchpurchaseinvoice2');
 
 // Sales
 
