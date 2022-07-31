@@ -12,8 +12,8 @@ class PurchaseController extends Controller
 {
 	public function purchase(){
 
-		$invoice_no = IdGenerator::generate(['table' => 'purchase_ledger', 'field'=>'invoice_no','length' => 8, 'prefix' =>'PINV-']);
-		return view('Admin.purchase.purchase',compact('invoice_no'));
+		
+		return view('Admin.purchase.purchase');
 	}
 
 
@@ -120,9 +120,11 @@ class PurchaseController extends Controller
 		->where('purchase_current.session_id',$session_id)
 		->get();
 
+		$invoice_no = IdGenerator::generate(['table' => 'purchase_ledger', 'field'=>'invoice_no','length' => 8, 'prefix' =>'PINV-']);
+
 		foreach ($data as $d) {
 			DB::table("purchase_entry")->insert([
-				'invoice_no'        => $request->invoice_no,
+				'invoice_no'        => $invoice_no,
 				'product_id'        => $d->pdt_id,
 				'sub_unit_id'       => $d->sub_unit_id,
 				'product_quantity'  => $d->purchase_quantity,
@@ -133,25 +135,55 @@ class PurchaseController extends Controller
 
 
 			]);
-		}
+
+
+			DB::table("stock_products")->insert([
+
+				'product_id'     =>  $d->pdt_id,
+				'quantity'       =>  $d->purchase_quantity,
+				'purchase_price' =>  $d->purchase_price,
+				'date'           =>  date('d-m-Y'),
+
+			]);
+
+
+		}  
+
+
+
 
 
 		$explode = explode('/',$request->invoice_date);
-		$invoice_date = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+		$invoice_date = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
 
 
 		DB::table("purchase_ledger")->insert([
-			'invoice_no'       => $request->invoice_no,
+			'invoice_no'       => $invoice_no,
+			'voucher_no'       => $request->voucher_no,
+			'voucher_date'     => $invoice_date,
 			'invoice_date'     => $invoice_date,
 			'suplier_id'       => $request->supplier_id,
-			'total_amount'     => $request->grandtotal,
 			'paid'             => $request->paid,
 			'discount'         => $request->discount,
-			'due'              => $request->due,
 			'transaction_type' => $request->transaction_type,
 			'entry_date'       => date('d-m-Y'),
 			'admin_id'         => Auth('admin')->user()->id,
-			'branch_id'        => Auth('admin')->user()->id,
+			'branch_id'        => 0,
+
+
+		]);
+
+
+		DB::table("supplier_payment")->insert([
+			'invoice_no'       => $invoice_no,
+			'payment_date'     => $invoice_date,
+			'entry_date'	   => date('d-m-Y'),
+			'suplier_id'       => $request->supplier_id,
+			'return_amount'    => "0.00",
+			'payment'          => $request->paid,
+			'payment_type'     => $request->transaction_type,
+			'comment'          => "firstpayment",
+			'admin_id'         => Auth('admin')->user()->id,
 
 
 		]);
@@ -162,7 +194,7 @@ class PurchaseController extends Controller
 
 
 
-		return redirect('invoicepurchase/'.$request->invoice_no);
+		return redirect('invoicepurchase/'.$invoice_no);
 
 
 	}
@@ -192,7 +224,7 @@ class PurchaseController extends Controller
 		->join("admins",'admins.id','purchase_ledger.admin_id')
 		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone','admins.name')
 		->orderBy("purchase_ledger.id",'DESC')
-		->limit(10)
+		->limit(25)
 		->get();
 
 
@@ -209,8 +241,13 @@ class PurchaseController extends Controller
 		->where("id",$id)
 		->delete();
 
-		DB::table("purchase_entry")->where("invoice_no",$data->invoice_no)->delete();
+		DB::table("purchase_entry")
+		->where("invoice_no",$data->invoice_no)
+		->delete();
 
+		DB::table("supplier_payment")
+		->where("invoice_no",$data->invoice_no)
+		->delete();
 
 
 	}
@@ -222,10 +259,10 @@ class PurchaseController extends Controller
 		$todate     = $r->todate;
 
 		$explode = explode('/',$r->fromdate);
-		$fromdates = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+		$fromdates = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
 
 		$explode = explode('/',$r->todate);
-		$todates = $explode[1].'-'.$explode[0].'-'.$explode[2]; 
+		$todates = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
 
 		if($fromdates != "" && $todates != ""){
 			$data = DB::table('purchase_ledger')
@@ -250,7 +287,7 @@ class PurchaseController extends Controller
 
 		$invoice_no = $r->invoice_no;
 
-	
+
 		$data = DB::table('purchase_ledger')
 		->where("purchase_ledger.invoice_no",$invoice_no)
 		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
@@ -260,6 +297,125 @@ class PurchaseController extends Controller
 		return view("Admin.purchase.searchpurchaseinvoice",compact('data'));
 
 	}
+
+
+
+	public function allpurchaseledgerreports(){
+
+		return view("Admin.purchase.allpurchaseledgerreports");
+
+	}
+
+
+
+	public function purchaseledgerreports(Request $request){
+
+		$suplier_id = $request->suplier_id;
+		$type       = $request->Type;
+		$date1      = $request->start_date;
+		$date2      = $request->end_date;
+		$month      = $request->month;
+		$year       = $request->year;
+
+
+		if ($request->suplier_id == "All") {
+			
+			if ($type == 1) {
+
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->where("purchase_ledger.invoice_date",$date1)
+				->get();
+			}
+
+			elseif($type == 2){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
+				->get();
+			}
+
+
+			elseif($type == 3){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereMonth("purchase_ledger.invoice_date",$month)
+				->whereYear("purchase_ledger.invoice_date",$year)
+				->get();
+			}
+
+
+			elseif($type == 4){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereYear("purchase_ledger.invoice_date",$year)
+				->get();
+
+
+			}
+
+
+
+		}
+		else{
+
+
+			if ($type == 1) {
+
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->where("purchase_ledger.invoice_date",$date1)
+				->where("purchase_ledger.suplier_id",$suplier_id)
+				->get();
+			}
+
+			elseif($type == 2){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
+				->where("purchase_ledger.suplier_id",$suplier_id)
+				->get();
+			}
+
+
+			elseif($type == 3){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereMonth("purchase_ledger.invoice_date",$month)
+				->whereYear("purchase_ledger.invoice_date",$year)
+				->where("purchase_ledger.suplier_id",$suplier_id)
+				->get();
+			}
+
+
+			elseif($type == 4){
+				$data = DB::table('purchase_ledger')
+				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
+				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->whereYear("purchase_ledger.invoice_date",$year)
+				->where("purchase_ledger.suplier_id",$suplier_id)
+				->get();
+
+
+			}
+
+
+		}
+
+
+
+
+		return view("Admin.purchase.purchaseledgerreports",compact('data','type','date1','date2','month','year'));
+
+	}
+	
 
 
 

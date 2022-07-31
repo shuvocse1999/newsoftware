@@ -59,9 +59,14 @@
 
         @php
         $i=1;
+        $total_amount = 0;
         @endphp
         @if(isset($product))
         @foreach($product as $p)
+
+        @php
+          $total_amount =$total_amount+($p->purchase_price*$p->product_quantity);
+        @endphp
 
         <tr>
           <td>{{ $i++ }}</td>
@@ -83,6 +88,8 @@
 
         <td colspan="4" style="text-align: right;">
           Total Amount :<br>
+          Discount :<br>
+          Grand Total :<br>
           Paid :<br>
           Due :
         </td>
@@ -91,9 +98,11 @@
 
 
         <td>
-          {{ $data->total_amount }} /- <br>
+          {{ $total_amount }} /- <br>
+          {{ $data->discount }} /-<br>
+          {{ $total_amount-$data->discount }} /-<br>
           {{ $data->paid }} /-<br>
-          {{ $data->due }} /-<br>
+          {{ ($total_amount-$data->discount)-$data->paid }} /-<br>
 
         </td>
 
@@ -104,7 +113,7 @@
     </table>
 
     <span class="note p-4">
-      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($data->total_amount) }} Taka Only.</span>
+      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($total_amount-$data->discount) }} Taka Only.</span>
     </span>
 
 
@@ -131,9 +140,6 @@
     <center><a href="#" class="btn btn-danger btn-sm print w-10" onclick="window.print();">Print</a></center>
     <br>
 
-
-    <center><a style="font-size: 12px;">Software Developed by SBIT. For query: 01840241895</a></center>
-
   </div>
 
 
@@ -154,7 +160,7 @@
 
     }
     .invoice{
-      background: #f9f9f9;
+      background: #fff;
       size: 21cm 29.7cm;
       margin: 0mm 45mm 30mm 45mm;
     }

@@ -145,6 +145,10 @@ Route::get('/allpurchaseledger', 'Admin\PurchaseController@allpurchaseledger');
 Route::get('/deletepurchaseledger/{id}', 'Admin\PurchaseController@deletepurchaseledger');
 Route::get('/searchpurchaseinvoice', 'Admin\PurchaseController@searchpurchaseinvoice');
 Route::get('/searchpurchaseinvoice2', 'Admin\PurchaseController@searchpurchaseinvoice2');
+Route::get('/allpurchaseledgerreports', 'Admin\PurchaseController@allpurchaseledgerreports');
+Route::get('/purchaseledgerreports', 'Admin\PurchaseController@purchaseledgerreports');
+
+
 
 // Sales
 

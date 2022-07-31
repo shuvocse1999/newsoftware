@@ -14,6 +14,7 @@
 		<div class="ibox">
 			<div class="ibox-head mb-3 myhead">
 				<div class="ibox-title"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Add Purchase</div>
+				<div><a href="{{ url('allpurchaseledger') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;All Purchase</a></div>
 			</div>
 			<div class="ibox-body">
 				<form method="post" action="{{ url("purchaseledger") }}" class="reloadform myinput" target="_blank">
@@ -40,15 +41,16 @@
 					</div>
 
 
-					<div class="form-group col-md-2">
+					<div class="form-group col-md-3">
 						<label>Mobile Number:</label>
 						<div class="input-group suppliermobile">
-							<input type='number'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile'>
+							<div class="input-group-addon"><i class="fa fa-phone"></i></div>
+							<input type='number'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile' readonly="">
 						</div>
 					</div>
 
 
-
+{{-- 
 					<div class="form-group col-md-2">
 						<label>Previous Due:</label>
 						<div class="input-group">
@@ -57,20 +59,20 @@
 							
 						</div>
 					</div>
+					--}}
 
-
-					<div class="form-group col-md-2">
-						<label>Invoice Number:</label>
+					<div class="form-group col-md-3">
+						<label>Voucher No:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-							<input type="text"  name="invoice_no" id="invoice_no" class="form-control" value="{{ $invoice_no }}" readonly="">
+							<input type="text"  name="voucher_no" id="voucher_no" class="form-control" value="" required="" placeholder="Voucher Number">
 							
 						</div>
 					</div>
 
 
 					<div class="form-group col-md-3">
-						<label>Date:</label>
+						<label>Invoice Date:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 							<input type="text" name="invoice_date" id="datepicker" placeholder="Invoice Date" class="form-control" required="" autocomplete="off">
@@ -98,7 +100,7 @@
 										<option value="{{ $i->item_id  }}">{{ $i->item_name_en }} {{ $i->item_name_bn }} </option>
 										@endforeach
 									</select>
-									<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenter2"><i class="fa fa-plus-circle text-primary"></i></div>
+									
 								</div>
 							</div>
 
@@ -121,7 +123,7 @@
 									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
 									@endforeach
 								</select>
-								<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenter3"><i class="fa fa-plus-circle text-primary"></i></div>
+								<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenter2"><i class="fa fa-plus-circle text-primary"></i></div>
 							</div>
 						</div>
 
@@ -178,7 +180,7 @@
 						<label>Discount:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
-							<input type="text" id="discount" name="discount" class="form-control" placeholder="Discount" onkeyup="calculatediscount();">
+							<input type="text" id="discount" name="discount" class="form-control" placeholder="Discount" onkeyup="calculatediscount();" value="0">
 							
 						</div>
 					</div>
@@ -239,7 +241,7 @@
 
 
 		<div class="col-12 border p-4 mt-4">
-			<center><input type="submit" name="" value="Create Invoice" class="btn btn-success" style="width: 200px; font-weight: bold;"></center>
+			<center><input type="submit" name="" onclick="createinvoice()" value="Submit Now" class="btn btn-success" style="width: 200px; font-weight: bold; border-radius: 30px;"></center>
 		</div>
 
 
@@ -337,6 +339,7 @@
 
 
 				showpurchaseproductcart();
+				
 
 
 			},
@@ -503,6 +506,7 @@
 
 
 
+
 </script>
 
 
@@ -633,37 +637,20 @@
 <!-- Item Modal -->
 <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-		<form method="post" class="btn-submit" action="{{ url('iteminsert2') }}">
+		<form method="post" class="btn-submit" action="{{ url('productinsert2') }}">
 			@csrf
 			<div class="modal-content rounded">
 				<div class="modal-header bg-dark text-light">
-					<h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Item</h5>
+					<h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Product</h5>
 					<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body myinput">
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label>Item Name(EN):</label>
-							<div class="input-group">
-								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-								<input class="form-control" type="text" name="item_name_en" id="item_name_en" placeholder="Item Name(EN)" required="">
-							</div>
-						</div>
 
-						<div class="form-group col-md-12">
-							<label>Item Name(BN):</label>
-							<div class="input-group">
-								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-								<input class="form-control" type="text" name="item_name_bn" id="item_name_bn" placeholder="Item Name(BN)">
-							</div>
-						</div>
 
-						
 
-					</div>
 
 				</div>
 				<div class="modal-footer">
@@ -684,56 +671,4 @@
 
 
 
-	<!-- Product Modal -->
-	<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-			<form method="post" class="btn-submit" action="{{ url('productinsert2') }}">
-				@csrf
-				<div class="modal-content rounded">
-					<div class="modal-header bg-dark text-light">
-						<h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Product</h5>
-						<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body myinput">
-
-						<div class="row">
-							<div class="form-group col-md-12">
-								<label>Item Name(EN):</label>
-								<div class="input-group">
-									<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-									<input class="form-control" type="text" name="item_name_en" id="item_name_en" placeholder="Item Name(EN)" required="">
-								</div>
-							</div>
-
-							<div class="form-group col-md-12">
-								<label>Item Name(BN):</label>
-								<div class="input-group">
-									<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-									<input class="form-control" type="text" name="item_name_bn" id="item_name_bn" placeholder="Item Name(BN)">
-								</div>
-							</div>
-
-
-
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary border-0" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-success button border-0">Save</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-
-		<!-- End Product Modal -->
-
-
-
-
-
-
-		@endsection
+	@endsection

@@ -13,10 +13,12 @@
 		<div class="ibox">
 			<div class="ibox-head mb-3 myhead">
 				<div class="ibox-title"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Ledger</div>
-				<div><a href="{{ url('purchase') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;Purchase New</a></div>
+				<div><a href="{{ url('purchase') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;Purchase</a></div>
 			</div>
 
 			<div class="">
+
+				
 				
 				<form method="get" style="max-width: 800px; margin:0 auto;">
 					@csrf
@@ -62,11 +64,11 @@
 					<thead class="mythead">
 						<tr>
 							<th>SL</th>
+							<th>Invoice/Voucher Date</th>
+							<th>Entry Date</th>
 							<th>Invoice No.</th>
-							<th>Date</th>
+							<th>Voucher No.</th>
 							<th>Suplier Info.</th>
-							<th>Total Amount</th>
-							<th>Due</th>
 							<th>Transaction</th>
 							<th>Action</th>
 						</tr>
@@ -79,11 +81,11 @@
 						@foreach($data as $d)
 						<tr id="tr{{ $d->id }}">
 							<td>{{ $i++ }}</td>
-							<td>{{ $d->invoice_no }}</td>
 							<td>{{ $d->invoice_date }}</td>
+							<td>{{ $d->entry_date }}</td>
+							<td>{{ $d->invoice_no }}</td>
+							<td>{{ $d->voucher_no }}</td>
 							<td>{{ $d->supplier_name_en }}, {{ $d->supplier_phone }}</td>
-							<td>{{ $d->total_amount }} Tk</td>
-							<td>{{ $d->due }} Tk</td>
 							<td>{{ $d->transaction_type }}</td>
 
 							

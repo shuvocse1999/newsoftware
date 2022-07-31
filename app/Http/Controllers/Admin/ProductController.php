@@ -475,7 +475,7 @@ class ProductController extends Controller
 	public function getsupplierphone($id){
 		$data = DB::table('supplier_info')->where('supplier_id',$id)->first();
 
-		echo "<input type='number' value='$data->supplier_phone'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile'>";
+		echo "<input type='number' value='$data->supplier_phone'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile' readonly>";
 		
 	}
 
