@@ -46,7 +46,7 @@
 						<div class="form-group col-md-6">
 							<label>Category Name:</label>
 							<div class="input-group">
- 								
+
 								<select class="form-control" name="pdt_cat_id" id="pdt_cat_id" onchange="getsubcat()">
 									<option value="">Select Category</option>
 									{{-- @php
@@ -113,10 +113,18 @@
 
 						<div class="form-group col-md-12">
 							<label>Measurement:</label>
-							<div class="input-group">
-								<input class="form-control" type="text" name="pdt_measurement" id="pdt_measurement">
-							</div>
+							<select class="form-control" name="pdt_measurement">
+								<option value="">Select Measurement</option>
+								@php
+								$measurement = DB::table('measurement_unit')->get();		
+								@endphp 
+								@foreach($measurement as $c)
+								<option value="{{ $c->measurement_id  }}">{{ $c->measurement_unit }}</option>
+								@endforeach
+							</select>
 						</div>
+
+
 
 
 						<div class="form-group col-md-6">

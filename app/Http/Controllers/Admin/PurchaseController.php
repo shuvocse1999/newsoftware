@@ -64,7 +64,7 @@ class PurchaseController extends Controller
 		$data = DB::table('purchase_current')
 		->where('purchase_current.session_id',$session_id)
 		->join('pdt_productinfo','pdt_productinfo.pdt_id','purchase_current.pdt_id')
-		->select('purchase_current.*','pdt_productinfo.pdt_name_en','pdt_productinfo.pdt_name_bn')
+		->select('purchase_current.*','pdt_productinfo.pdt_name_en','pdt_productinfo.pdt_name_bn','pdt_productinfo.pdt_sale_price')
 		->get();
 
 		return view('Admin.purchase.showpurchaseproductcart',compact('data'));
@@ -111,6 +111,23 @@ class PurchaseController extends Controller
 	}
 
 
+		public function purchasepricedicount(Request $request,$id){
+		$session_id   = Session::getId();
+		$data = DB::table('purchase_current')
+		->where('purchase_current.session_id',$session_id)
+		->where('purchase_current.id',$id)
+		->update([
+
+			'discount_amount' => $request->discount_amount
+
+		]);
+
+	}
+
+
+	
+
+
 
 
 	public function purchaseledger(Request $request){
@@ -122,6 +139,8 @@ class PurchaseController extends Controller
 
 		$invoice_no = IdGenerator::generate(['table' => 'purchase_ledger', 'field'=>'invoice_no','length' => 8, 'prefix' =>'PINV-']);
 
+
+
 		foreach ($data as $d) {
 			DB::table("purchase_entry")->insert([
 				'invoice_no'        => $invoice_no,
@@ -130,7 +149,8 @@ class PurchaseController extends Controller
 				'product_quantity'  => $d->purchase_quantity,
 				'purchase_price'    => $d->purchase_price,
 				'per_unit_cost'     => $d->per_unit_cost,
-				'discount_amount'   => 0.00,
+				'sale_price'		=> $d->sale_price_per_unit,
+				'discount_amount'   => $d->discount_amount,
 				'admin_id'          => Auth('admin')->user()->id,
 
 
@@ -138,11 +158,13 @@ class PurchaseController extends Controller
 
 
 			DB::table("stock_products")->insert([
-
-				'product_id'     =>  $d->pdt_id,
-				'quantity'       =>  $d->purchase_quantity,
-				'purchase_price' =>  $d->purchase_price,
-				'date'           =>  date('d-m-Y'),
+				'invoice_no'              =>  $invoice_no,
+				'product_id'              =>  $d->pdt_id,
+				'quantity'                =>  $d->purchase_quantity,
+				'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
+				'purchase_price_withcost' =>  $d->purchase_price-$d->discount_amount,
+				'sale_price'              =>  $d->sale_price_per_unit,
+				'date'                    =>  date('d-m-Y'),
 
 			]);
 
@@ -246,6 +268,11 @@ class PurchaseController extends Controller
 		->delete();
 
 		DB::table("supplier_payment")
+		->where("invoice_no",$data->invoice_no)
+		->delete();
+
+
+		DB::table("stock_products")
 		->where("invoice_no",$data->invoice_no)
 		->delete();
 

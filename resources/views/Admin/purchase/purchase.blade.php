@@ -139,9 +139,10 @@
 								<th>SL</th>
 								<th>Name</th>
 								<th>Quantity</th>
-								<th>Unit Price</th>
-								
+								<th>P. Price</th>
+								<th>Discount</th>
 								<th>Sub Total</th>
+								<th>S. Price</th>
 								<th>Action</th>
 
 							</tr>
@@ -469,6 +470,56 @@
 		});
 
 	}
+
+
+
+	function purchasepricedicount(id){
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		let discount_amount = $("#discount_amount"+id).val();
+
+		$.ajax({
+			url: "{{ url('purchasepricedicount') }}/"+id,
+			type: 'POST',
+			data:{discount_amount:discount_amount},
+			success: function (data)
+			{
+				Command:toastr["success"]("Product Discount Update")
+				toastr.options = {
+					"closeButton": true,
+					"debug": false,
+					"newestOnTop": false,
+					"progressBar": true,
+					"positionClass": "toast-top-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "3000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				}
+
+				showpurchaseproductcart();
+			},
+			error:function(errors){
+				alert("errors")
+			}
+		});
+
+	}
+
+
+	
+
 
 
 	

@@ -29,7 +29,7 @@
         <td colspan="6" style="text-align:center;font-size: 16px;text-transform: uppercase;font-weight: bold;"><b>Purchase Invoice</b></td>
       </tr>
       <tr>
-       <td colspan="2">
+       <td colspan="3">
         Date : {{ $data->invoice_date }}<br>
         Invoice No : {{ $data->invoice_no }} <br>
         Suplier Info : {{ $data->supplier_name_en }}, {{ $data->supplier_phone }}
@@ -49,6 +49,7 @@
          <th>Product</th>
          <th>Quantity</th>
          <th>Price</th>
+         <th>Discount</th>
          <th>Sub Total</th>
        </tr>
        <!-- </thead> -->
@@ -65,7 +66,7 @@
         @foreach($product as $p)
 
         @php
-          $total_amount =$total_amount+($p->purchase_price*$p->product_quantity);
+          $total_amount =($total_amount+($p->purchase_price*$p->product_quantity))-($p->discount_amount*$p->product_quantity);
         @endphp
 
         <tr>
@@ -73,7 +74,8 @@
           <td>{{ $p->pdt_name_en }} {{ $p->pdt_name_bn }}</td>
           <td>{{ $p->product_quantity }}</td>
           <td>{{ $p->purchase_price }}</td>
-          <td>{{ $p->purchase_price*$p->product_quantity }}</td>
+          <td>{{ $p->discount_amount }}</td>
+          <td>{{ ($p->purchase_price*$p->product_quantity)-($p->discount_amount*$p->product_quantity) }}</td>
         </tr>
 
         @endforeach
@@ -86,7 +88,7 @@
 
       <tr>
 
-        <td colspan="4" style="text-align: right;">
+        <td colspan="5" style="text-align: right;">
           Total Amount :<br>
           Discount :<br>
           Grand Total :<br>

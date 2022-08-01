@@ -7,14 +7,14 @@
 		@foreach($data as $d)
 
 		@php
-		$purchasesubtotal    = $d->per_unit_cost * $d->purchase_quantity;
+		$purchasesubtotal    = ($d->per_unit_cost * $d->purchase_quantity)-($d->discount_amount*$d->purchase_quantity);
 		$totalpurchaseamount = $totalpurchaseamount + $purchasesubtotal;
 		@endphp
 
 
 		<tr id="tr{{ $d->id }}">
 			<td>{{ $i++ }}</td>
-			<td width="400">{{ $d->pdt_name_en }} {{ $d->pdt_name_bn }}</td>
+			<td width="200">{{ $d->pdt_name_en }} {{ $d->pdt_name_bn }}</td>
 			<td>
 				<div class="input-group">
 					<input type="text" name="purchase_quantity" id="purchase_quantity{{ $d->id }}" class="form-control" value="{{ $d->purchase_quantity }}" onchange="qtyupdate('{{ $d->id }}')">
@@ -33,10 +33,33 @@
 
 			<td>
 				<div class="input-group">
-					<input type="text" name="" name="due" class="form-control" readonly="" value="{{ $d->per_unit_cost*$d->purchase_quantity }}">
+					<input type="text" name="discount_amount" id="discount_amount{{ $d->id }}" class="form-control"  value="{{ $d->discount_amount }}" onchange="purchasepricedicount('{{ $d->id }}')">
+					<div class="input-group-addon"><button type="button" class="border text-success" style="cursor: pointer;" onclick="purchasepricedicount('{{ $d->id }}')" title="Update Price"><i class="fa fa-refresh"></i></button></div>
 
 				</div>
 			</td>
+
+
+
+
+			<td>
+				<div class="input-group">
+					<input type="text" name="" name="due" class="form-control" readonly="" value="{{ ($d->per_unit_cost*$d->purchase_quantity)-($d->discount_amount*$d->purchase_quantity) }}">
+
+				</div>
+			</td>
+
+
+
+			<td>
+				<div class="input-group">
+					<input type="text" name="sale_price_per_unit" id="sale_price_per_unit" class="form-control" value="{{ $d->pdt_sale_price }}">
+				</div>
+			</td>
+
+
+
+
 			<td>
 				<a  class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-times" aria-hidden="true"></i></a>
 			</td>
@@ -50,8 +73,8 @@
 
 		<tr>
 			<input type="hidden" name="totalpurchaseamount" id="totalpurchaseamount" value="{{ $totalpurchaseamount }}">
-			<th colspan="4" class="text-right">Total</th>
-			<th colspan="2">{{ $totalpurchaseamount }}/-</th>
+			<th colspan="5" class="text-right">Total</th>
+			<th colspan="3">{{ $totalpurchaseamount }}/-</th>
 		</tr>
 
 		

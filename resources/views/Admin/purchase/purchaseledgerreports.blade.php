@@ -77,7 +77,7 @@
 
         @foreach($entry as $e)
         @php
-        $totalamount = $e->purchase_price*$e->product_quantity;
+        $totalamount = ($e->purchase_price*$e->product_quantity)-($e->discount_amount*$e->product_quantity);
         @endphp
         @endforeach
 

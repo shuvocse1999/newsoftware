@@ -42,7 +42,7 @@
 							<td>{{ $d->pdt_name_en }}<br>{{ $d->pdt_name_bn }}</td>
 							<td>{{ $d->pdt_purchase_price }} Tk.</td>
 							<td>{{ $d->pdt_sale_price }} Tk.</td>
-							<td>{{ $d->pdt_measurement }}</td>
+							<td>{{ $d->measurement_unit }}</td>
 							<td>{{ $d->pdt_over_stock }}</td>
 							<td>
 								@if($d->pdt_status == 1)

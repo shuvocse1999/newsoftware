@@ -118,12 +118,22 @@
       </div>
 
 
+
       <div class="form-group col-md-12">
         <label>Measurement:</label>
-        <div class="input-group">
-          <input class="form-control" type="text" name="pdt_measurement" id="pdt_measurement" value={{ $data->pdt_measurement }}>
-        </div>
+        <select class="form-control" name="pdt_measurement">
+          <option value="">Select Measurement</option>
+          @php
+          $measurement = DB::table('measurement_unit')->get();    
+          @endphp 
+          @foreach($measurement as $c)
+          <option value="{{ $c->measurement_id  }}" <?php if ($c->measurement_id == $data->pdt_measurement) {
+            echo "selected";
+          } ?>>{{ $c->measurement_unit }}</option>
+          @endforeach
+        </select>
       </div>
+
 
 
       <div class="form-group col-md-6">
@@ -209,38 +219,38 @@
         <div class="input-group">
           <select class="form-control" name="pdt_status" id="pdt_status">
             @if($data->pdt_status == 1)
-           <option value="1">Active</option>
-           <option value="0">Inactive</option>
-           @else
-           <option value="0">Inactive</option>
-           <option value="1">Active</option>
-           @endif
-         </select>
-       </div>
-     </div>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+            @else
+            <option value="0">Inactive</option>
+            <option value="1">Active</option>
+            @endif
+          </select>
+        </div>
+      </div>
 
 
-     <br><br>
+      <br><br>
 
-     <div class="modal-footer border-0">
-      <button type="button" class="btn btn-secondary border-0" onClick="window.location.reload();">Close</button>
-      <button type="submit" class="btn btn-success button border-0">Save</button>
-      <button type="button" class="btn btn-success loading border-0">Loading...</button>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary border-0" onClick="window.location.reload();">Close</button>
+        <button type="submit" class="btn btn-success button border-0">Save</button>
+        <button type="button" class="btn btn-success loading border-0">Loading...</button>
+      </div>
+
     </div>
 
+
+
+
+
+
+
+
+
+
+
   </div>
-
-
-
-
-
-
-
-
-
-
-
-</div>
 </form>
 
 </div>

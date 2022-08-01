@@ -139,6 +139,7 @@ Route::get('/showpurchaseproductcart', 'Admin\PurchaseController@showpurchasepro
 Route::post('qtyupdate/{id}', 'Admin\PurchaseController@qtyupdate');
 Route::get('deletepurchasecartproduct/{id}', 'Admin\PurchaseController@deletepurchasecartproduct');
 Route::post('/purchasepriceupdate/{id}', 'Admin\PurchaseController@purchasepriceupdate');
+Route::post('/purchasepricedicount/{id}', 'Admin\PurchaseController@purchasepricedicount');
 Route::post('/purchaseledger', 'Admin\PurchaseController@purchaseledger');
 Route::get('/invoicepurchase/{id}', 'Admin\PurchaseController@invoicepurchase');
 Route::get('/allpurchaseledger', 'Admin\PurchaseController@allpurchaseledger');
@@ -153,3 +154,6 @@ Route::get('/purchaseledgerreports', 'Admin\PurchaseController@purchaseledgerrep
 // Sales
 
 Route::get('/sales', 'Admin\SalesController@sales');
+
+
+
