@@ -82,8 +82,8 @@
         @endforeach
 
         @php
-          $grandtotal = $grandtotal+$totalamount;
-          $granddue   = $granddue+($totalamount-$d->discount)-$d->paid;
+          $grandtotal = $grandtotal+$d->total;
+          $granddue   = $granddue+($d->total-$d->discount)-$d->paid;
         @endphp
 
 
@@ -94,10 +94,10 @@
           <td>{{ $d->invoice_date }}</td>
           <td>{{ $d->supplier_name_en }}, {{ $d->supplier_phone }}</td>
           <td>{{ $d->transaction_type }}</td>
-          <td>{{ $totalamount }}</td>
+          <td>{{ $d->total }}</td>
           <td>{{ $d->discount }}</td>
           <td>{{ $d->paid }}</td>
-          <td>{{ ($totalamount-$d->discount)-$d->paid }}</td>
+          <td>{{ ($d->total-$d->discount)-$d->paid }}</td>
           
 
         </tr>

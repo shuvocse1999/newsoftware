@@ -149,6 +149,15 @@ Route::get('/searchpurchaseinvoice2', 'Admin\PurchaseController@searchpurchasein
 Route::get('/allpurchaseledgerreports', 'Admin\PurchaseController@allpurchaseledgerreports');
 Route::get('/purchaseledgerreports', 'Admin\PurchaseController@purchaseledgerreports');
 
+Route::get('/purchasepayment', 'Admin\PurchaseController@purchasepayment');
+Route::post('/purchasepaymententry', 'Admin\PurchaseController@purchasepaymententry');
+Route::get('/purchasepaymentlist', 'Admin\PurchaseController@purchasepaymentlist');
+Route::get('/deletepurchaseentry/{id}', 'Admin\PurchaseController@deletepurchaseentry');
+Route::get('/editpurchasepaymententry/{id}', 'Admin\PurchaseController@editpurchasepaymententry');
+Route::post('/updatepurchasepayment/{id}', 'Admin\PurchaseController@updatepurchasepayment');
+Route::get('/getsuplierpreviousdue/{id}', 'Admin\PurchaseController@getsuplierpreviousdue');
+Route::get('/purchasepaymentinvoice/{id}', 'Admin\PurchaseController@purchasepaymentinvoice');
+
 
 
 // Sales

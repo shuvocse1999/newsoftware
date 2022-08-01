@@ -201,7 +201,7 @@
 						<label>Paid:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
-							<input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" onkeyup="calculatedue()" required="">
+							<input type="text" id="paid" name="paid" class="form-control" placeholder="Paid" onkeyup="calculatedue()" required="" value="0">
 							
 						</div>
 					</div>
@@ -340,6 +340,8 @@
 
 
 				showpurchaseproductcart();
+
+				$("#pdt_id").val('');
 				
 
 

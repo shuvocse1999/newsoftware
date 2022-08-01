@@ -17,7 +17,7 @@
 				<div><a href="{{ url('managecustomer') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-eye"></i>&nbsp;View Customer</a></div>
 			</div>
 			<div class="ibox-body">
-				<form method="post" class="btn-submit" style="max-width: 700px; margin: 0 auto;">
+				<form method="post" class="btn-submit" >
 					@csrf
 
 					<div class="row myinput">
@@ -25,7 +25,7 @@
 						$branch = DB::table('branch_info')->get();
 						@endphp
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -43,53 +43,53 @@
 
 
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Customer Name(EN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-								<input class="form-control" type="text" name="customer_name_en" id="customer_name_en"  required="">
+								<input class="form-control" type="text" name="customer_name_en" id="customer_name_en"  required="" placeholder="Customer Name EN">
 							</div>
 						</div>
 
 
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Customer Name(BN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
-								<input class="form-control" type="text" name="customer_name_bn" id="customer_name_bn" >
+								<input class="form-control" type="text" name="customer_name_bn" id="customer_name_bn"  placeholder="Customer Name BN">
 							</div>
 						</div>
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Customer Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="number" name="customer_phone" id="customer_phone" required="">
+								<input class="form-control" type="number" name="customer_phone" id="customer_phone" required="" placeholder="Customer Mobile">
 							</div>
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Email:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-								<input class="form-control" type="text"  name="customer_email" id="customer_email">
+								<input class="form-control" type="text"  name="customer_email" id="customer_email" placeholder="Customer Email">
 							</div>
 						</div>
 
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-6">
 							<label>Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="customer_address" id="customer_address" required=""></textarea>
+								<textarea class="form-control" rows="3" name="customer_address" id="customer_address" required="" placeholder="Customer Address"></textarea>
 							</div>
 						</div>
 
 
 
-						<div class="modal-footer border-0">
+						<div class="modal-footer border-0 col-12">
 							<button type="button" class="btn btn-secondary border-0" onClick="window.location.reload();">Close</button>
 							<button type="submit" class="btn btn-success button border-0">Save</button>
 							<button type="button" class="btn btn-success loading border-0">Loading...</button>

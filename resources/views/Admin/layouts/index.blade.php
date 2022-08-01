@@ -347,7 +347,7 @@
 
 
 
-<li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledgerreports' ){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledgerreports' || request()->path() === 'purchasepayment' || request()->path() === 'purchasepaymentlist' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Purchase Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -357,6 +357,14 @@
 
      <li>
        <a href="{{ url('allpurchaseledgerreports') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Ledger Reports</a>
+     </li>
+
+      <li>
+       <a href="{{ url('purchasepayment') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Payment</a>
+     </li>
+
+     <li>
+       <a href="{{ url('purchasepaymentlist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Payment List</a>
      </li>
    </ul>
  </li>
@@ -660,6 +668,10 @@
               uiLibrary: 'bootstrap4'
             });
             $('#todate').datepicker({
+              uiLibrary: 'bootstrap4'
+            });
+
+             $('#payment_date').datepicker({
               uiLibrary: 'bootstrap4'
             });
 

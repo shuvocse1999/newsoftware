@@ -111,7 +111,7 @@ class PurchaseController extends Controller
 	}
 
 
-		public function purchasepricedicount(Request $request,$id){
+	public function purchasepricedicount(Request $request,$id){
 		$session_id   = Session::getId();
 		$data = DB::table('purchase_current')
 		->where('purchase_current.session_id',$session_id)
@@ -172,9 +172,6 @@ class PurchaseController extends Controller
 		}  
 
 
-
-
-
 		$explode = explode('/',$request->invoice_date);
 		$invoice_date = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
 
@@ -185,6 +182,7 @@ class PurchaseController extends Controller
 			'voucher_date'     => $invoice_date,
 			'invoice_date'     => $invoice_date,
 			'suplier_id'       => $request->supplier_id,
+			'total'            => $request->totalamount,
 			'paid'             => $request->paid,
 			'discount'         => $request->discount,
 			'transaction_type' => $request->transaction_type,
@@ -444,6 +442,106 @@ class PurchaseController extends Controller
 	}
 	
 
+
+	public function purchasepayment(){
+		return view('Admin.purchase.purchasepayment');
+	}
+
+
+	public function purchasepaymententry(Request $r){
+
+		$explode = explode('/',$r->payment_date);
+		$payment_date = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
+
+
+		DB::table("supplier_payment")->insert([
+
+			'payment_date'   => $payment_date,
+			'suplier_id'     => $r->suplier_id,
+			'payment'        => $r->payment,
+			'payment_type'   => $r->payment_type,
+			'return_amount'  => 0.00,
+			'entry_date'     => date('d-m-Y'),
+			'comment'        => $r->comment,
+			'admin_id'       => Auth('admin')->user()->id,
+
+		]);
+	}
+
+	public function purchasepaymentlist(){
+		$data = DB::table("supplier_payment")
+		->join('supplier_info','supplier_info.supplier_id','supplier_payment.suplier_id')
+		->select("supplier_payment.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->get();
+		return view("Admin.purchase.purchasepaymentlist", compact('data'));
+	}
+
+
+	public function deletepurchaseentry($id){
+		DB::table("supplier_payment")->where("id",$id)->delete();
+	}
+
+
+	public function editpurchasepaymententry($id){
+
+		$data = DB::table("supplier_payment")->where("id",$id)->first();
+
+		$total    = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('total');
+		$discount = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('discount');
+		$grandtotal = $total-$discount;
+		$paid            = DB::table("supplier_payment")->where("suplier_id",$data->suplier_id)->sum('payment');
+		$totaldue = $grandtotal-$paid;
+
+		return view("Admin.purchase.editpurchasepaymententry",compact('data','totaldue'));
+	}
+
+
+
+	public function updatepurchasepayment(Request $r,$id){
+
+		// $explode = explode('/',$r->payment_date);
+		// $payment_date = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
+
+
+		DB::table("supplier_payment")->where("id",$id)->update([
+
+			'payment_date'   => $r->payment_date,
+			'suplier_id'     => $r->suplier_id,
+			'payment'        => $r->payment,
+			'payment_type'   => $r->payment_type,
+			'return_amount'  => 0.00,
+			'entry_date'     => date('d-m-Y'),
+			'comment'        => $r->comment,
+			'admin_id'       => Auth('admin')->user()->id,
+
+		]);
+	}
+
+
+	public function getsuplierpreviousdue($id){
+
+		$total    = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('total');
+		$discount = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('discount');
+		$grandtotal = $total-$discount;
+		$paid            = DB::table("supplier_payment")->where("suplier_id",$id)->sum('payment');
+		$totaldue = $grandtotal-$paid;
+
+		return response()->json($totaldue);
+
+	}
+
+
+
+	public function purchasepaymentinvoice($id){
+		$data = DB::table("supplier_payment")
+		->where("supplier_payment.id",$id)
+		->join('supplier_info','supplier_info.supplier_id','supplier_payment.suplier_id')
+		->select("supplier_payment.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->first();
+
+
+		return view('Admin.purchase.purchasepaymentinvoice', compact('data'));
+	}
 
 
 }
