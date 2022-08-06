@@ -133,7 +133,7 @@
 							<label>Status:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="cat_status" id="cat_status">
+								<select class="form-control" name="cat_status" id="cat_status" style="width: 100%!important;">
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>

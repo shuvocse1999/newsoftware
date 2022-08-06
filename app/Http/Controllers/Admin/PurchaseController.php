@@ -149,7 +149,6 @@ class PurchaseController extends Controller
 				'product_quantity'  => $d->purchase_quantity,
 				'purchase_price'    => $d->purchase_price,
 				'per_unit_cost'     => $d->per_unit_cost,
-				'sale_price'		=> $d->sale_price_per_unit,
 				'discount_amount'   => $d->discount_amount,
 				'admin_id'          => Auth('admin')->user()->id,
 
@@ -158,13 +157,11 @@ class PurchaseController extends Controller
 
 
 			DB::table("stock_products")->insert([
-				'invoice_no'              =>  $invoice_no,
 				'product_id'              =>  $d->pdt_id,
 				'quantity'                =>  $d->purchase_quantity,
 				'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
 				'purchase_price_withcost' =>  $d->purchase_price-$d->discount_amount,
 				'sale_price'              =>  $d->sale_price_per_unit,
-				'date'                    =>  date('d-m-Y'),
 
 			]);
 
@@ -486,26 +483,28 @@ class PurchaseController extends Controller
 
 		$data = DB::table("supplier_payment")->where("id",$id)->first();
 
-		$total    = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('total');
-		$discount = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('discount');
-		$grandtotal = $total-$discount;
-		$paid            = DB::table("supplier_payment")->where("suplier_id",$data->suplier_id)->sum('payment');
-		$totaldue = $grandtotal-$paid;
+		$total        = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('total');
+		$discount     = DB::table("purchase_ledger")->where("suplier_id",$data->suplier_id)->sum('discount');
+		$grandtotal   = $total-$discount;
+		$paid         = DB::table("supplier_payment")->where("suplier_id",$data->suplier_id)->sum('payment');
+		$totaldue     = $grandtotal-$paid;
 
-		return view("Admin.purchase.editpurchasepaymententry",compact('data','totaldue'));
+		$supplier_phone   = DB::table("supplier_info")->where("supplier_id",$data->suplier_id)->first();
+
+		return view("Admin.purchase.editpurchasepaymententry",compact('data','totaldue','supplier_phone'));
 	}
 
 
 
 	public function updatepurchasepayment(Request $r,$id){
 
-		// $explode = explode('/',$r->payment_date);
-		// $payment_date = $explode[2].'-'.$explode[0].'-'.$explode[1]; 
+		$explode = explode('/',$r->payment_date);
+		$payment_date = $explode[2].'-'.$explode[0].'-'.$explode[1];
 
 
 		DB::table("supplier_payment")->where("id",$id)->update([
 
-			'payment_date'   => $r->payment_date,
+			'payment_date'   => $payment_date,
 			'suplier_id'     => $r->suplier_id,
 			'payment'        => $r->payment,
 			'payment_type'   => $r->payment_type,
@@ -520,11 +519,11 @@ class PurchaseController extends Controller
 
 	public function getsuplierpreviousdue($id){
 
-		$total    = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('total');
-		$discount = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('discount');
+		$total      = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('total');
+		$discount   = DB::table("purchase_ledger")->where("suplier_id",$id)->sum('discount');
 		$grandtotal = $total-$discount;
-		$paid            = DB::table("supplier_payment")->where("suplier_id",$id)->sum('payment');
-		$totaldue = $grandtotal-$paid;
+		$paid       = DB::table("supplier_payment")->where("suplier_id",$id)->sum('payment');
+		$totaldue   = $grandtotal-$paid;
 
 		return response()->json($totaldue);
 

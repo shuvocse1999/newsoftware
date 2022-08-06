@@ -33,7 +33,7 @@
 								$supplier = DB::table('supplier_info')->get();		
 								@endphp 
 								@foreach($supplier as $i)
-								<option value="{{ $i->supplier_id  }}">{{ $i->supplier_name_en }}  {{ $i->supplier_name_bn }}</option>
+								<option value="{{ $i->supplier_id  }}">{{ $i->supplier_id }} - {{ $i->supplier_company_name }}</option>
 								@endforeach
 							</select>
 							<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenters"><i class="fa fa-plus-circle text-primary"></i></div>
@@ -104,7 +104,7 @@
 					</div>
 
 
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-4">
 						<label>Comment:</label>
 						<div class="input-group">
 							<input type="text" name="comment" id="comments" placeholder="Comment" class="form-control">
@@ -227,7 +227,7 @@
 				$('#comment').val('');
 				$('.loading').hide();
 				$('.button').show();
-				$('#exampleModalCenter').modal('hide');
+				previousdue();
 
 
 

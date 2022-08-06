@@ -32,7 +32,7 @@
 							$supplier = DB::table('supplier_info')->get();		
 							@endphp 
 							@foreach($supplier as $i)
-							<option value="{{ $i->supplier_id  }}">{{ $i->supplier_name_en }}  {{ $i->supplier_name_bn }}</option>
+							<option value="{{ $i->supplier_id  }}">{{ $i->supplier_id }} - {{ $i->supplier_company_name }}</option>
 							@endforeach
 						</select>
 					</div>

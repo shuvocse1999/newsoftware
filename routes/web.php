@@ -62,6 +62,8 @@ Route::get('/deletesupplier/{id}', 'Admin\SupplierController@deletesupplier');
 Route::get('/managesupplier', 'Admin\SupplierController@managesupplier');
 Route::get('/editsupplier/{id}', 'Admin\SupplierController@editsupplier');
 Route::post('/updatesupplier/{id}', 'Admin\SupplierController@updatesupplier');
+Route::get('/supplierduelist', 'Admin\SupplierController@supplierduelist');
+
 
 
 // Product Setting

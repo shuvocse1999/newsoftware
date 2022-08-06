@@ -98,4 +98,9 @@ class SupplierController extends Controller
 	}
 
 // End Supplier Methods
+
+	public function supplierduelist(){
+		$data = DB::table("supplier_info")->get();
+		return view("Admin.supplier.supplierduelist",compact('data'));
+	}
 }

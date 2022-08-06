@@ -47,7 +47,7 @@
 						<label>Mobile Number:</label>
 						<div class="input-group suppliermobile">
 							<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-							<input type='number'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile' readonly="">
+							<input type='number'  name='supplier_phone' id='supplier_phone' class='form-control' placeholder='Mobile' readonly="" value="{{ $supplier_phone->supplier_phone }}">
 						</div>
 					</div>
 
@@ -64,12 +64,16 @@
 					
 
 
+					@php
+					 $explode = explode('-',$data->payment_date);
+					 $payment_date = $explode[1].'/'.$explode[2].'/'.$explode[0]; 
+					@endphp
 
 					<div class="form-group col-md-4">
 						<label>Date:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-							<input type="text" name="payment_date" id="payment_date" placeholder="Payment Date" class="form-control" required="" autocomplete="off" value="{{ $data->payment_date }}">
+							<input type="text" name="payment_date" id="payment_date" placeholder="Payment Date" class="form-control" required="" autocomplete="off" value="{{ $payment_date }}">
 							
 						</div>
 					</div>
@@ -84,7 +88,7 @@
 						<label>Payment Money:</label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
-							<input type="text" name="payment" id="payment" class="form-control" required="" value="{{ $data->payment }}">
+							<input type="number" name="payment" id="payment" class="form-control" required="" value="{{ $data->payment }}">
 							
 						</div>
 					</div>
@@ -107,7 +111,7 @@
 					</div>
 
 
-					<div class="form-group col-md-8">
+					<div class="form-group col-md-4">
 						<label>Comment:</label>
 						<div class="input-group">
 							<input type="text" name="comment" id="comments" placeholder="Comment" class="form-control" value="{{ $data->comment }}">
@@ -228,7 +232,7 @@
 
 				$('.loading').hide();
 				$('.button').show();
-				$('#exampleModalCenter').modal('hide');
+				previousdue();
 
 
 

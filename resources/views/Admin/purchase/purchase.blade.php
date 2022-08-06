@@ -33,7 +33,7 @@
 								$supplier = DB::table('supplier_info')->get();		
 								@endphp 
 								@foreach($supplier as $i)
-								<option value="{{ $i->supplier_id  }}">{{ $i->supplier_name_en }}  {{ $i->supplier_name_bn }}</option>
+								<option value="{{ $i->supplier_id  }}">{{ $i->supplier_id }} - {{ $i->supplier_company_name }}</option>
 								@endforeach
 							</select>
 							<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenters"><i class="fa fa-plus-circle text-primary"></i></div>
@@ -138,11 +138,11 @@
 							<tr>
 								<th>SL</th>
 								<th>Name</th>
-								<th>Quantity</th>
-								<th>P. Price</th>
-								<th>Discount</th>
+								<th>S. Price (Unit)</th>
+								<th>Qty</th>
+								<th>P. Price (Unit)</th>
+								<th>Discount (Unit)</th>
 								<th>Sub Total</th>
-								<th>S. Price</th>
 								<th>Action</th>
 
 							</tr>

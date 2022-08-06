@@ -149,6 +149,8 @@
   border-radius: 0px;
 }
 
+
+
 </style>
 </head>
 
@@ -340,7 +342,7 @@
 
 
  <li class="@if(request()->path() === 'purchase'){{'active'}}@else @endif">
-  <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-credit-card-alt"></i>
+  <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-shopping-basket"></i>
    <span class="nav-label">Purchase</span>
  </a>
 </li>
@@ -348,7 +350,7 @@
 
 
 <li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledgerreports' || request()->path() === 'purchasepayment' || request()->path() === 'purchasepaymentlist' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-sliders sidebar-item-icon" aria-hidden="true"></i>
+  <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Purchase Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
      <li>
@@ -359,7 +361,7 @@
        <a href="{{ url('allpurchaseledgerreports') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Ledger Reports</a>
      </li>
 
-      <li>
+     <li>
        <a href="{{ url('purchasepayment') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Payment</a>
      </li>
 
@@ -410,7 +412,7 @@
 
 
 
-<li class="@if(request()->path() === 'supplier' || request()->path() === 'managesupplier' ){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'supplier' || request()->path() === 'managesupplier'  || request()->path() === 'supplierduelist' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon"></i>
    <span class="nav-label">Supplier Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -419,6 +421,10 @@
    </li>
    <li>
      <a href="{{ url('managesupplier') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Manage Supplier</a>
+   </li>
+
+   <li>
+    <a href="{{ url('supplierduelist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Supplier Due List</a>
    </li>
  </ul>
 </li>
@@ -671,11 +677,11 @@
               uiLibrary: 'bootstrap4'
             });
 
-             $('#payment_date').datepicker({
+            $('#payment_date').datepicker({
               uiLibrary: 'bootstrap4'
             });
 
-          
+
           </script>
 
 

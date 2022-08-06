@@ -113,7 +113,7 @@
 							<label>Status:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="item_status" id="item_status">
+								<select class="form-control" style="width: 100%!important;" name="item_status" id="item_status">
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>

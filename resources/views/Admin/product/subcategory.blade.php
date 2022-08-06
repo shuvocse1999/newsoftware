@@ -93,7 +93,7 @@
 							<label>Item Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="subcat_item_id" id="subcat_item_id" required="" onchange="getcat()">
+								<select class="form-control" style="width: 100%!important;"  name="subcat_item_id" id="subcat_item_id" required="" onchange="getcat()">
 									<option value="">Select Item</option>
 									@php
 									$item = DB::table('pdt_item')->where('item_status',1)->get();		
@@ -110,14 +110,14 @@
 							<label>Category Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="subcat_cat_id" id="subcat_cat_id" required="">
+								<select class="form-control" style="width: 100%!important;" name="subcat_cat_id" id="subcat_cat_id" required="">
 									<option value="">Select Category</option>
-									@php
+									{{-- @php
 									$category = DB::table('pdt_category')->where('cat_status',1)->get();		
 									@endphp 
 									@foreach($category as $c)
 									<option value="{{ $c->cat_id  }}">{{ $c->cat_name_en }} ( {{ $c->cat_name_bn }} )</option>
-									@endforeach
+									@endforeach --}}
 								</select>
 							</div>
 						</div>
@@ -152,7 +152,7 @@
 							<label>Status:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="subcat_status" id="subcat_status">
+								<select class="form-control" style="width: 100%!important;" name="subcat_status" id="subcat_status">
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>
