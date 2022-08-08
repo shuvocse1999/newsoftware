@@ -15,8 +15,21 @@
 				<div class="ibox-title"><i class="fa fa-list-ul" aria-hidden="true"></i>&nbsp;&nbsp;Manage Product List</div>
 				<div><a href="{{ url('product') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-plus"></i>&nbsp;Add New</a></div>
 			</div>
+
+			<div class="col-md-12">
+				<form method="post" class="btn-submit">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text"  name="searchproduct" id="searchproduct" class="form-control" placeholder="Search Products..." style="height: 40px;">
+							<button type="submit" class="border-0 text-light bg-success button" style="cursor: pointer; width: 50px;"><i class="fa fa-search"></i></button>
+							<button type="button" class="border-0 text-light bg-success loading" style="cursor: pointer; width: 50px;"><i class="fa fa-spinner"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+
 			<div class="ibox-body table-responsive overflow">
-				<table class="table table-striped table-bordered" id="example-table" cellspacing="0" width="100%">
+				<table class="table table-striped table-bordered" id="example-tabless" cellspacing="0" width="100%">
 					<thead class="mythead">
 						<tr>
 							<th>SL</th>
@@ -31,7 +44,7 @@
 						</tr>
 					</thead>
 
-					<tbody class="tbody">
+					<tbody class="tbody" id="showdata">
 						
 						@php $i=1;  @endphp
 						@if(isset($data))
@@ -63,9 +76,11 @@
 						@endif
 
 
-						
 					</tbody>
 				</table>
+
+				{{ $data->links() }}
+
 			</div>
 		</div>
 
@@ -125,6 +140,40 @@
 	});
 
 	// End Delete Data
+
+
+
+$('.loading').hide();
+	$(".btn-submit").submit(function(e){
+		e.preventDefault();
+
+		let searchproduct = $("#searchproduct").val();
+
+		$.ajax({
+			url:'{{ url('searchproduct') }}',
+			method:'get',
+			data:{searchproduct:searchproduct},
+			beforeSend:function(response) { 
+				$('.loading').show();
+				$('.button').hide();
+
+			},
+			success:function(data){
+
+				$('.loading').hide();
+				$('.button').show();
+				
+				$("#showdata").html(data);
+
+			},
+
+			error:function(error){
+				console.log(error)
+			}
+		});
+	});
+
+	
 
 
 </script>

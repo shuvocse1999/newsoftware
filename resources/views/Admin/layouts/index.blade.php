@@ -154,7 +154,7 @@
 </style>
 </head>
 
-<body class="fixed-navbar">
+<body class="fixed-navbar <?php if(request()->path() === 'purchase'){ echo 'sidebar-mini'; } ?>">
  <div class="page-wrapper">
   <!-- START HEADER-->
   <header class="header">
@@ -342,7 +342,7 @@
 
 
  <li class="@if(request()->path() === 'purchase'){{'active'}}@else @endif">
-  <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-shopping-basket"></i>
+  <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-shopping-bag"></i>
    <span class="nav-label">Purchase</span>
  </a>
 </li>
@@ -350,7 +350,7 @@
 
 
 <li class="@if(request()->path() === 'allpurchaseledger' || request()->path() === 'allpurchaseledgerreports' || request()->path() === 'purchasepayment' || request()->path() === 'purchasepaymentlist' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon" aria-hidden="true"></i>
+  <a href="javascript:;"><i class="fa fa-shopping-bag sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Purchase Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
      <li>
@@ -367,6 +367,33 @@
 
      <li>
        <a href="{{ url('purchasepaymentlist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Purchase Payment List</a>
+     </li>
+   </ul>
+ </li>
+
+
+
+
+
+
+<li class="@if(request()->path() === 'allsalesledger' || request()->path() === 'allsalesledgerreports' || request()->path() === 'salespayment' || request()->path() === 'salespaymentlist' ){{'active'}}@else @endif">
+  <a href="javascript:;"><i class="fa fa-shopping-bag sidebar-item-icon" aria-hidden="true"></i>
+   <span class="nav-label">Sales Information</span><i class="fa fa-angle-left arrow"></i></a>
+   <ul class="nav-2-level collapse">
+     <li>
+       <a href="{{ url('allsalesledger') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Sales Ledger</a>
+     </li>
+
+     <li>
+       <a href="{{ url('allsalesledgerreports') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Sales Ledger Reports</a>
+     </li>
+
+     <li>
+       <a href="{{ url('salespayment') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Sales Payment</a>
+     </li>
+
+     <li>
+       <a href="{{ url('salespaymentlist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Sales Payment List</a>
      </li>
    </ul>
  </li>
@@ -425,8 +452,8 @@
 
    <li>
     <a href="{{ url('supplierduelist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Supplier Due List</a>
-   </li>
- </ul>
+  </li>
+</ul>
 </li>
 
 
@@ -666,6 +693,7 @@
 
            </div>
 
+
            <script>
             $('#datepicker').datepicker({
               uiLibrary: 'bootstrap4'
@@ -681,8 +709,14 @@
               uiLibrary: 'bootstrap4'
             });
 
+             $('#payment_date2').datepicker({
+              uiLibrary: 'bootstrap4'
+            });
+
 
           </script>
+
+
 
 
 

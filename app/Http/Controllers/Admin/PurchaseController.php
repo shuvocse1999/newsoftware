@@ -46,7 +46,7 @@ class PurchaseController extends Controller
 				'purchase_quantity'  => '1',
 				'purchase_price'     => $checkproduct->pdt_purchase_price,
 				'discount_amount'    => 0.00,
-				'per_unit_cost'      => $checkproduct->pdt_purchase_price,
+				'per_unit_cost'      => 0.00,
 				'sale_price_per_unit'=> $checkproduct->pdt_sale_price,
 				'session_id'         => $session_id,
 				'admin_id'           => Auth('admin')->user()->id,
@@ -104,7 +104,7 @@ class PurchaseController extends Controller
 		->where('purchase_current.id',$id)
 		->update([
 
-			'per_unit_cost' => $request->per_unit_cost
+			'purchase_price' => $request->purchase_price
 
 		]);
 
@@ -119,6 +119,21 @@ class PurchaseController extends Controller
 		->update([
 
 			'discount_amount' => $request->discount_amount
+
+		]);
+
+	}
+
+
+
+	public function purchasecost(Request $request,$id){
+		$session_id   = Session::getId();
+		$data = DB::table('purchase_current')
+		->where('purchase_current.session_id',$session_id)
+		->where('purchase_current.id',$id)
+		->update([
+
+			'per_unit_cost' => $request->purchasecost
 
 		]);
 
@@ -155,15 +170,31 @@ class PurchaseController extends Controller
 
 			]);
 
+			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->pdt_id)->first();
+			$qtysum            =  DB::table("stock_products")->where("product_id",$d->pdt_id)->sum("quantity");
 
-			DB::table("stock_products")->insert([
-				'product_id'              =>  $d->pdt_id,
-				'quantity'                =>  $d->purchase_quantity,
-				'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
-				'purchase_price_withcost' =>  $d->purchase_price-$d->discount_amount,
-				'sale_price'              =>  $d->sale_price_per_unit,
 
-			]);
+
+			if ($checkstockproduct) {
+				DB::table("stock_products")->where("product_id",$d->pdt_id)->update([
+					'quantity'                =>  $qtysum+$d->purchase_quantity,
+					'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
+					'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
+					'sale_price'              =>  $d->sale_price_per_unit,
+
+				]);
+			}
+			else{
+				DB::table("stock_products")->insert([
+					'invoice_no'              =>  $invoice_no,
+					'product_id'              =>  $d->pdt_id,
+					'quantity'                =>  $d->purchase_quantity,
+					'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
+					'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
+					'sale_price'              =>  $d->sale_price_per_unit,
+
+				]);
+			}
 
 
 		}  

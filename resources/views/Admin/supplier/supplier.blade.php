@@ -17,7 +17,7 @@
 				<div><a href="{{ url('managesupplier') }}" class="btn btn-dark rounded addbutton"><i class="fa fa-eye"></i>&nbsp;View supplier</a></div>
 			</div>
 			<div class="ibox-body">
-				<form method="post" class="btn-submit" style="max-width: 700px; margin: 0 auto;">
+				<form method="post" class="btn-submit">
 					@csrf
 
 					<div class="row myinput">
@@ -25,7 +25,7 @@
 						$branch = DB::table('branch_info')->get();
 						@endphp
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -43,7 +43,7 @@
 
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Supplier Name(EN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
@@ -53,7 +53,7 @@
 
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Supplier Name(BN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
@@ -62,7 +62,7 @@
 						</div>
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Supplier Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
@@ -70,7 +70,7 @@
 							</div>
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label>Email:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
@@ -79,11 +79,11 @@
 						</div>
 
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Supplier Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="supplier_address" id="supplier_address" required=""></textarea>
+								<input type="text" class="form-control" name="supplier_address" id="supplier_address" required="">
 							</div>
 						</div>
 
@@ -91,7 +91,7 @@
 							<div class="col-md-12 mb-3 text-danger border p-3 text-center">Company Details:</div>
 						</div>
 
-						<div class="form-group col-md-7">
+						<div class="form-group col-md-4">
 							<label>Company name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
@@ -100,7 +100,7 @@
 						</div>
 
 
-						<div class="form-group col-md-5">
+						<div class="form-group col-md-4">
 							<label>Company Phone:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
@@ -110,11 +110,11 @@
 
 
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-4">
 							<label>Company Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="supplier_company_address" id="supplier_company_address" required=""></textarea>
+								<input type="text" class="form-control" name="supplier_company_address" id="supplier_company_address" required="">
 							</div>
 						</div>
 

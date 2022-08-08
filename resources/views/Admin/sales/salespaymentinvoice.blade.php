@@ -21,18 +21,18 @@
 
   <div class="invoice border">
 
-    <center><img src="{{ url($company_info->banner) }}" id="header_image"></center>
+    <center><img src="{{ url($company_info->banner) }}" id="header_image" class="img-fluid"></center>
 
 
     <table class="table table-bordered">
       <tr>
-        <td colspan="4" style="text-align:center;font-size: 16px;text-transform: uppercase;font-weight: bold;"><b>Purchase Payment Invoice</b></td>
+        <td colspan="4" style="text-align:center;font-size: 16px;text-transform: uppercase;font-weight: bold;"><b>Sales Payment Invoice</b></td>
       </tr>
       <tr>
        <td colspan="2">
-        Date : {{ $data->payment_date }}<br>
+        Date : {{ $data->entry_date }}<br>
         Voucher No : {{ $data->id }} <br>
-        Suplier Info : {{ $data->supplier_name_en }}, {{ $data->supplier_phone }}
+        Suplier Info : {{ $data->customer_name_en }}, {{ $data->customer_phone }}
 
       </td>
       <td colspan="2">
@@ -58,8 +58,8 @@
     
         <tr>
           <td>01</td>
-          <td>{{ $data->payment_date }}</td>
-          <td>{{ $data->payment }}</td>
+          <td>{{ $data->entry_date }}</td>
+          <td>{{ $data->payment_amount }}</td>
           <td>{{ $data->payment_type }}</td>
          
         </tr>
@@ -74,7 +74,7 @@
     </table>
 
     <span class="note p-4">
-      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($data->payment) }} Taka Only.</span>
+      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($data->payment_amount) }} Taka Only.</span>
     </span>
 
 
@@ -114,20 +114,12 @@
       font-family: 'Lato';
     }
 
-    #header_image
-    {
-      width:100%;
-      height: 140px;
-
-    }
+  
     .invoice{
       background: #fff;
-      size: 21cm 29.7cm;
-      margin: 0mm 45mm 30mm 45mm;
+      padding: 30px;
     }
-    .invoice img{
-      height: 80px;
-    }
+ 
     .invoice span{
       font-size: 15px;
     }

@@ -19,25 +19,26 @@
   @endphp
 
 
-  <div class="invoice border">
+  <div class="invoice">
 
-    <center><img src="{{ url($company_info->banner) }}" id="header_image"></center>
+    <center><img src="{{ url($company_info->banner) }}" id="header_image" class="img-fluid"></center>
 
 
     <table class="table table-bordered">
       <tr>
-        <td colspan="4" style="text-align:center;font-size: 16px;text-transform: uppercase;font-weight: bold;"><b>Purchase Payment Invoice</b></td>
+        <td colspan="6" style="text-align:center;font-size: 16px;text-transform: uppercase;font-weight: bold;"><b>Sales Invoice</b></td>
       </tr>
       <tr>
-       <td colspan="2">
-        Date : {{ $data->payment_date }}<br>
-        Voucher No : {{ $data->id }} <br>
-        Suplier Info : {{ $data->supplier_name_en }}, {{ $data->supplier_phone }}
+       <td colspan="3">
+        Date : {{ $data->invoice_date }}<br>
+        Invoice No : {{ $data->invoice_no }} <br>
+        Suplier Info : {{ $data->customer_name_en }}, {{ $data->customer_phone }}
 
       </td>
-      <td colspan="2">
-        Transaction : {{ $data->payment_type }}<br>
-        Print  : {{ date('d M Y') }}<br>
+      <td colspan="3">
+        Transaction : {{ $data->transaction_type }}<br>
+        Prepared By : {{ $data->name }}<br>
+        Print  : {{ $data->entry_date }}<br>
       </tr>
 
 
@@ -45,9 +46,11 @@
       <!-- <thead> -->
        <tr>
          <th>SL</th>
-         <th>Payment Date</th>
-         <th>Payment</th>
-         <th>Type</th>
+         <th>Product</th>
+         <th>Quantity</th>
+         <th>Sale Price (Per Unit)</th>
+         <th>Discount (Per Unit)</th>
+         <th>Sub Total</th>
        </tr>
        <!-- </thead> -->
 
@@ -55,26 +58,64 @@
 
        <tbody>
 
-    
+        @php
+        $i=1;
+        $total_amount = 0;
+        @endphp
+        @if(isset($product))
+        @foreach($product as $p)
+
+        @php
+          $total_amount =($total_amount+($p->product_sales_price*$p->product_quantity))-($p->product_discount_amount*$p->product_quantity);
+        @endphp
+
         <tr>
-          <td>01</td>
-          <td>{{ $data->payment_date }}</td>
-          <td>{{ $data->payment }}</td>
-          <td>{{ $data->payment_type }}</td>
-         
+          <td>{{ $i++ }}</td>
+          <td>{{ $p->pdt_name_en }} {{ $p->pdt_name_bn }}</td>
+          <td>{{ $p->product_quantity }}</td>
+          <td>{{ $p->product_sales_price }}</td>
+          <td>{{ $p->product_discount_amount}}</td>
+          <td>{{ ($p->product_sales_price*$p->product_quantity)-($p->product_discount_amount*$p->product_quantity) }}</td>
         </tr>
+
+        @endforeach
+        @endif
 
 
       </tbody>
 
 
 
+      <tr>
+
+        <td colspan="5" style="text-align: right;">
+          Total Amount :<br>
+          Discount :<br>
+          Grand Total :<br>
+          Paid :<br>
+          Due :
+        </td>
+
+
+
+
+        <td>
+          {{ $total_amount }} /- <br>
+          {{ $data->final_discount }} /-<br>
+          {{ $total_amount-$data->final_discount }} /-<br>
+          {{ $data->paid_amount }} /-<br>
+          {{ ($total_amount-$data->final_discount)-$data->paid_amount }} /-<br>
+
+        </td>
+
+
+      </tr>
 
 
     </table>
 
     <span class="note p-4">
-      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($data->payment) }} Taka Only.</span>
+      <span style="text-transform: capitalize;"><b>In Word:</b> {{ $numberTransformer->toWords($total_amount-$data->final_discount) }} Taka Only.</span>
     </span>
 
 
@@ -114,20 +155,12 @@
       font-family: 'Lato';
     }
 
-    #header_image
-    {
-      width:100%;
-      height: 140px;
-
-    }
+    
     .invoice{
       background: #fff;
-      size: 21cm 29.7cm;
-      margin: 0mm 45mm 30mm 45mm;
+      padding: 30px;
     }
-    .invoice img{
-      height: 80px;
-    }
+  }
     .invoice span{
       font-size: 15px;
     }

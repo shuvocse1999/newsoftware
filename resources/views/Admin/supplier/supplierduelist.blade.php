@@ -48,9 +48,10 @@
 						@endphp
 
 
+						@if($due > 0)
 						<tr>
 							<td>{{ $i++ }}</td>
-							<td>{{ $d->supplier_name_en }}</td>
+							<td>{{ $d->supplier_id }} - {{ $d->supplier_company_name }}</td>
 							<td>{{ $d->supplier_phone }}</td>
 							<td>{{ $d->supplier_address }}</td>
 							<td>{{ $due }}</td>
@@ -58,6 +59,7 @@
 
 
 						</tr>
+						@endif
 						@endforeach
 						@endif
 

@@ -142,6 +142,7 @@
 								<th>Qty</th>
 								<th>P. Price (Unit)</th>
 								<th>Discount (Unit)</th>
+								<th>Cost (Unit)</th>
 								<th>Sub Total</th>
 								<th>Action</th>
 
@@ -437,12 +438,12 @@
 			}
 		});
 
-		let per_unit_cost = $("#per_unit_cost"+id).val();
+		let purchase_price = $("#purchase_price"+id).val();
 
 		$.ajax({
 			url: "{{ url('purchasepriceupdate') }}/"+id,
 			type: 'POST',
-			data:{per_unit_cost:per_unit_cost},
+			data:{purchase_price:purchase_price},
 			success: function (data)
 			{
 				Command:toastr["success"]("Product Price Update")
@@ -520,10 +521,59 @@
 	}
 
 
+
+	function purchasecostfunction(id){
+
+
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		let purchasecost = $("#purchasecost"+id).val();
+
+		$.ajax({
+			url: "{{ url('purchasecost') }}/"+id,
+			type: 'POST',
+			data:{purchasecost:purchasecost},
+			success: function (data)
+			{
+				Command:toastr["success"]("Product Discount Update")
+				toastr.options = {
+					"closeButton": true,
+					"debug": false,
+					"newestOnTop": false,
+					"progressBar": true,
+					"positionClass": "toast-top-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "3000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				}
+
+				showpurchaseproductcart();
+			},
+			error:function(errors){
+				alert("errors")
+			}
+		});
+
+	}
+
+
 	
 
 
 
+	
 	
 
 
@@ -623,7 +673,7 @@
 							<label>Supplier Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="number" name="supplier_phone" id="supplier_phone"  required="">
+								<input class="form-control" type="text" name="supplier_phone" id="supplier_phone"  required="">
 							</div>
 						</div>
 

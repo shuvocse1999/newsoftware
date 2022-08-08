@@ -48,8 +48,8 @@
          <th>SL</th>
          <th>Product</th>
          <th>Quantity</th>
-         <th>Price</th>
-         <th>Discount</th>
+         <th>Price With Cost</th>
+         <th>Discount (Per Unit)</th>
          <th>Sub Total</th>
        </tr>
        <!-- </thead> -->
@@ -66,16 +66,16 @@
         @foreach($product as $p)
 
         @php
-          $total_amount =($total_amount+($p->purchase_price*$p->product_quantity))-($p->discount_amount*$p->product_quantity);
+          $total_amount =($total_amount+($p->purchase_price*$p->product_quantity+$p->per_unit_cost*$p->product_quantity))-($p->discount_amount*$p->product_quantity);
         @endphp
 
         <tr>
           <td>{{ $i++ }}</td>
           <td>{{ $p->pdt_name_en }} {{ $p->pdt_name_bn }}</td>
           <td>{{ $p->product_quantity }}</td>
-          <td>{{ $p->purchase_price }}</td>
-          <td>{{ $p->discount_amount*$p->product_quantity }}</td>
-          <td>{{ ($p->purchase_price*$p->product_quantity)-($p->discount_amount*$p->product_quantity) }}</td>
+          <td>{{ $p->purchase_price + $p->per_unit_cost }}</td>
+          <td>{{ $p->discount_amount }}</td>
+          <td>{{ ($p->purchase_price*$p->product_quantity + $p->per_unit_cost*$p->product_quantity)-($p->discount_amount*$p->product_quantity) }}</td>
         </tr>
 
         @endforeach

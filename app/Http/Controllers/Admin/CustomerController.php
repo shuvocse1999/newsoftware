@@ -69,4 +69,28 @@ class CustomerController extends Controller
 
 // End Customer Methods
 
+
+
+	public function customerinsert2(Request $r){
+
+		$id = IdGenerator::generate(['table' => 'customer_info', 'field'=>'customer_id','length' => 6, 'prefix' =>'CUS-']);
+
+
+		$data = array(
+			'customer_id'        => $id,
+			'customer_branch_id' => $r->customer_branch_id, 
+			'customer_name_en'   => $r->customer_name_en, 
+			'customer_name_bn'   => $r->customer_name_bn, 
+			'customer_email'     => $r->customer_email, 
+			'customer_phone'     => $r->customer_phone, 
+			'customer_address'   => $r->customer_address,
+			'customer_admin_id'  => Auth('admin')->user()->id,
+		);
+
+		DB::table('customer_info')->insert($data);
+		return redirect()->back();
+
+	}
+
+
 }

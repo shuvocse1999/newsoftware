@@ -356,7 +356,7 @@ class ProductController extends Controller
 
 	public function productinsert(Request $r){
 
-		$id = IdGenerator::generate(['table' => 'pdt_productinfo', 'field'=>'pdt_id','length' => 6, 'prefix' =>'PRO-']);
+		$id = IdGenerator::generate(['table' => 'pdt_productinfo', 'field'=>'pdt_id','length' => 8, 'prefix' =>'p-']);
 
 
 		$data = array(
@@ -400,7 +400,7 @@ class ProductController extends Controller
 		->leftjoin('pdt_brand','pdt_brand.brand_id','pdt_productinfo.pdt_brand_id')
 		->leftjoin('measurement_unit','measurement_unit.measurement_id','pdt_productinfo.pdt_measurement')
 		->select('pdt_productinfo.*','pdt_item.item_name_en','pdt_item.item_name_bn','pdt_category.cat_name_en','pdt_category.cat_name_bn','pdt_subcategory.subcat_name_en','pdt_subcategory.subcat_name_bn','pdt_brand.brand_name_en','pdt_brand.brand_name_bn','measurement_unit.measurement_unit')
-		->get();
+		->paginate(25);
 		return view('Admin.product.manageproduct',compact('data'));
 	}
 
@@ -440,9 +440,44 @@ class ProductController extends Controller
 		DB::table('pdt_productinfo')->where('pdt_id',$id)->update($data);
 	}
 
+
+
+	public function searchproduct(Request $request){
+
+		$searchproduct = $request->searchproduct;
+
+		if ($searchproduct == NULL) {
+			$data = DB::table('pdt_productinfo')
+		->leftjoin('pdt_item','pdt_item.item_id','pdt_productinfo.pdt_item_id')
+		->leftjoin('pdt_category','pdt_category.cat_id','pdt_productinfo.pdt_cat_id')
+		->leftjoin('pdt_subcategory','pdt_subcategory.subcat_id','pdt_productinfo.pdt_subcat_id')
+		->leftjoin('pdt_brand','pdt_brand.brand_id','pdt_productinfo.pdt_brand_id')
+		->leftjoin('measurement_unit','measurement_unit.measurement_id','pdt_productinfo.pdt_measurement')
+		->select('pdt_productinfo.*','pdt_item.item_name_en','pdt_item.item_name_bn','pdt_category.cat_name_en','pdt_category.cat_name_bn','pdt_subcategory.subcat_name_en','pdt_subcategory.subcat_name_bn','pdt_brand.brand_name_en','pdt_brand.brand_name_bn','measurement_unit.measurement_unit')
+		->paginate(25);
+		}
+		else{
+			$data = DB::table('pdt_productinfo')
+		->leftjoin('pdt_item','pdt_item.item_id','pdt_productinfo.pdt_item_id')
+		->leftjoin('pdt_category','pdt_category.cat_id','pdt_productinfo.pdt_cat_id')
+		->leftjoin('pdt_subcategory','pdt_subcategory.subcat_id','pdt_productinfo.pdt_subcat_id')
+		->leftjoin('pdt_brand','pdt_brand.brand_id','pdt_productinfo.pdt_brand_id')
+		->leftjoin('measurement_unit','measurement_unit.measurement_id','pdt_productinfo.pdt_measurement')
+		->select('pdt_productinfo.*','pdt_item.item_name_en','pdt_item.item_name_bn','pdt_category.cat_name_en','pdt_category.cat_name_bn','pdt_subcategory.subcat_name_en','pdt_subcategory.subcat_name_bn','pdt_brand.brand_name_en','pdt_brand.brand_name_bn','measurement_unit.measurement_unit')
+		->orwhere('pdt_productinfo.pdt_name_en', 'like', '%' . $searchproduct . '%')
+		->orwhere('pdt_productinfo.pdt_name_bn', 'like', '%' . $searchproduct . '%')
+		->orwhere('pdt_item.item_name_en', 'like', '%' . $searchproduct . '%')
+		->orwhere('pdt_item.item_name_bn', 'like', '%' . $searchproduct . '%')
+		->paginate(50);
+		}
+
+		
+		return view('Admin.product.searchproduct',compact('data'));
+	}
+
+
+
 // End Product Methods
-
-
 
 
 

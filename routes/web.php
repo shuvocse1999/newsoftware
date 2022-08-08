@@ -47,6 +47,7 @@ Route::post('/updatebranch/{id}', 'Admin\SoftwareController@updatebranch');
 
 Route::get('/customer', 'Admin\CustomerController@customer');
 Route::post('/customerinsert', 'Admin\CustomerController@customerinsert');
+Route::post('/customerinsert2', 'Admin\CustomerController@customerinsert2');
 Route::get('/deletecustomer/{id}', 'Admin\CustomerController@deletecustomer');
 Route::get('/managecustomer', 'Admin\CustomerController@managecustomer');
 Route::get('/editcustomer/{id}', 'Admin\CustomerController@editcustomer');
@@ -124,6 +125,9 @@ Route::get('/deleteproduct/{id}', 'Admin\ProductController@deleteproduct');
 Route::get('/manageproduct', 'Admin\ProductController@manageproduct');
 Route::get('/editproduct/{id}', 'Admin\ProductController@editproduct');
 Route::post('/updateproduct/{id}', 'Admin\ProductController@updateproduct');
+Route::get('/searchproduct', 'Admin\ProductController@searchproduct');
+
+
 
 
 // Ajax get data
@@ -142,6 +146,7 @@ Route::post('qtyupdate/{id}', 'Admin\PurchaseController@qtyupdate');
 Route::get('deletepurchasecartproduct/{id}', 'Admin\PurchaseController@deletepurchasecartproduct');
 Route::post('/purchasepriceupdate/{id}', 'Admin\PurchaseController@purchasepriceupdate');
 Route::post('/purchasepricedicount/{id}', 'Admin\PurchaseController@purchasepricedicount');
+Route::post('/purchasecost/{id}', 'Admin\PurchaseController@purchasecost');
 Route::post('/purchaseledger', 'Admin\PurchaseController@purchaseledger');
 Route::get('/invoicepurchase/{id}', 'Admin\PurchaseController@invoicepurchase');
 Route::get('/allpurchaseledger', 'Admin\PurchaseController@allpurchaseledger');
@@ -165,6 +170,27 @@ Route::get('/purchasepaymentinvoice/{id}', 'Admin\PurchaseController@purchasepay
 // Sales
 
 Route::get('/sales', 'Admin\SalesController@sales');
+Route::get('/getcustomerphone/{id}', 'Admin\SalesController@getcustomerphone');
+Route::get('/salesproductcart/{id}', 'Admin\SalesController@salesproductcart');
+Route::get('/showsalesproductcart', 'Admin\SalesController@showsalesproductcart');
+Route::get('deletesalescartproduct/{id}', 'Admin\SalesController@deletesalescartproduct');
+Route::post('qtyupdatesales/{id}', 'Admin\SalesController@qtyupdatesales');
+Route::post('/product_discount_amount/{id}', 'Admin\SalesController@product_discount_amount');
+Route::post('salesledger', 'Admin\SalesController@salesledger');
+Route::get('/invoicesales/{id}', 'Admin\SalesController@invoicesales');
+Route::get('/allsalesledger', 'Admin\SalesController@allsalesledger');
+Route::get('/deletesalesledger/{id}', 'Admin\SalesController@deletesalesledger');
+Route::get('/searchsalesinvoice', 'Admin\SalesController@searchsalesinvoice');
+Route::get('/searchsalesinvoice2', 'Admin\SalesController@searchsalesinvoice2');
+Route::get('/allsalesledgerreports', 'Admin\SalesController@allsalesledgerreports');
+Route::get('/salesledgerreports', 'Admin\SalesController@salesledgerreports');
 
+Route::get('/salespayment', 'Admin\SalesController@salespayment');
+Route::post('/salespaymententry', 'Admin\SalesController@salespaymententry');
+Route::get('/getcustomerpreviousdue/{id}', 'Admin\SalesController@getcustomerpreviousdue');
+Route::get('/salespaymentlist', 'Admin\SalesController@salespaymentlist');
+Route::get('/salespaymentinvoice/{id}', 'Admin\SalesController@salespaymentinvoice');
+Route::get('/deletesalesentry/{id}', 'Admin\SalesController@deletesalesentry');
 
-
+Route::get('/editsalespaymententry/{id}', 'Admin\SalesController@editsalespaymententry');
+Route::post('/updatesalespayment/{id}', 'Admin\SalesController@updatesalespayment');
