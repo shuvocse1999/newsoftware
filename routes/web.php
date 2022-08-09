@@ -52,6 +52,8 @@ Route::get('/deletecustomer/{id}', 'Admin\CustomerController@deletecustomer');
 Route::get('/managecustomer', 'Admin\CustomerController@managecustomer');
 Route::get('/editcustomer/{id}', 'Admin\CustomerController@editcustomer');
 Route::post('/updatecustomer/{id}', 'Admin\CustomerController@updatecustomer');
+Route::get('/customerduelist', 'Admin\CustomerController@customerduelist');
+
 
 
 // Supplier Information Routes
@@ -136,6 +138,10 @@ Route::get('/getcatajax/{id}', 'Admin\ProductController@getcatajax');
 Route::get('/getsubcatajax/{id}', 'Admin\ProductController@getsubcatajax');
 Route::get('/getproductajax/{id}', 'Admin\ProductController@getproductajax');
 Route::get('/getsupplierphone/{id}', 'Admin\ProductController@getsupplierphone');
+Route::get('/getsalesproductajax/{id}', 'Admin\ProductController@getsalesproductajax');
+
+
+
 		
 // Purchase
 
@@ -194,3 +200,4 @@ Route::get('/deletesalesentry/{id}', 'Admin\SalesController@deletesalesentry');
 
 Route::get('/editsalespaymententry/{id}', 'Admin\SalesController@editsalespaymententry');
 Route::post('/updatesalespayment/{id}', 'Admin\SalesController@updatesalespayment');
+

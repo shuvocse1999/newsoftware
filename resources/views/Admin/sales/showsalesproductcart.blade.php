@@ -14,7 +14,7 @@
 
 		<tr id="tr{{ $d->id }}">
 			<td>{{ $i++ }}</td>
-			<td width="150">{{ $d->pdt_name_en }} {{ $d->pdt_name_bn }} 
+			<td width="250">{{ $d->pdt_name_en }} {{ $d->pdt_name_bn }} 
 				&nbsp;&nbsp;
 				<a href="" data-toggle="tooltip" data-placement="right" title="P.Price - {{ $d->product_purchase_price }}"><i class="fa fa-eye text-dark"></i></a>
 			</td>

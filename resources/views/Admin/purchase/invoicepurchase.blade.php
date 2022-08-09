@@ -19,9 +19,9 @@
   @endphp
 
 
-  <div class="invoice border">
+  <div class="invoice">
 
-    <center><img src="{{ url($company_info->banner) }}" id="header_image"></center>
+    <center><img src="{{ url($company_info->banner) }}" id="header_image" class="img-fluid"></center>
 
 
     <table class="table table-bordered">
@@ -155,20 +155,12 @@
       font-family: 'Lato';
     }
 
-    #header_image
-    {
-      width:100%;
-      height: 140px;
-
-    }
     .invoice{
       background: #fff;
-      size: 21cm 29.7cm;
-      margin: 0mm 45mm 30mm 45mm;
+      padding: 30px;
+      
     }
-    .invoice img{
-      height: 80px;
-    }
+  
     .invoice span{
       font-size: 15px;
     }

@@ -518,6 +518,28 @@ class ProductController extends Controller
 
 
 
+
+	public function getsalesproductajax($id){
+		echo "<option value=''>Select Product</option>";
+		$data = DB::table('stock_products')
+		->leftjoin("pdt_productinfo","pdt_productinfo.pdt_id","stock_products.product_id")
+		->where("pdt_productinfo.pdt_item_id",$id)
+		->select("stock_products.*","pdt_productinfo.pdt_name_en","pdt_productinfo.pdt_name_bn","pdt_productinfo.pdt_item_id")
+		->get();
+
+
+		foreach ($data as $d) {
+			echo "<option value='$d->product_id'>$d->pdt_name_en $d->pdt_name_bn </option>";
+		}
+	}
+
+
+
+
+
+
+
+
 // Ajax get data
 
 }

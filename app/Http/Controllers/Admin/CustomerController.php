@@ -93,4 +93,12 @@ class CustomerController extends Controller
 	}
 
 
+
+	public function customerduelist(){
+		$data = DB::table("customer_info")->get();
+		return view("Admin.customer.customerduelist",compact('data'));
+	}
+
+
+
 }

@@ -145,6 +145,15 @@ class SalesController extends Controller
 
 			]);
 
+			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->product_id)->first();
+			$qtysum            =  DB::table("stock_products")->where("product_id",$d->product_id)->sum("sales_qty");
+
+			DB::table("stock_products")
+			->where("product_id",$d->product_id)
+			->update([
+				"sales_qty" => $qtysum + $d->product_quantity
+			]);
+
 		}  
 
 
@@ -259,6 +268,19 @@ class SalesController extends Controller
 		->where("id",$id)
 		->first();
 
+
+		$stock = DB::table("sales_entry")->where("invoice_no",$data->invoice_no)->get();
+
+		foreach ($stock as $s) {
+			
+			$totalqty = DB::table('stock_products')->where("product_id",$s->product_id)->sum("sales_qty");
+			DB::table('stock_products')->where("product_id",$s->product_id)->update([
+
+				"sales_qty" => $totalqty - $s->product_quantity
+			]);
+		}
+
+	
 		DB::table('sales_ledger')
 		->where("id",$id)
 		->delete();
@@ -270,7 +292,7 @@ class SalesController extends Controller
 		DB::table("sales_payment")
 		->where("invoice_no",$data->invoice_no)
 		->delete();
-
+		
 
 
 	}
@@ -556,7 +578,7 @@ class SalesController extends Controller
 
 
 		DB::table("sales_payment")->where("id",$id)->update([
-		
+
 			'entry_date'     => $payment_date,
 			'customer_id'    => $r->customer_id,
 			'payment_amount' => $r->payment,

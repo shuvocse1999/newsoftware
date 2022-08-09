@@ -285,6 +285,7 @@ class PurchaseController extends Controller
 		->where("id",$id)
 		->first();
 
+
 		DB::table('purchase_ledger')
 		->where("id",$id)
 		->delete();

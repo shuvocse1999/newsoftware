@@ -376,7 +376,7 @@
 
 
 
-<li class="@if(request()->path() === 'allsalesledger' || request()->path() === 'allsalesledgerreports' || request()->path() === 'salespayment' || request()->path() === 'salespaymentlist' ){{'active'}}@else @endif">
+ <li class="@if(request()->path() === 'allsalesledger' || request()->path() === 'allsalesledgerreports' || request()->path() === 'salespayment' || request()->path() === 'salespaymentlist' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-shopping-bag sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Sales Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -433,7 +433,10 @@
    <li>
      <a href="{{ url('managecustomer') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Manage Customer</a>
    </li>
- </ul>
+   <li>
+    <a href="{{ url('customerduelist') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Customer Due List</a>
+  </li>
+</ul>
 </li>
 
 
@@ -709,7 +712,7 @@
               uiLibrary: 'bootstrap4'
             });
 
-             $('#payment_date2').datepicker({
+            $('#payment_date2').datepicker({
               uiLibrary: 'bootstrap4'
             });
 

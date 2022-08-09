@@ -80,7 +80,7 @@
 									<div class="input-group">
 
 										<select class="form-control" name="item_id" id=
-										"item_id" onchange="getproduct()">
+										"item_id" onchange="getsalesproduct()">
 										<option value="">Select Item</option>
 										@php
 										$item = DB::table('pdt_item')->where('item_status',1)->get();		
@@ -109,10 +109,16 @@
 									$product = DB::table('stock_products')
 									->leftjoin("pdt_productinfo",'pdt_productinfo.pdt_id','stock_products.product_id')
 									->select("stock_products.*",'pdt_productinfo.pdt_id','pdt_productinfo.pdt_name_en','pdt_productinfo.pdt_name_bn')
-									->get();		
+									->get();
+									$stockqty = 0;		
 									@endphp 
 									@foreach($product as $i)
+									@php
+									$stockqty = $i->quantity - $i->sales_qty;
+									@endphp
+									@if($stockqty > 0)
 									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
+									@endif
 									@endforeach
 								</select>
 								
@@ -261,10 +267,10 @@
 
 
 
-	function getproduct(){
+	function getsalesproduct(){
 		let item_id = $("#item_id").val();
 		$.ajax({
-			url: "{{ url('getproductajax') }}/"+item_id,
+			url: "{{ url('getsalesproductajax') }}/"+item_id,
 			type: 'get',
 			data:{},
 			success: function (data)
@@ -631,4 +637,4 @@
 
 
 
-	@endsection
+@endsection
