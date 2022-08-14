@@ -201,3 +201,37 @@ Route::get('/deletesalesentry/{id}', 'Admin\SalesController@deletesalesentry');
 Route::get('/editsalespaymententry/{id}', 'Admin\SalesController@editsalespaymententry');
 Route::post('/updatesalespayment/{id}', 'Admin\SalesController@updatesalespayment');
 
+
+// Income Expense Title
+
+Route::get('/income_expensetitle', 'Admin\IncomeExpenseController@income_expensetitle');
+Route::post('/income_expensetitleinsert', 'Admin\IncomeExpenseController@income_expensetitleinsert');
+Route::get('/getincome_expensetitle', 'Admin\IncomeExpenseController@getincome_expensetitle');
+Route::get('/deleteincome_expensetitle/{id}', 'Admin\IncomeExpenseController@deleteincome_expensetitle');
+Route::get('/editincome_expensetitle/{id}', 'Admin\IncomeExpenseController@editincome_expensetitle');
+Route::post('/updateincome_expensetitle/{id}', 'Admin\IncomeExpenseController@updateincome_expensetitle');
+
+
+// Income Entry
+
+
+Route::get('/incomeentry', 'Admin\IncomeExpenseController@incomeentry');
+Route::post('/incomeentryinsert', 'Admin\IncomeExpenseController@incomeentryinsert');
+Route::get('/getincomeentry', 'Admin\IncomeExpenseController@getincomeentry');
+Route::get('/deleteincomeentry/{id}', 'Admin\IncomeExpenseController@deleteincomeentry');
+Route::get('/editincomeentry/{id}', 'Admin\IncomeExpenseController@editincomeentry');
+Route::post('/updateincomeentry/{id}', 'Admin\IncomeExpenseController@updateincomeentry');
+
+
+
+
+// Expense Entry
+
+
+Route::get('/expenseentry', 'Admin\IncomeExpenseController@expenseentry');
+Route::post('/expenseentryinsert', 'Admin\IncomeExpenseController@expenseentryinsert');
+Route::get('/getexpenseentry', 'Admin\IncomeExpenseController@getexpenseentry');
+Route::get('/deleteexpenseentry/{id}', 'Admin\IncomeExpenseController@deleteexpenseentry');
+Route::get('/editexpenseentry/{id}', 'Admin\IncomeExpenseController@editexpenseentry');
+Route::post('/updateexpenseentry/{id}', 'Admin\IncomeExpenseController@updateexpenseentry');
+

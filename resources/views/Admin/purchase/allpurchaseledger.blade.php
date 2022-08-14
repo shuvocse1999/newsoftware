@@ -65,7 +65,6 @@
 						<tr>
 							<th>SL</th>
 							<th>Invoice/Voucher Date</th>
-							<th>Entry Date</th>
 							<th>Invoice No.</th>
 							<th>Voucher No.</th>
 							<th>Suplier Info.</th>
@@ -82,10 +81,9 @@
 						<tr id="tr{{ $d->id }}">
 							<td>{{ $i++ }}</td>
 							<td>{{ $d->invoice_date }}</td>
-							<td>{{ $d->entry_date }}</td>
 							<td>{{ $d->invoice_no }}</td>
 							<td>{{ $d->voucher_no }}</td>
-							<td>{{ $d->supplier_name_en }}, {{ $d->supplier_phone }}</td>
+							<td>{{ $d->supplier_company_name }}, {{ $d->supplier_company_phone }}</td>
 							<td>{{ $d->transaction_type }}</td>
 
 							

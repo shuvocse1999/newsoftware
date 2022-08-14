@@ -139,8 +139,9 @@ class SalesController extends Controller
 				'product_purchase_price'     => $d->product_purchase_price,
 				'product_sales_price'        => $d->product_sales_price,
 				'product_discount_amount'    => $d->product_discount_amount,
-				'entry_date'                 => date('d-m-Y'),
+				'entry_date'                 => date('Y-m-d'),
 				'admin_id'                   => Auth('admin')->user()->id,
+				'branch_id'                  => Auth('admin')->user()->branch,
 
 
 			]);
@@ -197,21 +198,22 @@ class SalesController extends Controller
 			'paid_amount'      => $request->paid,
 			'final_discount'   => $request->discount,
 			'transaction_type' => $request->transaction_type,
-			'entry_date'       => date('d-m-Y'),
+			'entry_date'       => date('Y-m-d'),
 			'admin_id'         => Auth('admin')->user()->id,
-			'branch_id'        => 0,
+			'branch_id'        => Auth('admin')->user()->branch,
 
 		]);
 
 
 		DB::table("sales_payment")->insert([
 			'invoice_no'       => $invoice_no,
-			'entry_date'	   => date('d-m-Y'),
+			'entry_date'	   => date('Y-m-d'),
 			'customer_id'      => $request->customer_id,
 			'payment_amount'   => $request->paid,
 			'payment_type'     => $request->transaction_type,
 			'note'             => "firstpayment",
 			'admin_id'         => Auth('admin')->user()->id,
+			'branch_id'        => Auth('admin')->user()->branch,
 
 
 		]);

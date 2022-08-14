@@ -92,7 +92,7 @@
           <td>{{ $d->invoice_no }}</td>
           <td>{{ $d->voucher_no }}</td>
           <td>{{ $d->invoice_date }}</td>
-          <td>{{ $d->supplier_name_en }}, {{ $d->supplier_phone }}</td>
+          <td>{{ $d->supplier_company_name }}, {{ $d->supplier_company_phone }}</td>
           <td>{{ $d->transaction_type }}</td>
           <td>{{ $d->total }}</td>
           <td>{{ $d->discount }}</td>

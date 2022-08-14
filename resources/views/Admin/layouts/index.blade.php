@@ -509,6 +509,24 @@
 
 
 
+<li class="@if(request()->path() === 'income_expensetitle' || request()->path() === 'manageproduct' || request()->path() === 'incomeentry' || request()->path() === 'expenseentry' ){{'active'}}@else @endif">
+  <a href="javascript:;"><i class="fa fa-product-hunt sidebar-item-icon"></i>
+   <span class="nav-label">Income Expense Info.</span><i class="fa fa-angle-left arrow"></i></a>
+   <ul class="nav-2-level collapse">
+    <li>
+     <a href="{{ url('income_expensetitle') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Income Expense Title</a>
+   </li>
+   <li>
+     <a href="{{ url('incomeentry') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Income Entry</a>
+   </li>
+
+    <li>
+     <a href="{{ url('expenseentry') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Expense Entry</a>
+   </li>
+ </ul>
+</li>
+
+
 
 
 

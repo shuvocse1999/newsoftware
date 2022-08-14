@@ -32,7 +32,7 @@
        <td colspan="2">
         Date : {{ $data->payment_date }}<br>
         Voucher No : {{ $data->id }} <br>
-        Suplier Info : {{ $data->supplier_name_en }}, {{ $data->supplier_phone }}
+        Suplier Info : {{ $data->supplier_company_name }}, {{ $data->supplier_company_phone }}
 
       </td>
       <td colspan="2">

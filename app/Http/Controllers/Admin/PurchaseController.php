@@ -214,7 +214,7 @@ class PurchaseController extends Controller
 			'paid'             => $request->paid,
 			'discount'         => $request->discount,
 			'transaction_type' => $request->transaction_type,
-			'entry_date'       => date('d-m-Y'),
+			'entry_date'       => date('Y-m-d'),
 			'admin_id'         => Auth('admin')->user()->id,
 			'branch_id'        => 0,
 
@@ -225,7 +225,7 @@ class PurchaseController extends Controller
 		DB::table("supplier_payment")->insert([
 			'invoice_no'       => $invoice_no,
 			'payment_date'     => $invoice_date,
-			'entry_date'	   => date('d-m-Y'),
+			'entry_date'	   => date('Y-m-d'),
 			'suplier_id'       => $request->supplier_id,
 			'return_amount'    => "0.00",
 			'payment'          => $request->paid,
@@ -253,7 +253,7 @@ class PurchaseController extends Controller
 		->where("purchase_ledger.invoice_no",$id)
 		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 		->join("admins",'admins.id','purchase_ledger.admin_id')
-		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone','admins.name')
+		->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone','admins.name')
 		->first();
 
 		$product = DB::table("purchase_entry")
@@ -270,7 +270,7 @@ class PurchaseController extends Controller
 		$data = DB::table('purchase_ledger')
 		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 		->join("admins",'admins.id','purchase_ledger.admin_id')
-		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone','admins.name')
+		->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone','admins.name')
 		->orderBy("purchase_ledger.id",'DESC')
 		->limit(25)
 		->get();
@@ -322,7 +322,7 @@ class PurchaseController extends Controller
 			$data = DB::table('purchase_ledger')
 			->whereBetween("purchase_ledger.invoice_date",array($fromdates,$todates))
 			->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-			->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+			->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 			->get();
 
 		}
@@ -345,7 +345,7 @@ class PurchaseController extends Controller
 		$data = DB::table('purchase_ledger')
 		->where("purchase_ledger.invoice_no",$invoice_no)
 		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-		->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 		->get();
 
 		return view("Admin.purchase.searchpurchaseinvoice",compact('data'));
@@ -378,7 +378,7 @@ class PurchaseController extends Controller
 
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->where("purchase_ledger.invoice_date",$date1)
 				->get();
 			}
@@ -386,7 +386,7 @@ class PurchaseController extends Controller
 			elseif($type == 2){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
 				->get();
 			}
@@ -395,7 +395,7 @@ class PurchaseController extends Controller
 			elseif($type == 3){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereMonth("purchase_ledger.invoice_date",$month)
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->get();
@@ -405,7 +405,7 @@ class PurchaseController extends Controller
 			elseif($type == 4){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->get();
 
@@ -422,7 +422,7 @@ class PurchaseController extends Controller
 
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->where("purchase_ledger.invoice_date",$date1)
 				->where("purchase_ledger.suplier_id",$suplier_id)
 				->get();
@@ -431,7 +431,7 @@ class PurchaseController extends Controller
 			elseif($type == 2){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
 				->where("purchase_ledger.suplier_id",$suplier_id)
 				->get();
@@ -441,7 +441,7 @@ class PurchaseController extends Controller
 			elseif($type == 3){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereMonth("purchase_ledger.invoice_date",$month)
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->where("purchase_ledger.suplier_id",$suplier_id)
@@ -452,7 +452,7 @@ class PurchaseController extends Controller
 			elseif($type == 4){
 				$data = DB::table('purchase_ledger')
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
-				->select("purchase_ledger.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->where("purchase_ledger.suplier_id",$suplier_id)
 				->get();
@@ -490,7 +490,7 @@ class PurchaseController extends Controller
 			'payment'        => $r->payment,
 			'payment_type'   => $r->payment_type,
 			'return_amount'  => 0.00,
-			'entry_date'     => date('d-m-Y'),
+			'entry_date'     => date('Y-m-d'),
 			'comment'        => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
 
@@ -500,7 +500,7 @@ class PurchaseController extends Controller
 	public function purchasepaymentlist(){
 		$data = DB::table("supplier_payment")
 		->join('supplier_info','supplier_info.supplier_id','supplier_payment.suplier_id')
-		->select("supplier_payment.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->select("supplier_payment.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 		->get();
 		return view("Admin.purchase.purchasepaymentlist", compact('data'));
 	}
@@ -541,7 +541,7 @@ class PurchaseController extends Controller
 			'payment'        => $r->payment,
 			'payment_type'   => $r->payment_type,
 			'return_amount'  => 0.00,
-			'entry_date'     => date('d-m-Y'),
+			'entry_date'     => date('Y-m-d'),
 			'comment'        => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
 
@@ -567,7 +567,7 @@ class PurchaseController extends Controller
 		$data = DB::table("supplier_payment")
 		->where("supplier_payment.id",$id)
 		->join('supplier_info','supplier_info.supplier_id','supplier_payment.suplier_id')
-		->select("supplier_payment.*",'supplier_info.supplier_name_en','supplier_info.supplier_phone')
+		->select("supplier_payment.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 		->first();
 
 

@@ -34,21 +34,28 @@
 						@php $i=1;  @endphp
 						@if(isset($data))
 						@foreach($data as $d)
+						@if($d->payment > 0)
 						<tr id="tr{{ $d->id }}">
 							<td>{{ $i++ }}</td>
 							<td>{{ $d->payment_date  }}</td>
 							<td>{{ $d->entry_date  }}</td>
-							<td>{{ $d->supplier_name_en }}, {{ $d->supplier_phone }}</td>
+							<td>{{ $d->supplier_company_name }}, {{ $d->supplier_company_phone }}</td>
 							<td>{{ $d->payment }}</td>
 							<td>{{ $d->payment_type }}</td>
 							<td>{{ $d->comment }}</td>
 							<td>
+								@if($d->comment != "firstpayment")
 								<a href="{{ url("editpurchasepaymententry/".$d->id) }}" class="btn btn-info border-0 edit text-light"><i class="fa fa-pencil-square-o"></i></a>
+								@endif
 								<a href="{{ url("purchasepaymentinvoice/".$d->id) }}" class="btn btn-dark border-0 edit text-light" target="blank"><i class="fa fa-eye"></i></a>
+
+								@if($d->comment != "firstpayment")
 								<a  class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-trash-o"></i></a>
+								@endif
 							</td>
 
 						</tr>
+						@endif
 						@endforeach
 						@endif
 

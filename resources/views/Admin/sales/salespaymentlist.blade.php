@@ -34,6 +34,7 @@
 						@php $i=1;  @endphp
 						@if(isset($data))
 						@foreach($data as $d)
+						@if($d->payment_amount > 0)
 						<tr id="tr{{ $d->id }}">
 							<td>{{ $i++ }}</td>
 							<td>{{ $d->entry_date  }}</td>
@@ -43,12 +44,17 @@
 							<td>{{ $d->payment_type }}</td>
 							<td>{{ $d->note }}</td>
 							<td>
+								@if($d->note != "firstpayment")
 								<a href="{{ url("editsalespaymententry/".$d->id) }}" class="btn btn-info border-0 edit text-light"><i class="fa fa-pencil-square-o"></i></a>
+								@endif
 								<a href="{{ url("salespaymentinvoice/".$d->id) }}" class="btn btn-dark border-0 edit text-light" target="blank"><i class="fa fa-eye"></i></a>
+								@if($d->note != "firstpayment")
 								<a  class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-trash-o"></i></a>
+								@endif
 							</td>
 
 						</tr>
+						@endif
 						@endforeach
 						@endif
 

@@ -32,13 +32,13 @@
        <td colspan="3">
         Date : {{ $data->invoice_date }}<br>
         Invoice No : {{ $data->invoice_no }} <br>
-        Suplier Info : {{ $data->customer_name_en }}, {{ $data->customer_phone }}
+        Customer Info : {{ $data->customer_name_en }}, {{ $data->customer_phone }}
 
       </td>
       <td colspan="3">
         Transaction : {{ $data->transaction_type }}<br>
         Prepared By : {{ $data->name }}<br>
-        Print  : {{ $data->entry_date }}<br>
+        Print  : {{ date("d M Y") }}<br>
       </tr>
 
 
