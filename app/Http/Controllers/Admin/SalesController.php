@@ -146,43 +146,17 @@ class SalesController extends Controller
 
 			]);
 
-			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->product_id)->first();
-			$qtysum            =  DB::table("stock_products")->where("product_id",$d->product_id)->sum("sales_qty");
+			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->product_id)->where("branch_id",Auth('admin')->user()->branch)->first();
+			$qtysum            =  DB::table("stock_products")->where("product_id",$d->product_id)->where("branch_id",Auth('admin')->user()->branch)->sum("sales_qty");
 
 			DB::table("stock_products")
 			->where("product_id",$d->product_id)
+			->where("branch_id",Auth('admin')->user()->branch)
 			->update([
 				"sales_qty" => $qtysum + $d->product_quantity
 			]);
 
 		}  
-
-
-			// $checkstockproduct =  DB::table("stock_products")->where("product_id",$d->product_id)->first();
-			// $qtysum            =  DB::table("stock_products")->where("product_id",$d->product_id)->sum("quantity");
-
-
-
-			// if ($checkstockproduct) {
-			// 	DB::table("stock_products")->where("product_id",$d->pdt_id)->update([
-			// 		'quantity'                =>  $qtysum+$d->purchase_quantity,
-			// 		'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
-			// 		'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
-			// 		'sale_price'              =>  $d->sale_price_per_unit,
-
-			// 	]);
-			// }
-			// else{
-			// 	DB::table("stock_products")->insert([
-			// 		'invoice_no'              =>  $invoice_no,
-			// 		'product_id'              =>  $d->pdt_id,
-			// 		'quantity'                =>  $d->purchase_quantity,
-			// 		'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
-			// 		'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
-			// 		'sale_price'              =>  $d->sale_price_per_unit,
-
-			// 	]);
-			// }
 
 
 
@@ -254,6 +228,7 @@ class SalesController extends Controller
 		->join("admins",'admins.id','sales_ledger.admin_id')
 		->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone','admins.name')
 		->orderBy("sales_ledger.id",'DESC')
+		->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 		->limit(25)
 		->get();
 
@@ -318,6 +293,7 @@ class SalesController extends Controller
 			->whereBetween("sales_ledger.invoice_date",array($fromdates,$todates))
 			->join("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
 			->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
+			->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 			->get();
 
 		}
@@ -343,6 +319,7 @@ class SalesController extends Controller
 			->where("sales_ledger.invoice_no",$invoice_no)
 			->join("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
 			->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
+			->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 			->get();
 		}
 		else{
@@ -352,6 +329,7 @@ class SalesController extends Controller
 			->join("admins",'admins.id','sales_ledger.admin_id')
 			->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone','admins.name')
 			->orderBy("sales_ledger.id",'DESC')
+			->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 			->limit(25)
 			->get();
 
@@ -393,6 +371,7 @@ class SalesController extends Controller
 				->leftjoin("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->where("sales_ledger.invoice_date",$date1)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -401,6 +380,7 @@ class SalesController extends Controller
 				->leftjoin("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->whereBetween("sales_ledger.invoice_date",array($date1,$date2))
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -411,6 +391,7 @@ class SalesController extends Controller
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->whereMonth("sales_ledger.invoice_date",$month)
 				->whereYear("sales_ledger.invoice_date",$year)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -420,6 +401,7 @@ class SalesController extends Controller
 				->leftjoin("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->whereYear("sales_ledger.invoice_date",$year)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 
 
@@ -438,6 +420,7 @@ class SalesController extends Controller
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->where("sales_ledger.invoice_date",$date1)
 				->where("sales_ledger.customer_id",$customer_id)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -447,6 +430,7 @@ class SalesController extends Controller
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->whereBetween("sales_ledger.invoice_date",array($date1,$date2))
 				->where("sales_ledger.customer_id",$customer_id)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -458,6 +442,7 @@ class SalesController extends Controller
 				->whereMonth("sales_ledger.invoice_date",$month)
 				->whereYear("sales_ledger.invoice_date",$year)
 				->where("sales_ledger.customer_id",$customer_id)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -468,6 +453,7 @@ class SalesController extends Controller
 				->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone')
 				->whereYear("sales_ledger.invoice_date",$year)
 				->where("sales_ledger.customer_id",$customer_id)
+				->where("sales_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 
 
@@ -506,6 +492,7 @@ class SalesController extends Controller
 			'return_amount'  => 0.00,
 			'note'           => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
+			'branch_id'      => Auth('admin')->user()->branch,
 
 		]);
 	}
@@ -530,6 +517,7 @@ class SalesController extends Controller
 		$data = DB::table("sales_payment")
 		->join('customer_info','customer_info.customer_id','sales_payment.customer_id')
 		->select("sales_payment.*",'customer_info.customer_name_en','customer_info.customer_phone')
+		->where("sales_payment.branch_id",Auth('admin')->user()->branch)
 		->get();
 		return view("Admin.sales.salespaymentlist", compact('data'));
 	}
@@ -588,6 +576,7 @@ class SalesController extends Controller
 			'return_amount'  => 0.00,
 			'note'           => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
+			'branch_id'      => Auth('admin')->user()->branch,
 
 		]);
 	}

@@ -30,7 +30,7 @@
 								"customer_id" required="" onchange="getcustomerphone()">
 								<option value="">Select Customer</option>
 								@php
-								$supplier = DB::table('customer_info')->get();		
+								$supplier = DB::table('customer_info')->where("Customer_branch_id",Auth('admin')->user()->branch)->get();		
 								@endphp 
 								@foreach($supplier as $i)
 								<option value="{{ $i->customer_id  }}">{{ $i->customer_id }} - {{ $i->customer_name_en }}</option>

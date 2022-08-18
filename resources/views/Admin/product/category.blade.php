@@ -91,7 +91,7 @@
 							<label>Item Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="cat_item_id" required="">
+								<select class="form-control" name="cat_item_id" required="" style="width: 100%!important;">
 									<option value="">Select Item</option>
 									@php
 									$item = DB::table('pdt_item')->where('item_status',1)->get();		

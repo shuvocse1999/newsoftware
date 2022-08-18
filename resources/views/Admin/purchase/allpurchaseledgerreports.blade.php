@@ -29,7 +29,7 @@
 							"suplier_id" required="">
 							<option value="All">Select Supplier</option>
 							@php
-							$supplier = DB::table('supplier_info')->get();		
+							$supplier = DB::table('supplier_info')->where("supplier_branch_id",Auth('admin')->user()->branch)->get();		
 							@endphp 
 							@foreach($supplier as $i)
 							<option value="{{ $i->supplier_id  }}">{{ $i->supplier_id }} - {{ $i->supplier_company_name }}</option>

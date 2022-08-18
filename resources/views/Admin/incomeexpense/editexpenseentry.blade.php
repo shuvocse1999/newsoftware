@@ -18,7 +18,7 @@
       <select class="form-control" name="expense_id" id="expense_id" style="width: 100%!important;" required="">
 
         @php
-        $title = DB::table("income_expense_title")->where("type","Expense")->get();
+        $title = DB::table("income_expense_title")->where("type","Expense")->where("branch",Auth('admin')->user()->branch)->get();
         @endphp
 
         @if(isset($title))

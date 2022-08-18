@@ -23,6 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'Admin\LoginController@index');
 Route::post('/adminlogin', 'Admin\LoginController@adminlogin')->name('admin.login');
 Route::get('/AdminDashboard', 'AdminController@AdminDashboard');
+Route::get('/adminlogout', 'AdminController@adminlogout');
+
+
 
 
 // Software Information Routes
@@ -235,3 +238,8 @@ Route::get('/deleteexpenseentry/{id}', 'Admin\IncomeExpenseController@deleteexpe
 Route::get('/editexpenseentry/{id}', 'Admin\IncomeExpenseController@editexpenseentry');
 Route::post('/updateexpenseentry/{id}', 'Admin\IncomeExpenseController@updateexpenseentry');
 
+
+
+// Stocks
+Route::get('/stocks', 'Admin\StockController@stocks');
+Route::get('/searchproductstock', 'Admin\StockController@searchproductstock');

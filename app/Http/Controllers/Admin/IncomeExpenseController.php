@@ -10,7 +10,7 @@ use DB;
 class IncomeExpenseController extends Controller
 {
 	public function income_expensetitle(){
-		$data = DB::table('income_expense_title')->get();
+		$data = DB::table('income_expense_title')->where("branch",Auth('admin')->user()->branch)->get();
 		return view('Admin.incomeexpense.income_expensetitle',compact('data'));
 	}
 
@@ -40,7 +40,7 @@ class IncomeExpenseController extends Controller
 	}
 
 	public function getincome_expensetitle(){
-		$data = DB::table('income_expense_title')->get();
+		$data = DB::table('income_expense_title')->where("branch",Auth('admin')->user()->branch)->get();
 		return view('Admin.incomeexpense.getincome_expensetitle',compact('data'));
 	}
 
@@ -58,7 +58,7 @@ class IncomeExpenseController extends Controller
 			'title'      => $r->title, 
 			'details'    => $r->details, 
 			'type'       => $r->type, 
-			'branch'     => Auth('admin')->user()->id, 
+			'branch'     => Auth('admin')->user()->branch,
 			'admin'      => Auth('admin')->user()->id, 
 
 		);
@@ -76,6 +76,7 @@ class IncomeExpenseController extends Controller
 		$data = DB::table('income_entry')
 		->join("income_expense_title","income_expense_title.id","income_entry.income_id")
 		->select("income_entry.*","income_expense_title.title")
+		->where("income_entry.branch",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.incomeexpense.incomeentry',compact('data'));
 	}
@@ -114,6 +115,7 @@ class IncomeExpenseController extends Controller
 		$data = DB::table('income_entry')
 		->join("income_expense_title","income_expense_title.id","income_entry.income_id")
 		->select("income_entry.*","income_expense_title.title")
+		->where("income_entry.branch",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.incomeexpense.getincomeentry',compact('data'));
 	}
@@ -153,13 +155,11 @@ class IncomeExpenseController extends Controller
 
 
 
-
-
-
 	public function expenseentry(){
 		$data = DB::table('expense_entry')
 		->join("income_expense_title","income_expense_title.id","expense_entry.expense_id")
 		->select("expense_entry.*","income_expense_title.title")
+		->where("expense_entry.branch",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.incomeexpense.expenseentry',compact('data'));
 	}
@@ -198,6 +198,7 @@ class IncomeExpenseController extends Controller
 		$data = DB::table('expense_entry')
 		->join("income_expense_title","income_expense_title.id","expense_entry.expense_id")
 		->select("expense_entry.*","income_expense_title.title")
+		->where("expense_entry.branch",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.incomeexpense.getexpenseentry',compact('data'));
 	}

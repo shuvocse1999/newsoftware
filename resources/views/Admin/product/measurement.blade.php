@@ -20,7 +20,6 @@
 					<thead class="mythead">
 						<tr>
 							<th>SL</th>
-							<th>Index</th>
 							<th>Measurement</th>
 							<th>Action</th>
 						</tr>
@@ -32,7 +31,6 @@
 						@foreach($data as $d)
 						<tr id="tr{{ $d->measurement_id }}">
 							<td>{{ $i++ }}</td>
-							<td>{{ $d->measurement_sl  }}</td>
 							<td>{{ $d->measurement_unit }}</td>
 							<td>
 								<a  class="btn btn-info border-0 edit text-light" data-toggle="modal" data-target="#exampleModalCenters" data-id="{{ $d->measurement_id }}"><i class="fa fa-pencil-square-o"></i></a>

@@ -27,10 +27,10 @@
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
 								<select class="form-control select2_demo_1" name="supplier_id" id=
-								"supplier_id" required="" onchange="getsupplierphone();">
+								"supplier_id" required="" onchange="getsupplierphone();" >
 								<option value="">Select Supplier</option>
 								@php
-								$supplier = DB::table('supplier_info')->get();		
+								$supplier = DB::table('supplier_info')->where("supplier_branch_id",Auth('admin')->user()->branch)->get();		
 								@endphp 
 								@foreach($supplier as $i)
 								<option value="{{ $i->supplier_id  }}">{{ $i->supplier_id }} - {{ $i->supplier_company_name }}</option>
@@ -645,7 +645,7 @@
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="supplier_branch_id" id="supplier_branch_id">
+								<select class="form-control" name="supplier_branch_id" id="supplier_branch_id" style="width: 100%!important;">
 									<option value="">Select Branch</option>
 									@if(isset($branch))
 									@foreach($branch as $c)

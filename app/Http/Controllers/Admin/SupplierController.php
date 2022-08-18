@@ -30,6 +30,7 @@ class SupplierController extends Controller
 			'supplier_company_phone'   => $r->supplier_company_phone,
 			'supplier_company_address' => $r->supplier_company_address,
 			'supplier_admin_id'        => Auth('admin')->user()->id,
+
 		);
 
 		DB::table('supplier_info')->insert($data);
@@ -71,6 +72,7 @@ class SupplierController extends Controller
 		$data = DB::table('supplier_info')
 		->leftjoin('branch_info','branch_info.branch_id','supplier_info.supplier_branch_id')
 		->select('supplier_info.*','branch_info.branch_name_en','branch_info.branch_name_bn')
+		->where("supplier_info.supplier_branch_id",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.supplier.managesupplier',compact('data'));
 	}
@@ -100,7 +102,7 @@ class SupplierController extends Controller
 // End Supplier Methods
 
 	public function supplierduelist(){
-		$data = DB::table("supplier_info")->get();
+		$data = DB::table("supplier_info")->where("supplier_branch_id",Auth('admin')->user()->branch)->get();
 		return view("Admin.supplier.supplierduelist",compact('data'));
 	}
 }

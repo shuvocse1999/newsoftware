@@ -77,7 +77,7 @@
 							<label>Com. Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="company_id" id="company_id">
+								<select class="form-control" name="company_id" id="company_id" style="width: 100%!important;">
 									<option value="">Select Company</option>
 									@if(isset($company))
 									@foreach($company as $c)
@@ -146,7 +146,7 @@
 							<label>Status:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="status" id="status">
+								<select class="form-control" name="status" id="status" style="width: 100%!important;">
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>

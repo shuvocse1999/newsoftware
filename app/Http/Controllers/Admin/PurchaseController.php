@@ -166,17 +166,19 @@ class PurchaseController extends Controller
 				'per_unit_cost'     => $d->per_unit_cost,
 				'discount_amount'   => $d->discount_amount,
 				'admin_id'          => Auth('admin')->user()->id,
+				'branch_id'         => Auth('admin')->user()->branch,
 
 
 			]);
 
-			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->pdt_id)->first();
-			$qtysum            =  DB::table("stock_products")->where("product_id",$d->pdt_id)->sum("quantity");
+			$checkstockproduct =  DB::table("stock_products")->where("product_id",$d->pdt_id)->where("branch_id",Auth('admin')->user()->branch)->first();
 
+			$qtysum =  DB::table("stock_products")->where("product_id",$d->pdt_id)->where("branch_id",Auth('admin')->user()->branch)->sum("quantity");
 
+		
 
 			if ($checkstockproduct) {
-				DB::table("stock_products")->where("product_id",$d->pdt_id)->update([
+				DB::table("stock_products")->where("product_id",$d->pdt_id)->where("branch_id",Auth('admin')->user()->branch)->update([
 					'quantity'                =>  $qtysum+$d->purchase_quantity,
 					'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
 					'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
@@ -192,7 +194,7 @@ class PurchaseController extends Controller
 					'purchase_price'          =>  $d->purchase_price-$d->discount_amount,
 					'purchase_price_withcost' =>  ($d->purchase_price+$d->per_unit_cost)-$d->discount_amount,
 					'sale_price'              =>  $d->sale_price_per_unit,
-
+					'branch_id'               =>  Auth('admin')->user()->branch,
 				]);
 			}
 
@@ -216,7 +218,7 @@ class PurchaseController extends Controller
 			'transaction_type' => $request->transaction_type,
 			'entry_date'       => date('Y-m-d'),
 			'admin_id'         => Auth('admin')->user()->id,
-			'branch_id'        => 0,
+			'branch_id'        => Auth('admin')->user()->branch,
 
 
 		]);
@@ -232,6 +234,7 @@ class PurchaseController extends Controller
 			'payment_type'     => $request->transaction_type,
 			'comment'          => "firstpayment",
 			'admin_id'         => Auth('admin')->user()->id,
+			'branch_id'        => Auth('admin')->user()->branch,
 
 
 		]);
@@ -272,6 +275,7 @@ class PurchaseController extends Controller
 		->join("admins",'admins.id','purchase_ledger.admin_id')
 		->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone','admins.name')
 		->orderBy("purchase_ledger.id",'DESC')
+		->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 		->limit(25)
 		->get();
 
@@ -323,6 +327,7 @@ class PurchaseController extends Controller
 			->whereBetween("purchase_ledger.invoice_date",array($fromdates,$todates))
 			->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 			->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
+			->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 			->get();
 
 		}
@@ -346,6 +351,7 @@ class PurchaseController extends Controller
 		->where("purchase_ledger.invoice_no",$invoice_no)
 		->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 		->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
+		->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 		->get();
 
 		return view("Admin.purchase.searchpurchaseinvoice",compact('data'));
@@ -380,6 +386,7 @@ class PurchaseController extends Controller
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->where("purchase_ledger.invoice_date",$date1)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -388,6 +395,7 @@ class PurchaseController extends Controller
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -398,6 +406,7 @@ class PurchaseController extends Controller
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereMonth("purchase_ledger.invoice_date",$month)
 				->whereYear("purchase_ledger.invoice_date",$year)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -407,6 +416,7 @@ class PurchaseController extends Controller
 				->join("supplier_info",'supplier_info.supplier_id','purchase_ledger.suplier_id')
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereYear("purchase_ledger.invoice_date",$year)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 
 
@@ -425,6 +435,7 @@ class PurchaseController extends Controller
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->where("purchase_ledger.invoice_date",$date1)
 				->where("purchase_ledger.suplier_id",$suplier_id)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -434,6 +445,7 @@ class PurchaseController extends Controller
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereBetween("purchase_ledger.invoice_date",array($date1,$date2))
 				->where("purchase_ledger.suplier_id",$suplier_id)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -445,6 +457,7 @@ class PurchaseController extends Controller
 				->whereMonth("purchase_ledger.invoice_date",$month)
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->where("purchase_ledger.suplier_id",$suplier_id)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 			}
 
@@ -455,6 +468,7 @@ class PurchaseController extends Controller
 				->select("purchase_ledger.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
 				->whereYear("purchase_ledger.invoice_date",$year)
 				->where("purchase_ledger.suplier_id",$suplier_id)
+				->where("purchase_ledger.branch_id",Auth('admin')->user()->branch)
 				->get();
 
 
@@ -493,6 +507,7 @@ class PurchaseController extends Controller
 			'entry_date'     => date('Y-m-d'),
 			'comment'        => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
+			'branch_id'      => Auth('admin')->user()->branch,
 
 		]);
 	}
@@ -501,6 +516,7 @@ class PurchaseController extends Controller
 		$data = DB::table("supplier_payment")
 		->join('supplier_info','supplier_info.supplier_id','supplier_payment.suplier_id')
 		->select("supplier_payment.*",'supplier_info.supplier_company_name','supplier_info.supplier_company_phone')
+		->where("supplier_payment.branch_id",Auth('admin')->user()->branch)
 		->get();
 		return view("Admin.purchase.purchasepaymentlist", compact('data'));
 	}
@@ -544,6 +560,7 @@ class PurchaseController extends Controller
 			'entry_date'     => date('Y-m-d'),
 			'comment'        => $r->comment,
 			'admin_id'       => Auth('admin')->user()->id,
+			'branch_id'      => Auth('admin')->user()->branch,
 
 		]);
 	}

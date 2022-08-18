@@ -41,6 +41,7 @@ class CustomerController extends Controller
 		$data = DB::table('customer_info')
 		->leftjoin('branch_info','branch_info.branch_id','customer_info.customer_branch_id')
 		->select('customer_info.*','branch_info.branch_name_en','branch_info.branch_name_bn')
+		->where("customer_info.Customer_branch_id",Auth('admin')->user()->branch)
 		->get();
 		return view('Admin.customer.managecustomer',compact('data'));
 	}
@@ -95,7 +96,7 @@ class CustomerController extends Controller
 
 
 	public function customerduelist(){
-		$data = DB::table("customer_info")->get();
+		$data = DB::table("customer_info")->where("Customer_branch_id",Auth('admin')->user()->branch)->get();
 		return view("Admin.customer.customerduelist",compact('data'));
 	}
 

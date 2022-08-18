@@ -15,14 +15,14 @@
  <!-- PLUGINS STYLES-->
  <link href="{{ url('public/Admin') }}/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
  <link href="{{ url('public/Admin') }}/assets/vendors/DataTables/datatables.min.css" rel="stylesheet" />
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+ <link href="{{ url('public/Admin') }}/assets/css/bootstrap-icons.css">
  <link href="{{ url('public/Admin') }}/assets/vendors/select2/dist/css/select2.css" rel="stylesheet" />
  <!-- THEME STYLES-->
  <link href="{{ url('public/Admin') }}/assets/css/main.min.css" rel="stylesheet" />
  <link href="{{ url('public/Admin') }}/assets/css/main.css" rel="stylesheet" />
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
- <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+ <script src="{{ url('public/Admin') }}/assets/js/jquery.min.js"></script>
+ <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"></script>
+ <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet"/>
 
 
 
@@ -148,8 +148,6 @@
   width: 100%;
   border-radius: 0px;
 }
-
-
 
 </style>
 </head>
@@ -304,7 +302,7 @@
     <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
     <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
     <li class="dropdown-divider"></li>
-    <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
+    <a class="dropdown-item" href="{{ url("adminlogout") }}"><i class="fa fa-power-off"></i>Logout</a>
   </ul>
 </li>
 </ul>
@@ -344,6 +342,13 @@
  <li class="@if(request()->path() === 'purchase'){{'active'}}@else @endif">
   <a href="{{ url('/purchase') }}"><i class="sidebar-item-icon fa fa-shopping-bag"></i>
    <span class="nav-label">Purchase</span>
+ </a>
+</li>
+
+
+ <li class="@if(request()->path() === 'stocks'){{'active'}}@else @endif">
+  <a href="{{ url('/stocks') }}"><i class="sidebar-item-icon fa fa-stack-exchange"></i>
+   <span class="nav-label">Stocks</span>
  </a>
 </li>
 
@@ -423,7 +428,7 @@
 
 
 
-<li class="@if(request()->path() === 'customer' || request()->path() === 'managecustomer' ){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'customer' || request()->path() === 'managecustomer' || request()->path() === 'customerduelist' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon"></i>
    <span class="nav-label">Customer Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -509,7 +514,7 @@
 
 
 
-<li class="@if(request()->path() === 'income_expensetitle' || request()->path() === 'manageproduct' || request()->path() === 'incomeentry' || request()->path() === 'expenseentry' ){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'income_expensetitle'  || request()->path() === 'incomeentry' || request()->path() === 'expenseentry' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-product-hunt sidebar-item-icon"></i>
    <span class="nav-label">Income Expense Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -772,29 +777,10 @@
 
 
 
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></script>
+          <script type="text/javascript" src="{{ url('public/Admin') }}/assets/js/toastr.min.js"></script>
+          <script type="text/javascript" src="{{ url('public/Admin') }}/assets/css/toastr.min.css"></script>
 
           <script src="{{ url('public/Admin') }}/assets/vendors/summernote/dist/summernote.min.js" type="text/javascript"></script>
-
-   {{--        <script type="text/javascript">
-            $(function() {
-              $('#pdt_short_details').summernote({
-                height:200
-              });
-
-               $('#pdt_details').summernote({
-                height:200
-              });
-
-                $('#pdt_condition').summernote({
-                height:200
-              });
-
-                
-
-            });
-          </script> --}}
 
 
 
@@ -805,7 +791,7 @@
           </script>
 
 
-          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          <script src="{{ url('public/Admin') }}/assets/js/sweetalert.min.js"></script>
 
         </body>
         </html>
