@@ -243,3 +243,29 @@ Route::post('/updateexpenseentry/{id}', 'Admin\IncomeExpenseController@updateexp
 // Stocks
 Route::get('/stocks', 'Admin\StockController@stocks');
 Route::get('/searchproductstock', 'Admin\StockController@searchproductstock');
+
+
+// Bank
+
+Route::get('/bankinformation', 'Admin\BankController@bankinformation');
+Route::post('/bankinformationinsert', 'Admin\BankController@bankinformationinsert');
+Route::get('/getbankinformation', 'Admin\BankController@getbankinformation');
+Route::get('/deletebankinformation/{id}', 'Admin\BankController@deletebankinformation');
+Route::get('/editbankinformation/{id}', 'Admin\BankController@editbankinformation');
+Route::post('/updatebankinformation/{id}', 'Admin\BankController@updatebankinformation');
+
+
+
+// Bank Transaction
+
+
+Route::get('/banktransaction', 'Admin\BankController@banktransaction');
+Route::post('/banktransactioninsert', 'Admin\BankController@banktransactioninsert');
+Route::get('/managebanktransaction', 'Admin\BankController@managebanktransaction');
+Route::get('/deletebanktransaction/{id}', 'Admin\BankController@deletebanktransaction');
+Route::get('/editbanktransaction/{id}', 'Admin\BankController@editbanktransaction');
+Route::post('/updatebanktransaction/{id}', 'Admin\BankController@updatebanktransaction');
+Route::get('/gettotalamount/{id}', 'Admin\BankController@gettotalamount');
+Route::get('/banktransactionreports', 'Admin\BankController@banktransactionreports');
+
+

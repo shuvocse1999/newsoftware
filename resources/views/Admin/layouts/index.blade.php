@@ -346,7 +346,7 @@
 </li>
 
 
- <li class="@if(request()->path() === 'stocks'){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'stocks'){{'active'}}@else @endif">
   <a href="{{ url('/stocks') }}"><i class="sidebar-item-icon fa fa-stack-exchange"></i>
    <span class="nav-label">Stocks</span>
  </a>
@@ -525,9 +525,35 @@
      <a href="{{ url('incomeentry') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Income Entry</a>
    </li>
 
-    <li>
+   <li>
      <a href="{{ url('expenseentry') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Expense Entry</a>
    </li>
+ </ul>
+</li>
+
+
+
+
+<li class="@if(request()->path() === 'bankinformation'  || request()->path() === 'banktransaction'  || request()->path() === 'managebanktransaction' ){{'active'}}@else @endif">
+  <a href="javascript:;"><i class="fa fa-university sidebar-item-icon"></i>
+   <span class="nav-label">Bank Information</span><i class="fa fa-angle-left arrow"></i></a>
+   <ul class="nav-2-level collapse">
+    <li>
+     <a href="{{ url('bankinformation') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Add New Bank</a>
+   </li>
+
+   <li>
+     <a href="{{ url('banktransaction') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Transaction</a>
+   </li>
+
+   <li>
+     <a href="{{ url('managebanktransaction') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Manage Bank Transaction</a>
+   </li>
+
+   <li>
+    <a href="{{ url('banktransactionreports') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Transaction Reports</a>
+   </li>
+
  </ul>
 </li>
 
