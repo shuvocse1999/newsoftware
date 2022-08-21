@@ -44,6 +44,7 @@
 							<td>
 								<a  class="btn btn-info border-0 edit text-light" data-toggle="modal" data-target="#exampleModalCenters" data-id="{{ $d->id }}"><i class="fa fa-pencil-square-o"></i></a>
 								<a class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-trash-o"></i></a>
+								<a  href="{{ url("bankvoucher/".$d->id) }}" class="btn btn-dark border-0 edit text-light"><i class="fa fa-eye"></i></a>
 							</td>
 
 						</tr>

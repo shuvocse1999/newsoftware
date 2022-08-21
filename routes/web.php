@@ -267,5 +267,7 @@ Route::get('/editbanktransaction/{id}', 'Admin\BankController@editbanktransactio
 Route::post('/updatebanktransaction/{id}', 'Admin\BankController@updatebanktransaction');
 Route::get('/gettotalamount/{id}', 'Admin\BankController@gettotalamount');
 Route::get('/banktransactionreports', 'Admin\BankController@banktransactionreports');
-
+Route::get('/bankvoucher/{id}', 'Admin\BankController@bankvoucher');
+Route::get('/bankstatement', 'Admin\BankController@bankstatement');
+Route::get('/bankstatementreports', 'Admin\BankController@bankstatementreports');
 

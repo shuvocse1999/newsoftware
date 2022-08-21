@@ -534,7 +534,7 @@
 
 
 
-<li class="@if(request()->path() === 'bankinformation'  || request()->path() === 'banktransaction'  || request()->path() === 'managebanktransaction' ){{'active'}}@else @endif">
+<li class="@if(request()->path() === 'bankinformation'  || request()->path() === 'banktransaction'  || request()->path() === 'managebanktransaction' || request()->path() === 'banktransactionreports' || request()->path() === 'bankstatement' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-university sidebar-item-icon"></i>
    <span class="nav-label">Bank Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
@@ -551,7 +551,11 @@
    </li>
 
    <li>
-    <a href="{{ url('banktransactionreports') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Transaction Reports</a>
+    <a href="{{ url('banktransactionreports') }}" target="_blank"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Transaction Reports</a>
+   </li>
+
+   <li>
+    <a href="{{ url('bankstatement') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Statement</a>
    </li>
 
  </ul>

@@ -42,6 +42,7 @@
 			<!-- <thead> -->
 				<tr>
 					<th>SL</th>
+					<th>Date</th>
 					<th>Bank Name</th>
 					<th>Account Number</th>
 					<th>Deposit</th>
@@ -58,60 +59,69 @@
 				<tbody>
 
 					@php
-					 $i=1;
-					 $totaldeposit = 0;
-					 $totalwithdraw = 0;
-					 $totalcost = 0;
-					 $totalinsterest = 0;
+					$i=1;
+					$totaldeposit = 0;
+					$totalwithdraw = 0;
+					$totalcost = 0;
+					$totalinsterest = 0;
 					@endphp
 					@if(isset($data))
 					@foreach($data as $d)
 					
-			{{-- 		@if($d->transaction_type == "Deposit")
-					 @php
-					   $totaldeposit += $d->deposit_withdraw_amount;
-					 @endphp
-					@endif
 					
- --}}
+					
+
 					<tr>
 						<td>{{ $i++ }}</td>
+						<td>{{ $d->deposit_withdraw_date }}</td>
 						<td>{{ $d->bank_name }}</td>
 						<td>{{ $d->account_number }}</td>
 						<td>
 							@if($d->transaction_type == "Deposit")
+							@php
+							$totaldeposit += $d->deposit_withdraw_amount;
+							@endphp
 							{{ $d->deposit_withdraw_amount }}
 							@else
-							0
+							-
 							@endif
 						</td>
 
 						<td>
 							@if($d->transaction_type == "Withdraw")
+							@php
+							$totalwithdraw += $d->deposit_withdraw_amount;
+							@endphp
 							{{ $d->deposit_withdraw_amount }}
 							@else
-							0
+							-
 							@endif
 						</td>
 
 						<td>
 							@if($d->transaction_type == "Bank-Cost")
+							@php
+							$totalcost += $d->deposit_withdraw_amount;
+							@endphp
 							{{ $d->deposit_withdraw_amount }}
 							@else
-							0
+							-
 							@endif
 						</td>
 
 						<td>
 							@if($d->transaction_type == "Bank-Insterest")
+							@php
+							$totalinsterest += $d->deposit_withdraw_amount;
+							@endphp
 							{{ $d->deposit_withdraw_amount }}
 							@else
-							0
+							-
 							@endif
 						</td>
 
 						<td>
-							
+							{{ ($totaldeposit+$totalinsterest)-($totalwithdraw+$totalcost) }}
 						</td>
 						
 
@@ -123,6 +133,15 @@
 
 
 				</tbody>
+
+				<tr>
+					<th colspan="4" class="text-right">Total</th>
+					<th>{{ $totaldeposit }}/-</th>
+					<th>{{ $totalwithdraw }}/-</th>
+					<th>{{ $totalcost }}/-</th>
+					<th>{{ $totalinsterest }}/-</th>
+					<th>{{ ($totaldeposit+$totalinsterest)-($totalwithdraw+$totalcost) }}/-</th>
+				</tr>
 
 
 
