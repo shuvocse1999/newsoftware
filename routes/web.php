@@ -271,3 +271,38 @@ Route::get('/bankvoucher/{id}', 'Admin\BankController@bankvoucher');
 Route::get('/bankstatement', 'Admin\BankController@bankstatement');
 Route::get('/bankstatementreports', 'Admin\BankController@bankstatementreports');
 
+
+
+// Employee
+
+Route::get('/employee', 'Admin\EmployeeController@employee');
+Route::post('/employeeinsert', 'Admin\EmployeeController@employeeinsert');
+Route::get('/deleteemployee/{id}', 'Admin\EmployeeController@deleteemployee');
+Route::get('/manageemployee', 'Admin\EmployeeController@manageemployee');
+Route::get('/editemployee/{id}', 'Admin\EmployeeController@editemployee');
+Route::post('/updateemployee/{id}', 'Admin\EmployeeController@updateemployee');
+
+
+
+Route::get('/employeesalarysetup', 'Admin\EmployeeController@employeesalarysetup');
+Route::post('/employeesalarysetupinsert', 'Admin\EmployeeController@employeesalarysetupinsert');
+Route::get('/getemployeesalarysetup', 'Admin\EmployeeController@getemployeesalarysetup');
+Route::get('/deleteemployeesalarysetup/{id}', 'Admin\EmployeeController@deleteemployeesalarysetup');
+Route::get('/editemployeesalarysetup/{id}', 'Admin\EmployeeController@editemployeesalarysetup');
+Route::post('/updateemployeesalarysetup/{id}', 'Admin\EmployeeController@updateemployeesalarysetup');
+
+
+
+Route::get('/employeesalary', 'Admin\EmployeeController@employeesalary');
+Route::post('/employeesalaryinsert', 'Admin\EmployeeController@employeesalaryinsert');
+Route::get('/deleteemployeesalary/{id}', 'Admin\EmployeeController@deleteemployeesalary');
+Route::get('/manageemployeesalary', 'Admin\EmployeeController@manageemployeesalary');
+Route::get('/editemployeesalary/{id}', 'Admin\EmployeeController@editemployeesalary');
+Route::post('/updateemployeesalary/{id}', 'Admin\EmployeeController@updateemployeesalary');
+
+Route::post('/depositeemployeesalary', 'Admin\EmployeeController@depositeemployeesalary');
+Route::get('/getemployeebalance/{id}', 'Admin\EmployeeController@getemployeebalance');
+
+
+
+

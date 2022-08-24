@@ -333,7 +333,7 @@
 
 
    <li class="@if(request()->path() === 'sales'){{'active'}}@else @endif">
-    <a href="{{ url('/sales') }}"><i class="sidebar-item-icon fa fa-shopping-bag"></i>
+    <a href="{{ url('/sales') }}"><i class="sidebar-item-icon fa fa-balance-scale"></i>
      <span class="nav-label">Sales</span>
    </a>
  </li>
@@ -382,7 +382,7 @@
 
 
  <li class="@if(request()->path() === 'allsalesledger' || request()->path() === 'allsalesledgerreports' || request()->path() === 'salespayment' || request()->path() === 'salespaymentlist' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-shopping-bag sidebar-item-icon" aria-hidden="true"></i>
+  <a href="javascript:;"><i class="fa fa-balance-scale sidebar-item-icon" aria-hidden="true"></i>
    <span class="nav-label">Sales Information</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
      <li>
@@ -429,7 +429,7 @@
 
 
 <li class="@if(request()->path() === 'customer' || request()->path() === 'managecustomer' || request()->path() === 'customerduelist' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon"></i>
+  <a href="javascript:;"><i class="fa fa-user-plus sidebar-item-icon"></i>
    <span class="nav-label">Customer Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
     <li>
@@ -448,7 +448,7 @@
 
 
 <li class="@if(request()->path() === 'supplier' || request()->path() === 'managesupplier'  || request()->path() === 'supplierduelist' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-bandcamp sidebar-item-icon"></i>
+  <a href="javascript:;"><i class="fa fa-user-plus sidebar-item-icon"></i>
    <span class="nav-label">Supplier Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
     <li>
@@ -515,7 +515,7 @@
 
 
 <li class="@if(request()->path() === 'income_expensetitle'  || request()->path() === 'incomeentry' || request()->path() === 'expenseentry' ){{'active'}}@else @endif">
-  <a href="javascript:;"><i class="fa fa-product-hunt sidebar-item-icon"></i>
+  <a href="javascript:;"><i class="fa fa-money sidebar-item-icon"></i>
    <span class="nav-label">Income Expense Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
     <li>
@@ -552,15 +552,43 @@
 
    <li>
     <a href="{{ url('banktransactionreports') }}" target="_blank"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Transaction Reports</a>
+  </li>
+
+  <li>
+    <a href="{{ url('bankstatement') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Statement</a>
+  </li>
+
+</ul>
+</li>
+
+
+
+<li class="@if(request()->path() === 'employee' || request()->path() === 'manageemployee'  || request()->path() === 'employeeduelist'  || request()->path() === 'employeesalarysetup' || request()->path() === 'employeesalary' || request()->path() === 'manageemployeesalary' ){{'active'}}@else @endif">
+  <a href="javascript:;"><i class="fa fa-user-plus sidebar-item-icon"></i>
+   <span class="nav-label">employee Info.</span><i class="fa fa-angle-left arrow"></i></a>
+   <ul class="nav-2-level collapse">
+    <li>
+     <a href="{{ url('employee') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Employee</a>
+   </li>
+   <li>
+     <a href="{{ url('manageemployee') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Manage Employee</a>
    </li>
 
    <li>
-    <a href="{{ url('bankstatement') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Bank Statement</a>
+     <a href="{{ url('employeesalarysetup') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Employee Salary Setup</a>
    </li>
+
+   <li>
+    <a href="{{ url('employeesalary') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Employee Salary</a>
+   </li>
+
+   <li>
+    <a href="{{ url('manageemployeesalary') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Manage Employee Salary</a>
+   </li>
+
 
  </ul>
 </li>
-
 
 
 
