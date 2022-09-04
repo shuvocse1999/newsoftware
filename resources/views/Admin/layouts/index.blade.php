@@ -565,7 +565,7 @@
 
 <li class="@if(request()->path() === 'employee' || request()->path() === 'manageemployee'  || request()->path() === 'employeeduelist'  || request()->path() === 'employeesalarysetup' || request()->path() === 'employeesalary' || request()->path() === 'manageemployeesalary' ){{'active'}}@else @endif">
   <a href="javascript:;"><i class="fa fa-user-plus sidebar-item-icon"></i>
-   <span class="nav-label">employee Info.</span><i class="fa fa-angle-left arrow"></i></a>
+   <span class="nav-label">Employee Info.</span><i class="fa fa-angle-left arrow"></i></a>
    <ul class="nav-2-level collapse">
     <li>
      <a href="{{ url('employee') }}"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;&nbsp;Employee</a>

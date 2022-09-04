@@ -90,7 +90,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-12">
-							<label>Item Name:</label>
+							<label>Item Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" style="width: 100%!important;"  name="subcat_item_id" id="subcat_item_id" required="" onchange="getcat()">
@@ -107,7 +107,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Category Name:</label>
+							<label>Category Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" style="width: 100%!important;" name="subcat_cat_id" id="subcat_cat_id" required="">
@@ -124,7 +124,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Subcategory Name(EN):</label>
+							<label>Subcategory Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="subcat_name_en" id="subcat_name_en" placeholder="Subcategory Name(EN)" required="">
@@ -149,7 +149,7 @@
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Status:</label>
+							<label>Status: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" style="width: 100%!important;" name="subcat_status" id="subcat_status">

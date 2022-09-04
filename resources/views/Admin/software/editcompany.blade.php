@@ -93,6 +93,14 @@
 
 
 
+  <div class="form-group col-md-12">
+    <label>Vat (%):</label>
+    <div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-money"></i></div>
+      <input class="form-control" type="text" name="vat" id="vat" value="{{ $data->vat }}">
+    </div>
+  </div>
+
 
   <div class="modal-footer border-0 ml-auto">
     <button type="button" class="btn btn-secondary border-0" data-dismiss="modal">Close</button>

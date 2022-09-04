@@ -25,7 +25,7 @@
 						$branch = DB::table('branch_info')->get();
 						@endphp
 
-						<div class="form-group col-md-4">
+						{{-- <div class="form-group col-md-4">
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -40,11 +40,13 @@
 								</select>
 							</div>
 						</div>
+						--}}
 
+						<input type="hidden" name="customer_branch_id" id="customer_branch_id" value="{{ Auth("admin")->user()->id }}">
 
 
 						<div class="form-group col-md-4">
-							<label>Customer Name(EN):</label>
+							<label>Customer Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="customer_name_en" id="customer_name_en"  required="" placeholder="Customer Name EN">
@@ -66,7 +68,7 @@
 							<label>Customer Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="number" name="customer_phone" id="customer_phone" required="" placeholder="Customer Mobile">
+								<input class="form-control" type="number" name="customer_phone" id="customer_phone"  placeholder="Customer Mobile">
 							</div>
 						</div>
 
@@ -83,7 +85,7 @@
 							<label>Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="customer_address" id="customer_address" required="" placeholder="Customer Address"></textarea>
+								<textarea class="form-control" rows="3" name="customer_address" id="customer_address"  placeholder="Customer Address"></textarea>
 							</div>
 						</div>
 

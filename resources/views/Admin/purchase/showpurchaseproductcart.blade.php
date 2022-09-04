@@ -20,7 +20,7 @@
 
 			<td>
 				<div class="input-group">
-					<input type="text" name="sale_price_per_unit" id="sale_price_per_unit" class="form-control" value="{{ $d->pdt_sale_price }}">
+					<input type="text" name="sale_price_per_unit" id="sale_price_per_unit{{ $d->id }}" class="form-control" value="{{ $d->pdt_sale_price }}" onchange="salepriceupdate('{{ $d->id }}')"><button type="button" class="border text-success" style="cursor: pointer;" onclick="salepriceupdate('{{ $d->id }}')" title="Update Price"><i class="fa fa-refresh"></i></button>
 				</div>
 			</td>
 

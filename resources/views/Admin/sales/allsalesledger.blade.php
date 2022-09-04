@@ -89,7 +89,8 @@
 							
 							<td>
 								<a class="delete btn btn-danger  border-0 text-light" data-id="{{ $d->id }}"><i class="fa fa-trash-o"></i></a>
-								<a href="{{ url('invoicesales/'.$d->invoice_no) }}" target="_blank"  class="btn btn-info  border-0 text-light"><i class="fa fa-eye"></i></a>
+								<a href="{{ url('invoicesalesa4/'.$d->invoice_no) }}" target="_blank"  class="btn btn-info  border-0 text-light"><i class="fa fa-eye"></i></a>
+								<a href="{{ url('invoicesales/'.$d->invoice_no) }}" target="_blank"  class="btn btn-success  border-0 text-light"><i class="fa fa-print"></i></a>
 							</td>
 
 						</tr>

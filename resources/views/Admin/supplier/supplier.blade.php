@@ -25,7 +25,7 @@
 						$branch = DB::table('branch_info')->get();
 						@endphp
 
-						<div class="form-group col-md-4">
+						{{-- <div class="form-group col-md-4">
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -40,11 +40,13 @@
 								</select>
 							</div>
 						</div>
+						--}}
 
+						<input type="hidden" name="supplier_branch_id" id="supplier_branch_id" value="{{ Auth("admin")->user()->branch }}">
 
 
 						<div class="form-group col-md-4">
-							<label>Supplier Name(EN):</label>
+							<label>Supplier Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="supplier_name_en" id="supplier_name_en"  required="">
@@ -66,7 +68,7 @@
 							<label>Supplier Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="number" name="supplier_phone" id="supplier_phone"  required="">
+								<input class="form-control" type="number" name="supplier_phone" id="supplier_phone" >
 							</div>
 						</div>
 
@@ -83,7 +85,7 @@
 							<label>Supplier Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<input type="text" class="form-control" name="supplier_address" id="supplier_address" required="">
+								<input type="text" class="form-control" name="supplier_address" id="supplier_address">
 							</div>
 						</div>
 
@@ -92,7 +94,7 @@
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Company name:</label>
+							<label>Company name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text"  name="supplier_company_name" id="supplier_company_name" required="">
@@ -114,7 +116,7 @@
 							<label>Company Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<input type="text" class="form-control" name="supplier_company_address" id="supplier_company_address" required="">
+								<input type="text" class="form-control" name="supplier_company_address" id="supplier_company_address">
 							</div>
 						</div>
 

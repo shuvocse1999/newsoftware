@@ -121,6 +121,10 @@ class SalesController extends Controller
 
 	public function salesledger(Request $request){
 
+
+		
+
+
 		$session_id   = Session::getId();
 		$data = DB::table('sales_current')
 		->where('sales_current.session_id',$session_id)
@@ -169,6 +173,7 @@ class SalesController extends Controller
 			'invoice_date'     => $invoice_date,
 			'customer_id'      => $request->customer_id,
 			'total'            => $request->totalamount,
+			'vat'              => $request->vat,
 			'paid_amount'      => $request->paid,
 			'final_discount'   => $request->discount,
 			'transaction_type' => $request->transaction_type,
@@ -197,8 +202,14 @@ class SalesController extends Controller
 		Session::regenerate();
 
 
+		if(isset($request->posbutton)){
+			return redirect('invoicesales/'.$invoice_no);
+		}
+		else{
+			return redirect('invoicesalesa4/'.$invoice_no);
+		}
 
-		return redirect('invoicesales/'.$invoice_no);
+			
 
 
 	}
@@ -219,6 +230,24 @@ class SalesController extends Controller
 		->get();
 
 		return view("Admin.sales.invoicesales",compact('data','product'));
+	}
+
+
+		public function invoicesalesa4($id){
+
+		$data = DB::table('sales_ledger')
+		->where("sales_ledger.invoice_no",$id)
+		->join("customer_info",'customer_info.customer_id','sales_ledger.customer_id')
+		->join("admins",'admins.id','sales_ledger.admin_id')
+		->select("sales_ledger.*",'customer_info.customer_name_en','customer_info.customer_phone','admins.name')
+		->first();
+
+		$product = DB::table("sales_entry")
+		->where("sales_entry.invoice_no",$data->invoice_no)
+		->join("pdt_productinfo",'pdt_productinfo.pdt_id','sales_entry.product_id')
+		->get();
+
+		return view("Admin.sales.invoicesalesa4",compact('data','product'));
 	}
 
 
@@ -257,7 +286,7 @@ class SalesController extends Controller
 			]);
 		}
 
-	
+
 		DB::table('sales_ledger')
 		->where("id",$id)
 		->delete();

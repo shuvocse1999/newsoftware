@@ -25,10 +25,9 @@
 						<div class="col-md-6 row">
 							
 
-							<div class="form-group col-md-12">
-								<label>Item Name:</label>
+							<div class="form-group col-md-6">
+								<label>Item Name:<span class="text-danger" style="font-size: 15px;">*</span></label>
 								<div class="input-group">
-									
 									<select class="form-control select2_demo_1" name="pdt_item_id" id=
 									"pdt_item_id" required="" onchange="getcat()">
 									<option value="">Select Item</option>
@@ -39,7 +38,10 @@
 									<option value="{{ $i->item_id  }}">{{ $i->item_name_en }} ( {{ $i->item_name_bn }} )</option>
 									@endforeach
 								</select>
+
+
 							</div>
+
 						</div>
 
 
@@ -56,7 +58,9 @@
 									<option value="{{ $c->cat_id  }}">{{ $c->cat_name_en }} ( {{ $c->cat_name_bn }} )</option>
 									@endforeach --}}
 								</select>
+								<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenters"><i class="fa fa-plus-circle text-primary"></i></div>
 							</div>
+
 						</div>
 
 
@@ -73,16 +77,17 @@
 									<option value="{{ $c->subcat_id  }}">{{ $c->subcat_name_en }} ( {{ $c->subcat_name_bn }} )</option>
 									@endforeach --}}
 								</select>
+								
 							</div>
 						</div>
 
 
 
-						<div class="form-group col-md-12">
-							<label>Brand Name:</label>
+						<div class="form-group col-md-6">
+							<label>Brand Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								
-								<select class="form-control" name="pdt_brand_id">
+								<select class="form-control" name="pdt_brand_id" required="">
 									<option value="">Select Brand</option>
 									@php
 									$brand = DB::table('pdt_brand')->where('brand_status',1)->get();		
@@ -91,13 +96,14 @@
 									<option value="{{ $c->brand_id  }}">{{ $c->brand_name_en }} ( {{ $c->brand_name_bn }} )</option>
 									@endforeach
 								</select>
+								<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenters2"><i class="fa fa-plus-circle text-primary"></i></div>
 							</div>
 						</div>
 
 
 
 						<div class="form-group col-md-12">
-							<label>Product Name(EN):</label>
+							<label>Product Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<input class="form-control" type="text" name="pdt_name_en" id="pdt_name_en"required="">
 							</div>
@@ -109,7 +115,7 @@
 								<input class="form-control" type="text" name="pdt_name_bn" id="pdt_name_bn">
 							</div>
 						</div>
-
+						
 
 						<div class="form-group col-md-12">
 							<label>Measurement:</label>
@@ -127,21 +133,9 @@
 
 
 
-						<div class="form-group col-md-6">
-							<label>Purchase Price:</label>
-							<div class="input-group">
-								<input class="form-control" type="text" name="pdt_purchase_price" id="pdt_purchase_price">
-							</div>
-						</div>
 
-						<div class="form-group col-md-6">
-							<label>Sale Price:</label>
-							<div class="input-group">
-								<input class="form-control" type="text" name="pdt_sale_price" id="pdt_sale_price" required="">
-							</div>
-						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-6 d-none">
 							<label>Over Stock:</label>
 							<div class="input-group">
 								<input class="form-control" type="number" name="pdt_over_stock" id="pdt_over_stock">
@@ -149,7 +143,7 @@
 						</div>
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-6 d-none">
 							<label>Shelf No:</label>
 							<div class="input-group">
 								<input class="form-control" type="text" name="pdt_shelf_no" id="pdt_shelf_no">
@@ -157,21 +151,21 @@
 						</div>
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-6 d-none">
 							<label>Order Qty:</label>
 							<div class="input-group">
 								<input class="form-control" type="number" name="pdt_order_qunt" id="pdt_order_qunt">
 							</div>
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-6 d-none">
 							<label>Suspension:</label>
 							<div class="input-group">
 								<input class="form-control" type="text" name="pdt_suspension" id="pdt_suspension">
 							</div>
 						</div>
 
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-12 d-none">
 							<label>Product URL:</label>
 							<div class="input-group">
 								<input class="form-control" type="text" name="pdt_url" id="pdt_url">
@@ -184,26 +178,18 @@
 					<div class="col-md-6">
 
 						<div class="form-group col-md-12">
-							<label>Short Details:</label>
+							<label>Purchase Price:</label>
 							<div class="input-group">
-								<textarea class="form-control" rows="10" name="pdt_short_details" id="pdt_short_details"></textarea>
-							</div>
-						</div>
-
-
-						<div class="form-group col-md-12">
-							<label>Full Details:</label>
-							<div class="input-group">
-								<textarea class="form-control" rows="10" name="pdt_details" id="pdt_details"></textarea>
+								<input class="form-control" type="text" name="pdt_purchase_price" id="pdt_purchase_price" value="0">
 							</div>
 						</div>
 
 						<div class="form-group col-md-12">
-							<label>Condition:</label>
+							<label>Sale Price:</label>
 							<div class="input-group">
-								<textarea class="form-control" rows="10" name="pdt_condition" id="pdt_condition"></textarea>
+								<input class="form-control" type="text" name="pdt_sale_price" id="pdt_sale_price" value="0">
 							</div>
-						</div>	
+						</div>
 
 						<div class="form-group col-md-12">
 							<label>Status:</label>
@@ -214,6 +200,36 @@
 								</select>
 							</div>
 						</div>
+
+
+
+						<div class="form-group col-md-12 d-none">
+							<label>Short Details:</label>
+							<div class="input-group">
+								<textarea class="form-control" rows="10" name="pdt_short_details" id="pdt_short_details"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group col-md-12 d-none">
+							<label>Full Details:</label>
+							<div class="input-group">
+								<textarea class="form-control" rows="10" name="pdt_details" id="pdt_details"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group col-md-12 d-none">
+							<label>Condition:</label>
+							<div class="input-group">
+								<textarea class="form-control" rows="10" name="pdt_condition" id="pdt_condition"></textarea>
+							</div>
+						</div>	
+
+						
+
+
+
+
 
 
 						<br><br>
@@ -360,6 +376,175 @@
 </script>
 
 
+
+
+
+
+
+
+<!-- Supplier Modal -->
+<div class="modal fade" id="exampleModalCenters" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitles" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+		<div class="modal-content rounded">
+			<div class="modal-header bg-dark text-light">
+				<h5 class="modal-title" id="exampleModalCenterTitles"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Category</h5>
+				<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body editdata myinput">
+
+				<form method="post" action="{{ url("categoryinsert2") }}">
+					@csrf
+					<div class="row">
+
+						<div class="form-group col-md-12">
+							<label>Item Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
+								<select class="form-control" name="cat_item_id" required="" style="width: 100%!important;">
+									<option value="">Select Item</option>
+									@php
+									$item = DB::table('pdt_item')->where('item_status',1)->get();		
+									@endphp 
+									@foreach($item as $i)
+									<option value="{{ $i->item_id  }}">{{ $i->item_name_en }} ( {{ $i->item_name_bn }} )</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+
+
+						<div class="form-group col-md-12">
+							<label>Category Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
+								<input class="form-control" type="text" name="cat_name_en" id="cat_name_en" placeholder="Category Name(EN)" required="">
+							</div>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label>Category Name(BN):</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
+								<input class="form-control" type="text" name="cat_name_bn" id="cat_name_bn" placeholder="Category Name(BN)">
+							</div>
+						</div>
+
+						
+						<div class="form-group col-md-6">
+							<label>Category URL:</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-link"></i></div>
+								<input class="form-control" type="url" placeholder="Category URL" name="cat_url" id="cat_url">
+							</div>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label>Status: <span class="text-danger" style="font-size: 15px;">*</span></label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
+								<select class="form-control" name="cat_status" id="cat_status" style="width: 100%!important;">
+									<option value="1">Active</option>
+									<option value="0">Inactive</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+
+					<br>
+
+					<div class="modal-footer border-0">
+						<button type="button" class="btn btn-secondary border-0" onClick="window.location.reload();">Close</button>
+						<button type="submit" class="btn btn-success button border-0">Save</button>
+					</div>
+					
+				</form>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<!--End Supplier Modal -->
+
+
+
+
+
+
+
+
+<!-- Supplier Modal -->
+<div class="modal fade" id="exampleModalCenters2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitles" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+
+		<div class="modal-content rounded">
+			<div class="modal-header bg-dark text-light">
+				<h5 class="modal-title" id="exampleModalCenterTitles"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add New Brand</h5>
+				<button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body editdata myinput">
+
+				<form method="post" action="{{ url("brandinsert2") }}">
+					@csrf
+					
+
+					<div class="row">
+						<div class="form-group col-md-12">
+							<label>Brand Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
+								<input class="form-control" type="text" name="brand_name_en" id="brand_name_en" placeholder="Brand Name(EN)" required="">
+							</div>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label>Brand Name(BN):</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
+								<input class="form-control" type="text" name="brand_name_bn" id="brand_name_bn" placeholder="Brand Name(BN)">
+							</div>
+						</div>
+
+						
+						<div class="form-group col-md-12">
+							<label>Status: <span class="text-danger" style="font-size: 15px;">*</span></label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
+								<select class="form-control" name="brand_status" id="brand_status" style="width: 100%!important;">
+									<option value="1">Active</option>
+									<option value="0">Inactive</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="modal-footer border-0">
+						<button type="button" class="btn btn-secondary border-0" onClick="window.location.reload();">Close</button>
+						<button type="submit" class="btn btn-success button border-0">Save</button>
+					</div>
+					
+				</form>
+
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<!--End Supplier Modal -->
 
 
 

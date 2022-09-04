@@ -26,7 +26,7 @@
 
 
               <div class="form-group col-md-12">
-                <label>Item Name:</label>
+                <label>Item Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
                 <div class="input-group">
 
                   <select class="form-control" name="pdt_item_id" required="">
@@ -84,7 +84,7 @@
 
 
          <div class="form-group col-md-12">
-          <label>Brand Name:</label>
+          <label>Brand Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
           <div class="input-group">
 
             <select class="form-control" name="pdt_brand_id">
@@ -104,7 +104,7 @@
 
 
        <div class="form-group col-md-12">
-        <label>Product Name(EN):</label>
+        <label>Product Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
         <div class="input-group">
           <input class="form-control" type="text" name="pdt_name_en" id="pdt_name_en"required="" value="{{ $data->pdt_name_en }}">
         </div>
@@ -150,7 +150,7 @@
         </div>
       </div>
 
-      <div class="form-group col-md-6">
+   {{--    <div class="form-group col-md-6">
         <label>Over Stock:</label>
         <div class="input-group">
           <input class="form-control" type="number" name="pdt_over_stock" id="pdt_over_stock" value={{ $data->pdt_over_stock }}>
@@ -186,13 +186,13 @@
           <input class="form-control" type="text" name="pdt_url" id="pdt_url" value={{ $data->pdt_url }}>
         </div>
       </div>
-
+ --}}
 
     </div>
 
     <div class="col-md-6">
 
-      <div class="form-group col-md-12">
+      {{-- <div class="form-group col-md-12">
         <label>Short Details:</label>
         <div class="input-group">
           <textarea class="form-control" rows="10" name="pdt_short_details" id="pdt_short_details">{{ $data->pdt_short_details }}</textarea>
@@ -213,7 +213,7 @@
           <textarea class="form-control" rows="10" name="pdt_condition" id="pdt_condition">{{ $data->pdt_condition }}</textarea>
         </div>
       </div>  
-
+ --}}
       <div class="form-group col-md-12">
         <label>Status:</label>
         <div class="input-group">

@@ -24,7 +24,7 @@
     <table class="table table-bordered">
       <tr>
 
-        <td colspan="9" style="text-align:center;font-size: 16px;text-transform: uppercase;"><b>Sale Ledger Reports</b>
+        <td colspan="10" style="text-align:center;font-size: 16px;text-transform: uppercase;"><b>Sale Ledger Reports</b>
           <br>
           <div style="font-size: 13px;">
 
@@ -48,6 +48,7 @@
          <th>Transaction</th>
          <th>Total Amount</th>
          <th>Discount</th>
+         <th>Vat</th>
          <th>Paid</th>
          <th>Due</th>
 
@@ -63,6 +64,7 @@
         $totalamount = 0;
         $grandtotal = 0;
         $granddiscount = 0;
+        $grandvat = 0;
         $grandpaid = 0;
         $granddue = 0;
         @endphp
@@ -72,6 +74,7 @@
         $entry = DB::table("sales_entry")->where("invoice_no",$d->invoice_no)->get();
         $granddiscount = $granddiscount+$d->final_discount;
         $grandpaid     = $grandpaid+$d->paid_amount;
+        $grandvat       = $grandvat+$d->vat;
         @endphp
 
         @foreach($entry as $e)
@@ -94,8 +97,9 @@
           <td>{{ $d->transaction_type }}</td>
           <td>{{ $d->total }}</td>
           <td>{{ $d->final_discount }}</td>
+          <td>{{ $d->vat }}</td>
           <td>{{ $d->paid_amount }}</td>
-          <td>{{ ($d->total-$d->final_discount)-$d->paid_amount }}</td>
+          <td>{{ (($d->total+$d->vat)-$d->final_discount)-$d->paid_amount }}</td>
           
 
         </tr>
@@ -110,6 +114,7 @@
         <th colspan="5" class="text-right">TOTAL:</th>
         <th>{{ $grandtotal }} /-</th>
         <th>{{ $granddiscount }} /-</th>
+        <th>{{ $grandvat }} /-</th>
         <th>{{ $grandpaid }} /-</th>
         <th>{{ $granddue }} /-</th>
       </tr>

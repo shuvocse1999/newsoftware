@@ -23,7 +23,7 @@
 					<div class="col-md-12 p-0 row">
 						
 						<div class="form-group col-md-3">
-							<label>Supplier Name:</label>
+							<label>Supplier Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
 								<select class="form-control select2_demo_1" name="supplier_id" id=
@@ -62,7 +62,7 @@
 					--}}
 
 					<div class="form-group col-md-3">
-						<label>Voucher No:</label>
+						<label>Voucher No: <span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-envelope"></i></div>
 							<input type="text"  name="voucher_no" id="voucher_no" class="form-control" value="" required="" placeholder="Voucher Number">
@@ -72,7 +72,7 @@
 
 
 					<div class="form-group col-md-3">
-						<label>Invoice Date:</label>
+						<label>Invoice Date: <span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 							<input type="text" name="invoice_date" id="datepicker" placeholder="Invoice Date" class="form-control" required="" autocomplete="off">
@@ -86,7 +86,7 @@
 						<div class="row">
 							<div class="col-md-4">
 
-								<div class="form-group">
+							{{-- 	<div class="form-group">
 									<label>Item Name:</label>
 									<div class="input-group">
 
@@ -102,11 +102,11 @@
 									</select>
 									
 								</div>
-							</div>
+							</div> --}}
 
 						</div>
 
-						<div class="col-md-8">
+						<div class="col-md-12">
 
 
 							<div class="form-group">
@@ -120,7 +120,7 @@
 									$product = DB::table('pdt_productinfo')->where('pdt_status',1)->get();		
 									@endphp 
 									@foreach($product as $i)
-									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
+									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_id  }} - {{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
 									@endforeach
 								</select>
 								<div class="input-group-addon border border-left-0" data-toggle="modal" data-target="#exampleModalCenter2"><i class="fa fa-plus-circle text-primary"></i></div>
@@ -244,6 +244,8 @@
 
 		<div class="col-12 border p-4 mt-4">
 			<center><input type="submit" name="" onclick="createinvoice()" value="Submit Now" class="btn btn-success" style="width: 200px; font-weight: bold; border-radius: 30px;"></center>
+
+
 		</div>
 
 
@@ -380,6 +382,50 @@
 
 	}
 
+
+	function salepriceupdate(id){
+
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		let sale_price_per_unit = $("#sale_price_per_unit"+id).val();
+
+		$.ajax({
+			url: "{{ url('salepriceupdate') }}/"+id,
+			type: 'POST',
+			data:{sale_price_per_unit:sale_price_per_unit},
+			success: function (data)
+			{
+				Command:toastr["success"]("Product Sale Price Update")
+				toastr.options = {
+					"closeButton": true,
+					"debug": false,
+					"newestOnTop": false,
+					"progressBar": true,
+					"positionClass": "toast-top-right",
+					"preventDuplicates": false,
+					"onclick": null,
+					"showDuration": "300",
+					"hideDuration": "1000",
+					"timeOut": "3000",
+					"extendedTimeOut": "1000",
+					"showEasing": "swing",
+					"hideEasing": "linear",
+					"showMethod": "fadeIn",
+					"hideMethod": "fadeOut"
+				}
+
+				showpurchaseproductcart();
+			},
+			error:function(errors){
+				alert("errors")
+			}
+		});
+
+	}
 
 
 
@@ -641,7 +687,7 @@
 						$branch = DB::table('branch_info')->get();
 						@endphp
 
-						<div class="form-group col-md-12">
+						{{-- <div class="form-group col-md-12">
 							<label>Branch Name:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -655,7 +701,10 @@
 
 								</select>
 							</div>
-						</div>
+						</div> --}}
+
+
+						<input type="hidden" name="supplier_branch_id" id="supplier_branch_id" value="{{ Auth("admin")->user()->branch }}">
 
 
 
@@ -673,7 +722,7 @@
 							<label>Supplier Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="text" name="supplier_phone" id="supplier_phone"  required="">
+								<input class="form-control" type="text" name="supplier_phone" id="supplier_phone"  >
 							</div>
 						</div>
 
@@ -683,7 +732,7 @@
 							<label>Supplier Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="supplier_address" id="supplier_address" required=""></textarea>
+								<textarea class="form-control" rows="3" name="supplier_address" id="supplier_address" ></textarea>
 							</div>
 						</div>
 
@@ -706,7 +755,7 @@
 							<label>Company Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="supplier_company_address" id="supplier_company_address" required=""></textarea>
+								<textarea class="form-control" rows="3" name="supplier_company_address" id="supplier_company_address" ></textarea>
 							</div>
 						</div>
 

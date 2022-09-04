@@ -82,7 +82,7 @@
 
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label>Brand Name(EN):</label>
+							<label>Brand Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="brand_name_en" id="brand_name_en" placeholder="Brand Name(EN)" required="">
@@ -99,10 +99,10 @@
 
 						
 						<div class="form-group col-md-12">
-							<label>Status:</label>
+							<label>Status: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="brand_status" id="brand_status">
+								<select class="form-control" name="brand_status" id="brand_status" style="width: 100%!important;">
 									<option value="1">Active</option>
 									<option value="0">Inactive</option>
 								</select>

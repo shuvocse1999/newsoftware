@@ -23,7 +23,7 @@
 					<div class="col-md-12 p-0 row">
 						
 						<div class="form-group col-md-4">
-							<label>Customer Name:</label>
+							<label>Customer Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
 								<select class="form-control select2_demo_1" name="customer_id" id=
@@ -64,7 +64,7 @@
 
 
 					<div class="form-group col-md-4">
-						<label>Date:</label>
+						<label>Date: <span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 							<input type="text" name="payment_date" id="payment_date" placeholder="Payment Date" class="form-control" required="" autocomplete="off">
@@ -78,7 +78,7 @@
 
 
 					<div class="form-group col-md-4">
-						<label>Payment Money:</label>
+						<label>Payment Money: <span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
 							<input type="text" name="payment" id="payment" class="form-control" required="">

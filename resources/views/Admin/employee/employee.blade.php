@@ -23,7 +23,7 @@
 					<div class="row myinput">
 						
 						<div class="form-group col-md-4">
-							<label>Employee Name:</label>
+							<label>Employee Name:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="employee_name" id="employee_name"  required="" placeholder="Employee Name">
@@ -33,7 +33,7 @@
 
 
 						<div class="form-group col-md-4">
-							<label>Employee Mobile:</label>
+							<label>Employee Mobile:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
 								<input class="form-control" type="number" name="employee_phone" id="employee_phone" required="" placeholder="Employee Mobile">
@@ -62,7 +62,7 @@
 
 
 						<div class="form-group col-md-4">
-							<label>Joining Date:</label>
+							<label>Joining Date:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="date" name="joining_date" id="joining_date"  placeholder="NID NO." required="">
@@ -74,7 +74,7 @@
 
 
 						<div class="form-group col-md-8">
-							<label>Address:</label>
+							<label>Address: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
 								<textarea class="form-control" rows="3" name="employee_address" id="employee_address" required="" placeholder="Address"></textarea>

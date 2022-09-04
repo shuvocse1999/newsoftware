@@ -23,7 +23,7 @@
 					<div class="row myinput">
 						
 						<div class="form-group col-md-4">
-							<label>Employee Name:</label>
+							<label>Employee Name:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
 								<select class="form-control select2_demo_1" name="employee_id" id=
@@ -54,7 +54,7 @@
 
 
 					<div class="form-group col-md-4">
-						<label>Withdraw:</label>
+						<label>Withdraw:<span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-money"></i></div>
 							<input class="form-control" type="number"  name="salary_withdraw" id="salary_withdraw" placeholder="Withdraw" required="">
@@ -64,7 +64,7 @@
 
 
 					<div class="form-group col-md-4">
-						<label>Transaction Type:</label>
+						<label>Transaction Type:<span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 							<input class="form-control" type="text" name="transaction_type" id="transaction_type"  placeholder="Transaction Type" required="">
@@ -73,7 +73,7 @@
 
 
 					<div class="form-group col-md-4">
-						<label>Date:</label>
+						<label>Date:<span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 							<input class="form-control" type="date" name="payment_dates" id="payment_dates"  placeholder="" required="">

@@ -150,7 +150,7 @@
 						@endphp
 
 						<div class="form-group col-md-12">
-							<label>Branch Name:</label>
+							<label>Employee Name:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="employee_id" id="employee_id" required="" style="width: 100%!important;">
@@ -168,7 +168,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Salary:</label>
+							<label>Salary:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input type="number" name="employee_salary" id="employee_salary" placeholder="Salary" class="form-control" required="">
@@ -178,7 +178,7 @@
 
 						
 						<div class="form-group col-md-12">
-							<label>Status:</label>
+							<label>Status:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="salary_status" id="salary_status" style="width: 100%!important;" required="">

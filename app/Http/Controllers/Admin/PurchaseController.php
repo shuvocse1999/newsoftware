@@ -87,6 +87,24 @@ class PurchaseController extends Controller
 	}
 
 
+	public function salepriceupdate(Request $request,$id){
+
+
+		$session_id   = Session::getId();
+		$data = DB::table('purchase_current')
+		->where('purchase_current.session_id',$session_id)
+		->where('purchase_current.id',$id)
+		->update([
+
+			'sale_price_per_unit' => $request->sale_price_per_unit
+
+		]);
+
+	}
+
+	
+
+
 	public function deletepurchasecartproduct($id){
 		$session_id   = Session::getId();
 		$data = DB::table('purchase_current')

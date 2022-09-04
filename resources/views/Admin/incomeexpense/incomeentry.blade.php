@@ -79,7 +79,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-6">
-							<label>Date:</label>
+							<label>Date:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 								<input type="text" name="date" id="datepicker" placeholder="Date" class="form-control" required="" autocomplete="off">
@@ -88,7 +88,7 @@
 
 
 							<div class="form-group col-md-6">
-							<label>Title:</label>
+							<label>Title:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="income_id" id="income_id" style="width: 100%!important;" required="">
@@ -111,7 +111,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Amount:</label>
+							<label>Amount:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="amount" id="amount" placeholder="Amount" required="">

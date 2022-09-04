@@ -88,7 +88,7 @@
 					<div class="row">
 
 						<div class="form-group col-md-12">
-							<label>Item Name:</label>
+							<label>Item Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="cat_item_id" required="" style="width: 100%!important;">
@@ -105,7 +105,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Category Name(EN):</label>
+							<label>Category Name(EN): <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="cat_name_en" id="cat_name_en" placeholder="Category Name(EN)" required="">
@@ -130,7 +130,7 @@
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Status:</label>
+							<label>Status: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="cat_status" id="cat_status" style="width: 100%!important;">

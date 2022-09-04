@@ -80,7 +80,7 @@
 
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label>Bank Name:</label>
+							<label>Bank Name:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="bank_name" id="bank_name" placeholder="Bank Name" required="">
@@ -90,7 +90,7 @@
 
 
 						<div class="form-group col-md-12">
-							<label>Account Number:</label>
+							<label>Account Number:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="number" name="account_number" id="account_number" placeholder="Account No." required="">
@@ -98,7 +98,7 @@
 						</div>
 
 						<div class="form-group col-md-6">
-							<label>Account Type:</label>
+							<label>Account Type:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="account_type" id="account_type" placeholder="Account Type">

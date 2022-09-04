@@ -26,7 +26,7 @@
 						@endphp
 
 						<div class="form-group col-md-8">
-							<label>Bank Account:</label>
+							<label>Bank Account:<span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="account_id" id="account_id" required="" onchange="gettotalamount();">
@@ -53,7 +53,7 @@
 
 
 						<div class="form-group col-md-4">
-							<label>Date:</label>
+							<label>Date: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="date" name="deposit_withdraw_date" id="deposit_withdraw_date" required="">
@@ -77,7 +77,7 @@
 
 
 						<div class="form-group col-md-4">
-							<label>Amount:</label>
+							<label>Amount: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-money"></i></div>
 								<input class="form-control" type="text" name="deposit_withdraw_amount" id="deposit_withdraw_amount" required="">

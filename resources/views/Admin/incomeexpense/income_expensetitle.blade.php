@@ -76,7 +76,7 @@
 
 					<div class="row">
 						<div class="form-group col-md-12">
-							<label>Title:</label>
+							<label>Title: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
 								<input class="form-control" type="text" name="title" id="title" placeholder="Title" required="">
@@ -95,7 +95,7 @@
 
 						
 						<div class="form-group col-md-12">
-							<label>Type:</label>
+							<label>Type: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
 								<select class="form-control" name="type" id="type" style="width: 100%!important;">

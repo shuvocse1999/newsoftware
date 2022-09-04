@@ -6,7 +6,7 @@
   $branch = DB::table('branch_info')->get();
   @endphp
 
-  <div class="form-group col-md-12">
+{{--   <div class="form-group col-md-12">
     <label>Branch Name:</label>
     <div class="input-group">
       <div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
@@ -22,8 +22,10 @@
 
       </select>
     </div>
-  </div>
+  </div> --}}
 
+
+  <input type="hidden" name="customer_branch_id" id="customer_branch_id" value="{{ Auth("admin")->user()->branch }}">
 
 
   <div class="form-group col-md-12">

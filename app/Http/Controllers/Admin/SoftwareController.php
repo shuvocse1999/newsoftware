@@ -61,6 +61,7 @@ class SoftwareController extends Controller
 			'company_address_bn' => $r->company_address_bn, 
 			'company_email'      => $r->company_email, 
 			'status'             => $r->status, 
+			'vat'                => $r->vat, 
 		);
 
 		$image                   = $r->file('logo');

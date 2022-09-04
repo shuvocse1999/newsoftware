@@ -23,7 +23,7 @@
 					<div class="col-md-12 p-0 row">
 						
 						<div class="form-group col-md-3">
-							<label>Customer Name:</label>
+							<label>Customer Name: <span class="text-danger" style="font-size: 15px;">*</span></label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
 								<select class="form-control select2_demo_1" name="customer_id" id=
@@ -61,7 +61,7 @@
 
 
 					<div class="form-group col-md-3">
-						<label>Invoice Date:</label>
+						<label>Invoice Date:<span class="text-danger" style="font-size: 15px;">*</span></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 							<input type="text" name="invoice_date" id="datepicker" placeholder="Invoice Date" class="form-control" required="" autocomplete="off">
@@ -75,7 +75,7 @@
 						<div class="row">
 							<div class="col-md-4">
 
-								<div class="form-group">
+						{{-- 		<div class="form-group">
 									<label>Item Name:</label>
 									<div class="input-group">
 
@@ -91,15 +91,15 @@
 									</select>
 									
 								</div>
-							</div>
+							</div> --}}
 
 						</div>
 
-						<div class="col-md-8">
+						<div class="col-md-12">
 
 
 							<div class="form-group">
-								<label>Product Name:</label>
+								<label>Product Name: </label>
 								<div class="input-group">
 
 									<select class="form-control select2_demo_1" name="pdt_id" id=
@@ -117,7 +117,7 @@
 									$stockqty = $i->quantity - $i->sales_qty;
 									@endphp
 									@if($stockqty > 0)
-									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
+									<option value="{{ $i->pdt_id  }}">{{ $i->pdt_id  }} - {{ $i->pdt_name_en }} {{ $i->pdt_name_bn }}</option>
 									@endif
 									@endforeach
 								</select>
@@ -174,6 +174,9 @@
 						</div>
 					</div>
 
+
+
+
 					<div class="form-group">
 						<label>Discount:</label>
 						<div class="input-group">
@@ -182,6 +185,7 @@
 							
 						</div>
 					</div>
+
 
 
 					<div class="form-group">
@@ -193,6 +197,24 @@
 						</div>
 					</div>
 
+
+					@php
+					$vat = DB::table("company_info")->first();
+					@endphp
+					
+					<div class="form-group">
+						<label>Vat ({{ $vat->vat  }} %):</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-money"></i></div>
+							<input type="hidden" id="vathidden" name="vathidden" class="form-control"  value="{{ $vat->vat  }}">
+							<input type="text" id="vat" name="vat" class="form-control"  readonly="" >
+							
+						</div>
+					</div>
+
+
+
+					
 
 					<div class="form-group">
 						<label>Paid:</label>
@@ -239,7 +261,12 @@
 
 
 		<div class="col-12 border p-4 mt-4">
-			<center><input type="submit" name="" onclick="createinvoice()" value="Submit Now" class="btn btn-success" style="width: 200px; font-weight: bold; border-radius: 30px;"></center>
+			<center>
+
+				<input type="submit" name="submitbutton" onclick="createinvoice()" value="Submit Now" class="btn btn-success" style="width: 150px; font-weight: bold; border-radius: 30px;">&nbsp;
+				<input type="submit" name="posbutton" onclick="createinvoice()" value="Pos Print" class="btn btn-danger" style="width: 150px; font-weight: bold; border-radius: 30px;">
+
+			</center>
 		</div>
 
 
@@ -362,9 +389,12 @@
 			{
 				$("#showdata").html(data);
 
-				let totalsalesamount = $("#totalsalesamount").val();
+				let totalsalesamount = parseFloat($("#totalsalesamount").val());
+				let vathidden = parseFloat($("#vathidden").val());
+				let vattotal = vathidden*totalsalesamount/100;
 				$("#totalamount").val(totalsalesamount);
-				$("#grandtotal").val(totalsalesamount);
+				$("#grandtotal").val(totalsalesamount+vattotal);
+				$("#vat").val(vattotal);
 				
 				
 			},
@@ -482,6 +512,7 @@
 	function calculatediscount(){
 		let total     = $("#totalamount").val();
 		let discount  = $("#discount").val();
+		
 
 
 
@@ -489,7 +520,16 @@
 			let totaldiscount         = (parseFloat(total)-parseFloat(discount));
 			$("#grandtotal").val(totaldiscount);
 
+			let vathidden = parseFloat($("#vathidden").val());
+			let vattotal = vathidden*totaldiscount/100;
+			$("#grandtotal").val(totaldiscount+vattotal);
+			$("#vat").val(vattotal);
+
 		}
+
+
+		
+
 
 		calculatedue();
 		$("#due").val(0);
@@ -539,29 +579,13 @@
 					@csrf
 
 					<div class="row myinput">
-						@php
-						$branch = DB::table('branch_info')->get();
-						@endphp
+						
 
-						<div class="form-group col-md-4">
-							<label>Branch Name:</label>
-							<div class="input-group">
-								<div class="input-group-addon"><i class="fa fa-check-square-o"></i></div>
-								<select class="form-control" name="customer_branch_id" id="customer_branch_id" style="width: 100%;">
-									<option value="">Select Branch</option>
-									@if(isset($branch))
-									@foreach($branch as $c)
-									<option value="{{ $c->branch_id }}">{{ $c->branch_name_en }}</option>
-									@endforeach
-									@endif
-
-								</select>
-							</div>
-						</div>
+						<input type="hidden" name="customer_branch_id" id="customer_branch_id" value="{{ Auth("admin")->user()->branch }}">
 
 
 
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label>Customer Name(EN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
@@ -571,7 +595,7 @@
 
 
 
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-6">
 							<label>Customer Name(BN):</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-text-width"></i></div>
@@ -584,7 +608,7 @@
 							<label>Customer Mobile:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-phone"></i></div>
-								<input class="form-control" type="number" name="customer_phone" id="customer_phone" required="" placeholder="Customer Mobile">
+								<input class="form-control" type="number" name="customer_phone" id="customer_phone"  placeholder="Customer Mobile">
 							</div>
 						</div>
 
@@ -601,7 +625,7 @@
 							<label>Address:</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-location-arrow"></i></div>
-								<textarea class="form-control" rows="3" name="customer_address" id="customer_address" required="" placeholder="Customer Address"></textarea>
+								<textarea class="form-control" rows="3" name="customer_address" id="customer_address"  placeholder="Customer Address"></textarea>
 							</div>
 						</div>
 

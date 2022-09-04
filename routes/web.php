@@ -85,6 +85,8 @@ Route::post('/updateitem/{id}', 'Admin\ProductController@updateitem');
 
 Route::get('/category', 'Admin\ProductController@category');
 Route::post('/categoryinsert', 'Admin\ProductController@categoryinsert');
+Route::post('/categoryinsert2', 'Admin\ProductController@categoryinsert2');
+
 Route::get('/getcategory', 'Admin\ProductController@getcategory');
 Route::get('/deletecategory/{id}', 'Admin\ProductController@deletecategory');
 Route::get('/editcategory/{id}', 'Admin\ProductController@editcategory');
@@ -102,6 +104,7 @@ Route::post('/updatesubcategory/{id}', 'Admin\ProductController@updatesubcategor
 
 Route::get('/brand', 'Admin\ProductController@brand');
 Route::post('/brandinsert', 'Admin\ProductController@brandinsert');
+Route::post('/brandinsert2', 'Admin\ProductController@brandinsert2');
 Route::get('/getbrand', 'Admin\ProductController@getbrand');
 Route::get('/deletebrand/{id}', 'Admin\ProductController@deletebrand');
 Route::get('/editbrand/{id}', 'Admin\ProductController@editbrand');
@@ -152,6 +155,7 @@ Route::get('/purchase', 'Admin\PurchaseController@purchase');
 Route::get('/purchaseproductcart/{id}', 'Admin\PurchaseController@purchaseproductcart');
 Route::get('/showpurchaseproductcart', 'Admin\PurchaseController@showpurchaseproductcart');
 Route::post('qtyupdate/{id}', 'Admin\PurchaseController@qtyupdate');
+Route::post('salepriceupdate/{id}', 'Admin\PurchaseController@salepriceupdate');
 Route::get('deletepurchasecartproduct/{id}', 'Admin\PurchaseController@deletepurchasecartproduct');
 Route::post('/purchasepriceupdate/{id}', 'Admin\PurchaseController@purchasepriceupdate');
 Route::post('/purchasepricedicount/{id}', 'Admin\PurchaseController@purchasepricedicount');
@@ -187,6 +191,8 @@ Route::post('qtyupdatesales/{id}', 'Admin\SalesController@qtyupdatesales');
 Route::post('/product_discount_amount/{id}', 'Admin\SalesController@product_discount_amount');
 Route::post('salesledger', 'Admin\SalesController@salesledger');
 Route::get('/invoicesales/{id}', 'Admin\SalesController@invoicesales');
+Route::get('/invoicesalesa4/{id}', 'Admin\SalesController@invoicesalesa4');
+
 Route::get('/allsalesledger', 'Admin\SalesController@allsalesledger');
 Route::get('/deletesalesledger/{id}', 'Admin\SalesController@deletesalesledger');
 Route::get('/searchsalesinvoice', 'Admin\SalesController@searchsalesinvoice');
